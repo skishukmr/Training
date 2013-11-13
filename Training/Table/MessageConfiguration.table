@@ -1,0 +1,3836 @@
+{
+    ASCCCommodityCodeParentPull = {
+        Channel = { AutoGenerateExport = true; Threads = 1;};
+        LoggingName = ASCCCommodityCodeParentPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ASCCCommodityCode.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/ASCCCommodityCode.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ASCCCommodityCodeParentPull;
+    };
+    ASCCCommodityCodePull = {
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = ASCCCommodityCodePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ASCCCommodityCode.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/ASCCCommodityCode.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ASCCCommodityCodePull;
+    };
+    ASCCToUNSPSCClassificationCodeMapPull = {
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = ASCCToUNSPSCClassificationCodeMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ASCCToUNSPSCClassificationCodeMap.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/ASCCToUNSPSCClassificationCodeMap.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ASCCToUNSPSCClassificationCodeMapPull;
+    };
+    AccountTypeLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = AccountTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:AccountTypeLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./config/variants/Plain/partitions/None/data/translations/*/AccountType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = AccountTypeLanguagePull;
+    };
+    AccountTypePull = {
+        Channel = {
+            AutoGenerateExport = true;
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = AccountType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:AccountType.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/AccountType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = AccountTypePull;
+    };
+    AirlineIATACodePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = AirlineIATACode_Reader;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:AirlineIATACode.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/AirlineIATACode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = AirlineIATACodePull;
+        Visible = false;
+    };
+    AirportIATACodePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = AirportIATACode_Reader;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:AirportIATACode.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/AirportIATACode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = AirportIATACodePull;
+        Visible = false;
+    };
+    ApprovableTypeWrapperPull = {
+        Channel = {};
+        LoggingName = ApprovableTypeWrapper_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ApprovableTypeWrapper_CSV";
+                    Filename = "./config/variants/Plain/partitions/None/data/ApprovableTypeWrapper.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ApprovableTypeWrapperPull;
+    };
+    BankAccountIDTypeExport = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = BankAccountIDTypeExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./ariba/variants/Plain/partitions/None/data/BankAccountIDType_Export.csv;./config/variants/Plain/partitions/None/data/BankAccountIDType_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BankAccountIDTypeExport;
+    };
+    BankAccountIDTypeLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = BankAccountIDTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BankAccountIDType.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/BankAccountIDType.csv;./config/variants/Plain/partitions/None/data/translations/*/BankAccountIDType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = BankAccountIDTypeLanguagePull;
+    };
+    BankAccountIDTypePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = BankAccountIDType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BankAccountIDType.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/BankAccountIDType.csv;./config/variants/Plain/partitions/None/data/BankAccountIDType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BankAccountIDTypePull;
+    };
+    BankAccountTypeExport = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = BankAccountTypeExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./ariba/variants/Plain/partitions/None/data/BankAccountType_Export.csv;./config/variants/Plain/partitions/None/data/BankAccountType_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BankAccountTypeExport;
+    };
+    BankAccountTypeLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = BankAccountTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BankAccountType.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/BankAccountType.csv;./config/variants/Plain/partitions/None/data/translations/*/BankAccountType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = BankAccountTypeLanguagePull;
+    };
+    BankAccountTypePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = BankAccountType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BankAccountType.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/BankAccountType.csv;./config/variants/Plain/partitions/None/data/BankAccountType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BankAccountTypePull;
+    };
+    BankIDTypeExport = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = BankIDTypeExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./ariba/variants/Plain/partitions/None/data/BankIDType_Export.csv;./config/variants/Plain/partitions/None/data/BankIDType_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BankIDTypeExport;
+    };
+    BankIDTypeLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = BankIDTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BankIDType.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/BankIDType.csv;./config/variants/Plain/partitions/None/data/translations/*/BankIDType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = BankIDTypeLanguagePull;
+    };
+    BankIDTypePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = BankIDType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BankIDType.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/BankIDType.csv;./config/variants/Plain/partitions/None/data/BankIDType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BankIDTypePull;
+    };
+    BiddingTypeLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaCategoryProcurement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = BiddingTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BiddingType.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/BiddingType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = BiddingTypeLanguagePull;
+    };
+    BiddingTypePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaCategoryProcurement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = BiddingType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:BiddingType.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/BiddingType.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = BiddingTypePull;
+    };
+    CarrierCodePull = {
+	    ApplicationHints = { 
+	    Description = "Import latest carrier code from CFPS";
+	    Parameters = { Visible = true;};};
+	    DisplayName = "Import Carrier Code from CFPS";
+	    Channel = {
+		AutoGenerateExport = true;
+		ChannelContextMapFields = { Language = { defaultValue = English;};};
+	    };
+	    LoggingName =  CarrierCodeNone_CSV;
+	    MessageParameters = {
+		Request = {
+		    Parameters = {
+			EventSource = "Plain: CarrierCode_None.csv";
+			Filename = "/msc/arb9r1/downstream/catdata/IN/data/CarrierCode_None.csv";
+			Operation = "Load And Delete";
+		    };
+		    SchemaName = ariba.integration.SimpleFileSchema;
+		};
+	    };
+	    TopicName = CarrierCodePull;
+	    Visible = true;
+     };
+    CatFacilityPull = {
+        Channel = { FileReaderParams = { EmptyValue = TreatAsEmptyString;};};
+        LoggingName = CatFacilityPull;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "Plain:CatFaciltyDetails.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/CatFaciltyDetails.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CatFacilityPull;
+    };
+    CategoryDefinitionExcelPrePull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = CategoryDefinitionPre_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CategoryDefinitionUpload";
+                    Filename = "@Service Category Header";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CategoryDefinitionExcelPrePull;
+        Visible = false;
+    };
+    CategoryDefinitionExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = CategoryDefinition_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Suppliers";
+                            Details = (
+                                {
+                                    DetailFileName = "@Mapped Supplier Ranking";
+                                    EmptyVectorOnNoData = true;
+                                    JoinFields = ( "Number = Number" );
+                                    ParentField = MappedRanking;
+                                }
+                            );
+                            EmptyVectorOnNoData = true;
+                            JoinFields = ( "Category = Name" );
+                            ParentField = Suppliers;
+                        }
+                    );
+                    EventSource = "None:CategoryDefinitionUpload";
+                    HeaderFileName = "@Service Category Header";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = CategoryDefinitionExcelPull;
+        Visible = false;
+    };
+    CategoryDriverExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InMemoryQuery = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = CategoryDriverExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = { EventSource = "None:CategoryDriverExport"; Filename = "";};
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CategoryDriverExport;
+    };
+    CategoryDriverPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = CSV;
+            Threads = 1;
+        };
+        LoggingName = CategoryDriver_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CategoryDriverPull";
+                    Filename = "";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CategoryDriverPull;
+    };
+    ClassificationCodeDomainMetaExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = ClassificationCodeDomainMetaExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/ClassificationCodeDomainMeta_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ClassificationCodeDomainMetaExport;
+    };
+    ClassificationCodeDomainMetaPull = {
+        Channel = {};
+        LoggingName = ClassificationCodeDomainMeta_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ClassificationCodeDomainMeta.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/ClassificationCodeDomainMeta.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ClassificationCodeDomainMetaPull;
+    };
+    ClassificationCodeMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = ClassificationCodeMapExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/ClassificationCodeMap_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ClassificationCodeMapExport;
+    };
+    ClassificationCodeMapPull = {
+        Channel = {};
+        LoggingName = ClassificationCodeMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ClassificationCodeMap.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/ClassificationCodeMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ClassificationCodeMapPull;
+    };
+    CollaborationTypeLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaCategoryProcurement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = CollaborationTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CollaborationType.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/CollaborationType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = CollaborationTypeLanguagePull;
+    };
+    CollaborationTypePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaCategoryProcurement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = CollaborationType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CollaborationType.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/CollaborationType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CollaborationTypePull;
+    };
+    CommodityCodeExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = CommodityCodeExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/CommodityCode_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CommodityCodeExport;
+    };
+    CommodityCodeLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+            Threads = 1;
+        };
+        LoggingName = CommodityCodeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CommodityCode.csv";
+                    Operation = Update;
+                    ResourceFilename = "./config/variants/Plain/partitions/None/data/translations/*/CommodityCode.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = CommodityCodeLanguagePull;
+    };
+    CommodityCodeParentPull = {
+        Channel = { Threads = 4;};
+        LoggingName = CommodityCodeParent_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CommodityCode.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/CommodityCode.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CommodityCodeParentPull;
+    };
+    CommodityCodePull = {
+        Channel = { Threads = 5;};
+        LoggingName = CommodityCode_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CommodityCode.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/CommodityCode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CommodityCodePull;
+    };
+    CommonSupplierIDMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = CommonSupplierIDMapExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/CommonSupplierIDMap_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CommonSupplierIDMapExport;
+    };
+    CommonSupplierIDMapHeaderExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = CommonSupplierIDMapHeaderExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/CommonSupplierIDMapHeader_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CommonSupplierIDMapHeaderExport;
+    };
+    CommonSupplierIDMapPull = {
+        Channel = {};
+        LoggingName = CommonSupplierIDMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/CommonSupplierIDMap.csv";
+                            Details = ( );
+                            JoinFields = ( "JoinToken = JoinToken" );
+                            ParentField = OrganizationID.Ids;
+                        }
+                    );
+                    EventSource = "None:CommonSupplierIDMap.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/CommonSupplierIDMapHeader.csv";
+                    Operation = Create;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = CommonSupplierIDMapPull;
+    };
+    "ConsultingCategoryDefinitionItemExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = ConsultingCategoryDefinitionItem_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Consulting Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Consulting Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = ContractiblePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        }
+                    );
+                    EventSource = "None:ConsultingCategoryDefinitionItemUpload";
+                    HeaderFileName = "@Consulting Item Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "ConsultingCategoryDefinitionItemExcelPull";
+        Visible = false;
+    };
+    ConsultingCategoryDefinitionMapExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = ConsultingCategoryDefinitionMap_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Consulting Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Consulting Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = ContractiblePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:ConsultingCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Consulting Mapped Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = ConsultingCategoryDefinitionMapExcelPull;
+        Visible = false;
+    };
+    "ConsultingCategoryDefinitionMapTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "ConsultingCategoryDefinitionMapTemplate_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Mapped Template Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:ConsultingCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Mapped Template Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "ConsultingCategoryDefinitionMapTemplateExcelPull";
+        Visible = false;
+    };
+    "ConsultingCategoryDefinitionTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "ConsultingCategoryDefinitionTemplate_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Template Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        },
+                        {
+                            DetailFileName = "@Template Items";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = RankedCategoryItems;
+                        }
+                    );
+                    EventSource = "None:ConsultingCategoryDefinitionTemplateUpload";
+                    HeaderFileName = "@Template Properties";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "ConsultingCategoryDefinitionTemplateExcelPull";
+        Visible = false;
+    };
+    ContractorExpenseTypeLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = ContractorExpenseTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ContractorExpenseType.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/ContractorExpenseType.csv;./config/variants/Plain/partitions/None/data/translations/*/ContractorExpenseType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = ContractorExpenseTypeLanguagePull;
+    };
+    ContractorExpenseTypePull = {
+        Channel = {};
+        LoggingName = ContractorExpenseType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ContractorExpenseType.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/ContractorExpenseType.csv;./config/variants/Plain/partitions/None/data/ContractorExpenseType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ContractorExpenseTypePull;
+    };
+    "ContractorPerformanceTenPointValueLanguagePull" = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = "ContractorPerformanceTenPointValueLanguage_CSV";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ContractorPerformanceTenPointValue.csv";
+                    IncludeSubclasses = true;
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/ContractorPerformanceTenPointValue.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = "ContractorPerformanceTenPointValueLanguagePull";
+    };
+    ContractorPerformanceTenPointValuePull = {
+        Channel = {};
+        LoggingName = ContractorPerformanceTenPointValue_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ContractorPerformanceTenPointValue.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/ContractorPerformanceTenPointValue.csv";
+                    IncludeSubclasses = true;
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ContractorPerformanceTenPointValuePull;
+    };
+    "ContractorPerformanceThreePointValueLanguagePull" = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = "ContractorPerformanceThreePointValueLanguage_CSV";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ContractorPerformanceThreePointValue.csv";
+                    IncludeSubclasses = true;
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/ContractorPerformanceThreePointValue.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = "ContractorPerformanceThreePointValueLanguagePull";
+    };
+    ContractorPerformanceThreePointValuePull = {
+        Channel = {};
+        LoggingName = ContractorPerformanceThreePointValue_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ContractorPerformanceThreePointValue.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/ContractorPerformanceThreePointValue.csv";
+                    IncludeSubclasses = true;
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ContractorPerformanceThreePointValuePull;
+    };
+    CountryFaxNumberMapExport = {
+        ApplicationHints = { Parameters = { Permissions = ( UserManager );};};
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+        };
+        LoggingName = CountryFaxNumberMapExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/CountryFaxNumberMap_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CountryFaxNumberMapExport;
+    };
+    CountryFaxNumberMapPull = {
+        ApplicationHints = { Parameters = { Permissions = ( AdvancedAdmin ); Visible = true;};};
+        Channel = { FileReaderParams = { EmptyValue = TreatAsEmptyString;};};
+        LoggingName = CountryFaxNumberMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CountryFaxNumberMap.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/CountryFaxNumberMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CountryFaxNumberMapPull;
+    };
+    CountryLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = CountryLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CountryLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/Country.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = CountryLanguagePull;
+    };
+    "CountryPerDiemServiceProviderClassMapExport" = {
+        ApplicationHints = { Parameters = { Permissions = ( UserManager );};};
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+        };
+        LoggingName = "CountryPerDiemServiceProviderClassMapExport_CSV";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/CountryPerDiemServiceProviderClassMap_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = "CountryPerDiemServiceProviderClassMapExport";
+    };
+    "CountryPerDiemServiceProviderClassMapPull" = {
+        ApplicationHints = { Parameters = { Permissions = ( AdvancedAdmin ); Visible = true;};};
+        Channel = { FileReaderParams = { EmptyValue = TreatAsEmptyString;};};
+        LoggingName = "CountryPerDiemServiceProviderClassMap_CSV";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CountryPerDiemServiceProviderClassMap.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/CountryPerDiemServiceProviderClassMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = "CountryPerDiemServiceProviderClassMapPull";
+    };
+    CountryPull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = Country_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Country.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/Country.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CountryPull;
+    };
+    CurrencyConversionRatePull = {
+        ApplicationHints = { Parameters = { Visible = true;};};
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = CurrencyConversionRate_None;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CurrencyConversionRate.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/CurrencyConversionRate.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CurrencyConversionRatePull;
+    };
+    CurrencyGroupPull = {
+        Channel = {};
+        LoggingName = CurrencyGroup_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CurrencyGroup.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/CurrencyGroup.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CurrencyGroupPull;
+    };
+    CurrencyLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = CurrencyLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CurrencyLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/Currency.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = CurrencyLanguagePull;
+    };
+    CurrencyPull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = Currency_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Currency.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/Currency.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CurrencyPull;
+    };
+    CustomGroupLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+            Threads = 1;
+        };
+        LoggingName = CustomGroupLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CustomGroupLanguagePull.csv";
+                    Operation = Update;
+                    ResourceFilename = "./config/variants/Plain/partitions/None/data/translations/*/CustomGroup.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = CustomGroupLanguagePull;
+    };
+    CustomGroupPull = {
+        ApplicationHints = {
+            Parameters = {
+                Permissions = ( UserManager, CatalogManager );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = CustomGroup_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CustomGroupPull_CSV";
+                    Filename = "./config/variants/Plain/partitions/None/data/CustomGroup.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CustomGroupPull;
+    };
+    DeactivatePermissionPull = {
+        ApplicationHints = { Parameters = { Visible = false;};};
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = DeactivatePermissionPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:DeactivatePermissionPull.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/DeactivatePermissions.csv";
+                    Operation = Delete;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = DeactivatePermissionPull;
+        Visible = false;
+    };
+    DeactivateSourcingRulesPull = {
+        ApplicationHints = { Parameters = { Visible = false;};};
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = DeactivateSourcingRulesPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:DeactivateSourcingRulesPull.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/DeactivateSourcingRules.csv";
+                    Operation = Delete;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = DeactivateSourcingRulesPull;
+        Visible = false;
+    };
+    Default = {
+        ApplicationHints = { ApplicationHandler = "ariba.htmlui.admin.ApplicationTaskHandler";};
+        Channel = {
+            Decoder = { Name = FileChannelDecoder; Parameters = {};};
+            Encoding = UTF-8;
+            FileReaderParams = {
+                OnEmptyLines = SkipLine;
+                OnInvalidData = WarnUser;
+                Separator = ",";
+            };
+            FileType = CSV;
+            Name = File;
+            Threads = 3;
+        };
+        StringTable = ariba.main.adminui;
+        Visible = true;
+        ExecutionNode = "buyerserverQA2";
+    };
+    EClassCommodityCodeParentPull = {
+        Channel = { Threads = 1;};
+        LoggingName = EClassCommodityCodeParentPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:EClassCommodityCode.csv";
+                    Filename = "config/standards/EClassCommodityCode.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = EClassCommodityCodeParentPull;
+    };
+    EClassCommodityCodePull = {
+        Channel = {};
+        LoggingName = EClassCommodityCodePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:EClassCommodityCode.csv";
+                    Filename = "config/standards/EClassCommodityCode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = EClassCommodityCodePull;
+    };
+    EditPermissionPull = {
+        Channel = {};
+        LoggingName = EditPermission_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:EditPermission.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/EditPermission.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = EditPermissionPull;
+    };
+    EquivalentWordsPull = {
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = EquivalentWords_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:EquivalentWords_CSV";
+                    Filename = "./config/variants/Plain/partitions/None/data/EquivalentWords.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = EquivalentWordsPull;
+    };
+    ExecutePermissionPull = {
+        Channel = {};
+        LoggingName = ExecutePermission_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ExecutePermission.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/ExecutePermission.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ExecutePermissionPull;
+    };
+    FeatureLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = FeatureLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Feature.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/Feature.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = FeatureLanguagePull;
+    };
+    FeaturePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+            Decoder = { Name = FileChannelDecoder; Parameters = {};};
+            Encoding = UTF-8;
+            FileReaderParams = {
+                EmptyValue = TreatAsEmptyString;
+                OnEmptyLines = SkipLine;
+                OnInvalidData = WarnUser;
+                Separator = ",";
+            };
+            FileType = CSV;
+            Name = File;
+        };
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./ariba/variants/Plain/partitions/None/data/FeatureAccessControlListMap.csv";
+                            Details = ( );
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = AccessControlList;
+                        },
+                        {
+                            DetailFileName = "./ariba/variants/Plain/partitions/None/data/FeatureApprovableTypeListMap.csv";
+                            Details = ( );
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = ApprovableTypeList;
+                        }
+                    );
+                    EventSource = "None:Feature.csv";
+                    HeaderFileName = "ariba/variants/Plain/partitions/None/data/Feature.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = FeaturePull;
+        Visible = true;
+    };
+    FeeCategoryDefinitionItemExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = FeeCategoryDefinitionItem_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = ContractiblePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        }
+                    );
+                    EventSource = "None:FeeCategoryDefinitionItemUpload";
+                    HeaderFileName = "@Item Properties";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = FeeCategoryDefinitionItemExcelPull;
+        Visible = false;
+    };
+    FeeCategoryDefinitionMapExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = FeeCategoryDefinitionMap_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Mapped Item Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Mapped Item Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = ContractiblePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:FeeCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Mapped Item Properties";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = FeeCategoryDefinitionMapExcelPull;
+        Visible = false;
+    };
+    FormEntryPull = {
+        Channel = {};
+        LoggingName = FormEntry_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = FormEntry.csv;
+                    Filename = "./config/variants/Plain/partitions/None/data/FormEntry.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = FormEntryPull;
+    };
+    GenericCategoryDefinitionItemExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = GenericCategoryDefinitionItem_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = ContractiblePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        }
+                    );
+                    EventSource = "None:GenericCategoryDefinitionItemUpload";
+                    HeaderFileName = "@Item Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = GenericCategoryDefinitionItemExcelPull;
+        Visible = false;
+    };
+    GenericCategoryDefinitionMapExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = GenericCategoryDefinitionMap_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Mapped Item Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Mapped Item Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = ContractiblePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:GenericCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Mapped Item Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = GenericCategoryDefinitionMapExcelPull;
+        Visible = false;
+    };
+    "GenericCategoryDefinitionMapTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "GenericCategoryDefinitionMapTemplate_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Mapped Template Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:GenericCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Mapped Template Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "GenericCategoryDefinitionMapTemplateExcelPull";
+        Visible = false;
+    };
+    "GenericCategoryDefinitionTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = GenericCategoryDefinitionTemplate_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Template Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        },
+                        {
+                            DetailFileName = "@Template Items";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = RankedCategoryItems;
+                        }
+                    );
+                    EventSource = "None:GenericCategoryDefinitionTemplateUpload";
+                    HeaderFileName = "@Template Properties";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "GenericCategoryDefinitionTemplateExcelPull";
+        Visible = false;
+    };
+    GenericRelationEntryExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InMemoryQuery = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        MessageParameters = {
+            Request = {
+                Parameters = { Filename = RelationEntry_Export.csv;};
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = GenericRelationEntryExport;
+    };
+    GenericRelationEntryPull = {
+        LoggingName = GenericRelationEntry_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:GenericRelationEntry.csv";
+                    Filename = RelationEntry.csv;
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = GenericRelationEntryPull;
+    };
+    GenericRelationTypePull = {
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = GenericRelationType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:GenericRelationType.csv";
+                    Filename = RelationType.csv;
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = GenericRelationTypePull;
+    };
+    GroupChildGroupMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = GroupChildGroupMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/GroupChildGroupMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = GroupChildGroupMapExport;
+    };
+    GroupChildGroupMapPull = {
+        Channel = { Threads = 1;};
+        LoggingName = GroupChildGroupMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/GroupChildGroupMap.csv";
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = ChildGroups;
+                        }
+                    );
+                    EventSource = "None:Group.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Group.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = GroupChildGroupMapPull;
+        UIParams = {
+            AdvancedImportOperations = (
+                Load,
+                Update,
+                "Load And Delete",
+                "Update Elements Only",
+                "Delete Elements Only"
+            );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Load, Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    GroupExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = GroupExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/Group_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = GroupExport;
+    };
+    GroupLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+            Threads = 1;
+        };
+        LoggingName = GroupLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:GroupLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./config/variants/Plain/partitions/None/data/translations/*/Group.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = GroupLanguagePull;
+    };
+    GroupPermissionMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = GroupPermissionMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/GroupPermissionMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = GroupPermissionMapExport;
+    };
+    GroupPermissionMapPull = {
+        Channel = {};
+        LoggingName = GroupPermissionMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/GroupPermissionMap.csv";
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = Permissions;
+                        }
+                    );
+                    EventSource = "None:Group.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Group.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = GroupPermissionMapPull;
+        UIParams = {
+            AdvancedImportOperations = (
+                Load,
+                Update,
+                "Load And Delete",
+                "Update Elements Only",
+                "Delete Elements Only"
+            );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Load, Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    GroupPull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = Group_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Group.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/Group.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = GroupPull;
+    };
+    GroupRoleMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = GroupRoleMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/GroupRoleMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = GroupRoleMapExport;
+    };
+    GroupRoleMapPull = {
+        Channel = {};
+        LoggingName = GroupRoleMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/GroupRoleMap.csv";
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = Roles;
+                        }
+                    );
+                    EventSource = "None:Group.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Group.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = GroupRoleMapPull;
+        UIParams = {
+            AdvancedImportOperations = (
+                Load,
+                Update,
+                "Load And Delete",
+                "Update Elements Only",
+                "Delete Elements Only"
+            );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Load, Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    GroupSharedUserMapPull = {
+        Channel = {};
+        LoggingName = GroupSharedUserMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/GroupSharedUserMap.csv";
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = Users;
+                        }
+                    );
+                    EventSource = "None:Group.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Group.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = GroupSharedUserMapPull;
+        UIParams = {
+            AdvancedImportOperations = ( Update, "Update Elements Only", "Delete Elements Only" );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    ISIC3ToNaics2002CodeMapPull = {
+        Channel = {};
+        LoggingName = ISIC3ToNaics2002CodeMapPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ISIC3ToNaics2002ClassificationCodeMap.csv";
+                    Filename = "config/standards/ISIC3ToNaics2002ClassificationCodeMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ISIC3ToNaics2002CodeMapPull;
+    };
+    ISICCommodityCodeParentPull = {
+        Channel = { Threads = 1;};
+        LoggingName = ISICCommodityCodeParentPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ISICCommodityCode.csv";
+                    Filename = "config/standards/ISICCommodityCode.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ISICCommodityCodeParentPull;
+    };
+    ISICCommodityCodePull = {
+        Channel = {};
+        LoggingName = ISICCommodityCodePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ISICCommodityCode.csv";
+                    Filename = "config/standards/ISICCommodityCode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ISICCommodityCodePull;
+    };
+    LaborCategoryDefinitionItemExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = LaborCategoryDefinitionItem_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Labor Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Labor Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = ContractiblePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        }
+                    );
+                    EventSource = "None:LaborCategoryDefinitionItemUpload";
+                    HeaderFileName = "@Labor Item Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = LaborCategoryDefinitionItemExcelPull;
+        Visible = false;
+    };
+    LaborCategoryDefinitionMapExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = LaborCategoryDefinitionMap_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Labor Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Labor Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = ContractiblePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:LaborCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Labor Mapped Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = LaborCategoryDefinitionMapExcelPull;
+        Visible = false;
+    };
+    "LaborCategoryDefinitionMapTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = LaborCategoryDefinitionMapTemplate_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Mapped Template Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:LaborCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Mapped Template Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "LaborCategoryDefinitionMapTemplateExcelPull";
+        Visible = false;
+    };
+    LaborCategoryDefinitionTemplateExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = LaborCategoryDefinitionTemplate_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Template Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        },
+                        {
+                            DetailFileName = "@Template Items";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = RankedCategoryItems;
+                        }
+                    );
+                    EventSource = "None:LaborCategoryDefinitionTemplateUpload";
+                    HeaderFileName = "@Template Properties";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = LaborCategoryDefinitionTemplateExcelPull;
+        Visible = false;
+    };
+    LaborPayCodeLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = LaborPayCodeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:LaborPayCode.csv";
+                    Operation = Update;
+                    ResourceFilename = "config/variants/Plain/partitions/None/data/translations/*/LaborPayCode.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = LaborPayCodeLanguagePull;
+    };
+    LaborPayCodePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = LaborPayCode_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:LaborPayCode.csv";
+                    Filename = "config/variants/Plain/partitions/None/data/LaborPayCode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = LaborPayCodePull;
+    };
+    LanguageLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = LanguageLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:LanguageLanguage.csv";
+                    MustLoad = true;
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/Language.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = LanguageLanguagePull;
+    };
+    LanguagePull = {
+        Channel = {};
+        LoggingName = Language_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Address.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/Language.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = LanguagePull;
+    };
+    LocaleIDLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = LocaleIDLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:LocaleIDLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/LocaleID.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = LocaleIDLanguagePull;
+    };
+    LocaleIDPull = {
+        Channel = {};
+        LoggingName = LocaleID_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:LocaleID.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/LocaleID.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = LocaleIDPull;
+    };
+    "MarketResearchCategoryDefinitionItemExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "MarketResearchCategoryDefinitionItem_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@MR Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@MR Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = ContractiblePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        }
+                    );
+                    EventSource = "None:MarketResearchCategoryDefinitionItemUpload";
+                    HeaderFileName = "@MR Item Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "MarketResearchCategoryDefinitionItemExcelPull";
+        Visible = false;
+    };
+    "MarketResearchCategoryDefinitionMapExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "MarketResearchCategoryDefinitionMap_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@MR Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@MR Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = ContractiblePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:MarketResearchCategoryDefinitionMapUpload";
+                    HeaderFileName = "@MR Mapped Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "MarketResearchCategoryDefinitionMapExcelPull";
+        Visible = false;
+    };
+    "MarketResearchCategoryDefinitionMapTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "MarketResearchCategoryDefinitionMapTemplate_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Mapped Template Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:MarketResearchCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Mapped Template Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "MarketResearchCategoryDefinitionMapTemplateExcelPull";
+        Visible = false;
+    };
+    "MarketResearchCategoryDefinitionTemplateExcelPull" = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = "MarketResearchCategoryDefinitionTemplate_EXCEL";
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Template Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = CategoryTemplatePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        },
+                        {
+                            DetailFileName = "@Template Items";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = RankedCategoryItems;
+                        }
+                    );
+                    EventSource = "None:MarketResearchCategoryDefinitionTemplateUpload";
+                    HeaderFileName = "@Template Properties";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = "MarketResearchCategoryDefinitionTemplateExcelPull";
+        Visible = false;
+    };
+    NAICSCommodityCodeParentPull = {
+        Channel = { Threads = 1;};
+        LoggingName = NAICSCommodityCodeParentPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:NAICSCommodityCode.csv";
+                    Filename = "config/standards/NAICSCommodityCode.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = NAICSCommodityCodeParentPull;
+    };
+    NAICSCommodityCodePull = {
+        Channel = {};
+        LoggingName = NAICSCommodityCodePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:NAICSCommodityCode.csv";
+                    Filename = "config/standards/NAICSCommodityCode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = NAICSCommodityCodePull;
+    };
+    NAICSToUNSPSCCodeMapPull = {
+        Channel = {};
+        LoggingName = NAICSToUNSPSCCodeMapPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:NAICSToUNSPSCClassificationCodeMap.csv";
+                    Filename = "config/standards/NAICSToUNSPSCClassificationCodeMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = NAICSToUNSPSCCodeMapPull;
+    };
+    Naics97ToNaics2002CodeMapPull = {
+        Channel = {};
+        LoggingName = Naics97ToNaics2002CodeMapPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Naics97ToNaics2002ClassificationCodeMap.csv";
+                    Filename = "config/standards/Naics97ToNaics2002ClassificationCodeMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = Naics97ToNaics2002CodeMapPull;
+    };
+    ObjectPermissionExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = "None:ObjectPermission.csv";};
+            };
+        };
+        LoggingName = ObjectPermissionExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/ObjectPermission_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ObjectPermissionExport;
+    };
+    ObjectPermissionPull = {
+        Channel = {};
+        LoggingName = ObjectPermission_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ObjectPermission.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/ObjectPermission.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ObjectPermissionPull;
+    };
+    OrganizationContactMapPull = {
+        Channel = {};
+        LoggingName = OrganizationContactMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/OrganizationContactMap.csv";
+                            JoinFields = ( "Parent.SystemID = SystemID" );
+                            ParentField = Contacts;
+                        }
+                    );
+                    EventSource = "None:SupplierOrganization.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Organization.csv";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = OrganizationContactMapPull;
+    };
+    OrganizationExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = OrganizationExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/Organization_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = OrganizationExport;
+    };
+    OrganizationPull = {
+        Channel = {};
+        LoggingName = Organization_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Organization.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/Organization.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = OrganizationPull;
+    };
+    PCardExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+        };
+        LoggingName = PCardExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/PCard_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = PCardExport;
+    };
+    PCardPull = {
+        Channel = {};
+        LoggingName = PCard_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:PCard.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/PCard.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = PCardPull;
+    };
+    PaymentMethodTypeLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = PaymentMethodTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:PaymentMethodTypeLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/PaymentMethodType.csv;./config/variants/Plain/partitions/None/data/translations/*/PaymentMethodType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = PaymentMethodTypeLanguagePull;
+    };
+    PaymentMethodTypePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaInvoiceSSI,
+                    AribaSettlement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = PaymentMethodType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:PaymentMethodType.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/PaymentMethodType.csv;./config/variants/Plain/partitions/None/data/PaymentMethodType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = PaymentMethodTypePull;
+    };
+    PermissionExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = PermissionExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/Permission_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = PermissionExport;
+    };
+    PermissionLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+            Threads = 1;
+        };
+        LoggingName = PermissionLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:PermissionLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/Permission.csv;./config/variants/Plain/partitions/None/data/translations/*/Permission.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = PermissionLanguagePull;
+    };
+    PermissionMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = PermissionMapExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/PermissionMap_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = PermissionMapExport;
+    };
+    PermissionMapPull = {
+        Channel = {};
+        LoggingName = PermissionMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:PermissionMap.csv";
+                    Operation = "Update Elements Only";
+                    VectorFilename = "./ariba/variants/Plain/partitions/None/data/PermissionMap.csv;./config/variants/Plain/partitions/None/data/PermissionMap.csv";
+                };
+                SchemaName = ariba.integration.VectorFileSchema;
+            };
+        };
+        TopicName = PermissionMapPull;
+    };
+    PermissionPull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = PermissionPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Permission.csv";
+                    Operation = "Load And Delete";
+                    VectorFilename = "ariba/variants/Plain/partitions/None/data/Permission.csv;config/variants/Plain/partitions/None/data/Permission.csv";
+                };
+                SchemaName = ariba.integration.VectorFileSchema;
+            };
+        };
+        TopicName = PermissionPull;
+    };
+    PrintCategoryDefinitionItemExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = PrintCategoryDefinitionItem_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Print Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Print Item Properties";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = ContractiblePropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Item Attributes";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = "CategoryCatalogItem.ReqForOrderingAttributes";
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Visibility;
+                        },
+                        {
+                            DetailFileName = "@Item Editability and Visibility";
+                            JoinFields = ( "ItemId = ItemId", "Category = Category" );
+                            ParentField = Meta.Editability;
+                        }
+                    );
+                    EventSource = "None:PrintCategoryDefinitionItemUpload";
+                    HeaderFileName = "@Print Item Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = PrintCategoryDefinitionItemExcelPull;
+        Visible = false;
+    };
+    PrintCategoryDefinitionMapExcelPull = {
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = XLS;
+            Threads = 1;
+        };
+        LoggingName = PrintCategoryDefinitionMap_EXCEL;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "@Print Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = GlobalPropertiesVector;
+                        },
+                        {
+                            DetailFileName = "@Print Mapped Properties";
+                            JoinFields = ( "Line = Line" );
+                            ParentField = ContractiblePropertiesVector;
+                        }
+                    );
+                    EventSource = "None:PrintCategoryDefinitionMapUpload";
+                    HeaderFileName = "@Print Mapped Properties";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = PrintCategoryDefinitionMapExcelPull;
+        Visible = false;
+    };
+    ReportMetaPull = {
+        Channel = {};
+        LoggingName = ReportMeta_csv;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "config/variants/Plain/data/ReportPermissionMap.csv";
+                            JoinFields = ( "ReportUniqueName = UniqueName" );
+                            ParentField = ReportPermissions;
+                        },
+                        {
+                            DetailFileName = "config/variants/Plain/data/ReportColumnMeta.csv";
+                            JoinFields = ( "ReportUniqueName = UniqueName" );
+                            ParentField = ReportColumns;
+                        }
+                    );
+                    EventSource = ReportMeta_vcsv1;
+                    HeaderFileName = "config/variants/vcsv1/data/ReportMeta.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = ReportMetaPull;
+    };
+    ReportQueryPull = {
+        Channel = {};
+        LoggingName = ReportQuery_csv;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = ReportQuery_Plain;
+                    Filename = "./config/variants/Plain/data/ReportQuery.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ReportQueryPull;
+    };
+    ResponsibleUserExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = ResponsibleUserExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/ResponsibleUser_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ResponsibleUserExport;
+    };
+    ResponsibleUserPull = {
+        Channel = { Threads = 1;};
+        LoggingName = ResponsibleUser_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/ResponsibleUser.csv";
+                            EmptyVectorOnNoData = true;
+                            JoinFields = (
+                                "UniqueName = UniqueName",
+                                "PasswordAdapter = PasswordAdapter"
+                            );
+                            ParentField = Responsible;
+                        }
+                    );
+                    EventSource = "None:ResponsibleUser.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/User.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = ResponsibleUserPull;
+    };
+    RoleChildRoleMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = RoleChildRoleMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/RoleChildRoleMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = RoleChildRoleMapExport;
+    };
+    RoleChildRoleMapPull = {
+        Channel = { Threads = 1;};
+        LoggingName = RoleChildRoleMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/RoleChildRoleMap.csv";
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = ChildRoles;
+                        }
+                    );
+                    EventSource = "None:Role.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Role.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = RoleChildRoleMapPull;
+        UIParams = {
+            AdvancedImportOperations = (
+                Load,
+                Update,
+                "Load And Delete",
+                "Update Elements Only",
+                "Delete Elements Only"
+            );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Load, Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    RoleExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = RoleExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/Role_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = RoleExport;
+    };
+    RoleLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+            Threads = 1;
+        };
+        LoggingName = RoleLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:RoleLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./config/variants/Plain/partitions/None/data/translations/*/Role.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = RoleLanguagePull;
+    };
+    RolePermissionMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = RolePermissionMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/RolePermissionMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = RolePermissionMapExport;
+    };
+    RolePermissionMapPull = {
+        Channel = {};
+        LoggingName = RolePermissionMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./ariba/variants/Plain/partitions/None/data/RolePermissionMap.csv;./config/variants/Plain/partitions/None/data/RolePermissionMap.csv";
+                            JoinFields = ( "Parent.UniqueName = UniqueName" );
+                            ParentField = Permissions;
+                        }
+                    );
+                    EventSource = "None:Role.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/Role.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = RolePermissionMapPull;
+        UIParams = {
+            AdvancedImportOperations = (
+                Load,
+                Update,
+                "Load And Delete",
+                "Update Elements Only",
+                "Delete Elements Only"
+            );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Load, Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    RolePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = Role_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:Role.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/Role.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = RolePull;
+    };
+    RuleTypeLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = RuleTypeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:RuleTypeLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/RuleType.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = RuleTypeLanguagePull;
+    };
+    RuleTypePull = {
+        Channel = {};
+        LoggingName = RuleType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = RuleType.csv;
+                    Filename = "ariba/variants/Plain/partitions/None/data/RuleType.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = RuleTypePull;
+    };
+    SharedUserDeletePull = {
+        Channel = {};
+        LoggingName = SharedUserDelete_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = ibm_cgds_globaluser;
+                    Filename = "config/variants/Plain/partitions/None/data/SharedUserDelete.csv";
+                    IncludeSubclasses = true;
+                    LoadPermissions = false;
+                    Operation = Delete;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SharedUserDeletePull;
+    };
+    SharedUserExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = SharedUserExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/SharedUser_Export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SharedUserExport;
+    };
+    SharedUserPermissionMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = SharedUserPermissionMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/SharedUserPermissionMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = SharedUserPermissionMapExport;
+    };
+    SharedUserPermissionMapPull = {
+        Channel = {};
+        LoggingName = SharedUserPermissionMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/SharedUserPermissionMap.csv";
+                            JoinFields = (
+                                "Parent.UniqueName = UniqueName",
+                                "Parent.PasswordAdapter = PasswordAdapter"
+                            );
+                            ParentField = Permissions;
+                        }
+                    );
+                    EventSource = ibm_cgds_globaluser;
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/SharedUser.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = SharedUserPermissionMapPull;
+        UIParams = {
+            AdvancedImportOperations = (
+                Load,
+                Create,
+                Update,
+                "Update Elements Only",
+                Delete,
+                "Delete Elements Only"
+            );
+            DefaultImportOperation = Load;
+            SimpleImportOperations = ( Load, "Update Elements Only", Delete );
+        };
+    };
+    SharedUserPull = {
+        Channel = {};
+        LoggingName = SharedUser_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = ibm_cgds_globaluser;
+                    Filename = "./config/variants/Plain/partitions/None/data/SharedUser.csv";
+                    IncludeSubclasses = true;
+                    LoadPermissions = false;
+                    Operation = Load;
+                    PermissionsToAdd = (
+                        CreateRequisition,
+                        CreateExpenseReport,
+                        CreateTravelAuthorization,
+                        CreateTravelProfile,
+                        BuyerAuthorized
+                    );
+                };
+                FileReaderParams = {
+                    OnEmptyLines = SkipLine;
+                    OnInvalidData = SkipLine;
+                    OnEmptyFile = AbortPull;
+                    Separator = ",";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SharedUserPull;
+    };        
+    SharedUserRoleMapExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External; InnerJoin = true;};
+            };
+            FileWriterParams = { WriterType = Export;};
+        };
+        LoggingName = SharedUserRoleMapExport;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/SharedUserRoleMap_export.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        StringTable = ariba.app.adminui;
+        TopicName = SharedUserRoleMapExport;
+    };
+    SharedUserRoleMapPull = {
+        Channel = {};
+        LoggingName = SharedUserRoleMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/SharedUserRoleMap.csv";
+                            JoinFields = (
+                                "Parent.UniqueName = UniqueName",
+                                "Parent.PasswordAdapter = PasswordAdapter"
+                            );
+                            ParentField = Roles;
+                        }
+                    );
+                    EventSource = "None:SharedUser.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/SharedUser.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = SharedUserRoleMapPull;
+        UIParams = {
+            AdvancedImportOperations = ( Update, "Update Elements Only", "Delete Elements Only" );
+            DefaultImportOperation = "Update Elements Only";
+            SimpleImportOperations = ( Update, "Update Elements Only", "Delete Elements Only" );
+        };
+    };
+    SharedUserSupervisorPull = {
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = SharedUserSupervisor_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:SharedUser.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/SharedUser.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SharedUserSupervisorPull;
+    };
+    SimpleMapTypePull = {
+        Channel = {};
+        LoggingName = SimpleMapType_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:SimpleMapType.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/SimpleMapType.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SimpleMapTypePull;
+    };
+    StableOrderPull = {
+        Channel = { AutoGenerateExport = true;};
+        LoggingName = StableOrder_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/StableOrderEntries.csv";
+                            EmptyVectorOnNoData = true;
+                            JoinFields = ( "Name = Name" );
+                            ParentField = Entries;
+                        }
+                    );
+                    EventSource = "None:StableOrder.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/StableOrder.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = StableOrderPull;
+    };
+    StateLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = StateLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:StateLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "./ariba/variants/Plain/partitions/None/data/translations/*/State.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = StateLanguagePull;
+    };
+    StatePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = State_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:State.csv";
+                    Filename = "./ariba/variants/Plain/partitions/None/data/State.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = StatePull;
+    };
+    SupplierOrganizationCategoryMapPull = {
+        Channel = {};
+        LoggingName = SupplierOrganizationCategoryMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/SupplierOrganizationCategoryMap.csv";
+                            JoinFields = ( "Parent.SystemID = SystemID" );
+                            ParentField = Categories;
+                        }
+                    );
+                    EventSource = "None:SupplierOrganization.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/SupplierOrganization.csv";
+                    IncludeSubclasses = true;
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = SupplierOrganizationCategoryMapPull;
+    };
+    SupplierOrganizationExport = {
+        ApplicationHints = { Parameters = { Visible = true;};};
+        Channel = {
+            Encoder = { Name = FileChannelEncoder;};
+            Encoding = UTF-8;
+            FileType = CSV;
+            FileWriterParams = { WriterType = Export;};
+            Name = File;
+            Threads = 1;
+            ZipFiles = true;
+        };
+        LogErrorsDuringLoadDB = false;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/SupplierOrganizationOrganizationId_Export.csv";
+                            JoinFields = ( "Parent.SystemID = SystemID" );
+                            ParentField = OrganizationID.Ids;
+                        }
+                    );
+                    EventSource = "None:SupplierOrganization.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/SupplierOrganization_Export.csv";
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = SupplierOrganizationExport;
+        Visible = true;
+    };
+    SupplierOrganizationPull = {
+        Channel = { Threads = 1;};
+        LoggingName = SupplierOrganization_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Details = (
+                        {
+                            DetailFileName = "./config/variants/Plain/partitions/None/data/SupplierOrganizationOrganizationIDPart.csv";
+                            DetailFilePrompt = SupplierIDs.csv;
+                            Details = ( );
+                            JoinFields = ( "Parent.SystemID = SystemID" );
+                            ParentField = OrganizationID.Ids;
+                        }
+                    );
+                    EventSource = "None:SupplierOrganization.csv";
+                    HeaderFileName = "./config/variants/Plain/partitions/None/data/SupplierOrganization.csv";
+                    HeaderFilePrompt = SupplierOrganizations.csv;
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.HeaderDetailSchema;
+            };
+        };
+        TopicName = SupplierOrganizationPull;
+    };
+    SupplierRankingLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = SupplierRankingLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:SupplierRanking.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/SupplierRanking.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = SupplierRankingLanguagePull;
+    };
+    SupplierRankingPull = {
+        Channel = {};
+        LoggingName = SupplierRanking_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:SupplierRanking.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/SupplierRanking.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SupplierRankingPull;
+    };
+    SystemCommodityCodeLanguagePull = {
+        ApplicationHints = { Parameters = { ACL = None; Advanced = true; Visible = true;};};
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = SystemCommodityCodeLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:SystemCommodityCodeLanguagePull.csv";
+                    Operation = Update;
+                    ResourceFilename = "./config/variants/Plain/partitions/None/data/translations/*/SystemCommodityCode.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = SystemCommodityCodeLanguagePull;
+    };
+    SystemCommodityCodePull = {
+        ApplicationHints = { Parameters = { ACL = None; Advanced = true; Visible = true;};};
+        Channel = {
+            Decoder = {
+                Parameters = { KeepInvalidFields = true; UseStrictFormatters = true;};
+            };
+            FileReaderParams = {};
+            FileType = CSV;
+            Threads = 1;
+        };
+        LoggingName = SystemCommodityCodePull;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:SystemCommodityCodePull";
+                    Filename = "./config/variants/Plain/partitions/None/data/SystemCommodityCode.csv";
+                    Operation = Load;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = SystemCommodityCodePull;
+    };
+    
+    
+    
+     Traffic_City_State_Code_Pull= {
+                Channel = {
+                    ChannelContextMapFields = { Language = { defaultValue = English;};};
+                };
+                LoggingName = Traffic_City_State_Code_Pull_CSV
+                MessageParameters = {
+                    Request = {
+                        Parameters = {
+                            EventSource = "None:TrafficCityState.csv";
+                            Filename = "config/variants/None/partitions/Plain/data/TrafficCityState.csv";
+                            Operation = "Load And Delete";
+                        };
+                        SchemaName = ariba.integration.SimpleFileSchema;
+                    };
+                };
+                TopicName = Traffic_City_State_Code_Pull;
+    };
+    
+    TransformMapPull = {
+        Channel = {};
+        LoggingName = TransformMap_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:TransformMap_CSV";
+                    Filename = "./config/variants/Plain/partitions/None/data/TransformMap.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = TransformMapPull;
+    };
+    UNSPSCCommodityCodeParentPull = {
+        Channel = {};
+        LoggingName = UNSPSCCommodityCodeParentPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:UNSPSCCommodityCode.csv";
+                    Filename = "config/standards/UNSPSCCommodityCode.csv";
+                    Operation = Update;
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = UNSPSCCommodityCodeParentPull;
+    };
+    UNSPSCCommodityCodePull = {
+        Channel = {};
+        LoggingName = UNSPSCCommodityCodePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:UNSPSCCommodityCode.csv";
+                    Filename = "config/standards/UNSPSCCommodityCode.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = UNSPSCCommodityCodePull;
+    };
+    UnitOfMeasureLanguagePull = {
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = UnitOfMeasureLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:UnitOfMeasureLanguage.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/UnitsOfMeasure.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = UnitOfMeasureLanguagePull;
+    };
+    UnitOfMeasurePull = {
+        Channel = {
+            AutoGenerateExport = true;
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = UnitOfMeasurePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:UnitsOfMeasure.csv";
+                    Operation = "Load";
+                    VectorFilename = "ariba/variants/Plain/partitions/None/data/UnitsOfMeasure.csv";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = UnitOfMeasurePull;
+    };
+    /* AUL, sdey - commented to bring up 9r, need to revisit.
+    UnitOfMeasurePull = {
+        Channel = {
+            AutoGenerateExport = true;
+            ChannelContextMapFields = { Language = { defaultValue = English;};};
+        };
+        LoggingName = UnitOfMeasurePull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:UnitsOfMeasure.csv";
+                    Operation = "Load And Delete";
+                    VectorFilename = "ariba/variants/Plain/partitions/None/data/UnitsOfMeasure.csv;config/variants/Plain/partitions/None/data/CATUnitsOfMeasure.csv";
+                };
+                SchemaName = ariba.integration.VectorFileSchema;
+            };
+        };
+        TopicName = UnitOfMeasurePull;
+    };
+    */
+    ValueQualifierLanguagePull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaCategoryProcurement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {
+            ChannelContextMapFields = { Language = { FieldName = Language;};};
+        };
+        LoggingName = ValueQualifierLanguage_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ValueQualifier.csv";
+                    Operation = Update;
+                    ResourceFilename = "ariba/variants/Plain/partitions/None/data/translations/*/ValueQualifier.csv";
+                };
+                SchemaName = ariba.integration.ResourceFileSchema;
+            };
+        };
+        TopicName = ValueQualifierLanguagePull;
+    };
+    ValueQualifierPull = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaCategoryProcurement
+                );
+                Visible = true;
+            };
+        };
+        Channel = {};
+        LoggingName = ValueQualifier_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:ValueQualifier.csv";
+                    Filename = "ariba/variants/Plain/partitions/None/data/ValueQualifier.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = ValueQualifierPull;
+    };
+    VendorMasterFileExport = {
+        Channel = {
+            Encoder = {
+                Name = FileChannelEncoder;
+                Parameters = { EventSource = External;};
+            };
+        };
+        LoggingName = VendorMasterFileExport_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    Filename = "./config/variants/Plain/partitions/None/data/VendorMasterFileExport_Export.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = VendorMasterFileExport;
+    };
+    
+    CommodityCodeExtPull = {
+        Channel = { Threads = 5;};
+        LoggingName = CommodityCodeExtPull_CSV;
+        MessageParameters = {
+            Request = {
+                Parameters = {
+                    EventSource = "None:CommodityCodeExtPull.csv";
+                    Filename = "./config/variants/Plain/partitions/None/data/CommodityCodeExtPull.csv";
+                    Operation = "Load And Delete";
+                };
+                SchemaName = ariba.integration.SimpleFileSchema;
+            };
+        };
+        TopicName = CommodityCodeExtPull;
+    };
+}

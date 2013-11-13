@@ -1,0 +1,1680 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE extension SYSTEM "../../../../ariba/base/meta/core/extensions.dtd">
+<extension name="config.variants.vcsv1.extensions.CatCSVContractExt">
+
+<!-- *****************************************************************************************
+Change History
+Change# Change By       Change Date     Description
+============================================================================
+1   K.Stanley       11-28-2004       Master Agreement group changes
+2   Anoma & Kannan  09-01-2005       Added a trigger to set the Accumulators in both Master Agreement and
+                                     Sub-Agreement contracts to a default Yes instead of No. ( Ref CM000128795)
+                                     Addded RollUpAccumulatorsToParent to ObjectDuplicate group.
+3   A.Kirkpatrick   09-06-05         R4 updates/additions to Contract-specific classes and related groups
+4   Chandra         09-13-2005       Added fields tor Contract Availability in MasterAgreementCoreApprovable class CR 25
+5   K.Stanley       03-02-2006       Fixed SupplierLocation triggers on MAR (Issue #375)
+6.  K.Stanley       03-11-2006       Added nametable to ParentAgreement field (to allow visibility of other's contracts)
+7.  K.Stanley       05-17-2006       CR36 (precision price printing) and CR4/ CR47 (group field changes)
+8.  RP/Kingshuk     20-07-2006       Added Hazmat logic for Contracts CR-57
+9.  Chandra         08-10-2007       Issue 217 - Added ContractShipTo and tax fields in MACA, triggers to default them
+10. Amit            10-29-2007       Issue 217 Enhancements - Added CatMARTaxVisibility condition on Tax related fields.
+11. Sudheer K Jain  25-08-2008       Issue 850 Added Buyer Code field at Non-Catalog line item label.
+12. Sandeep Vaishnav 20-04-2009      Issue 890 Added a Trigger to set default notification Limits on CR.
+13. IBM_AMS_Kalikumar 17-10-2013     Added Tax related fields to catalog line items in Contracts.
+*********************************************************************************************** -->
+
+<import extension="config.variants.vcsv1.extensions.CatCSVProcureExt"/>
+
+
+    <inModule name="ariba.common.meta.Requisition">
+
+<!-- ************************************** CLASSES ****************************************** -->
+
+        <!-- ================================================================== -->
+        <!-- inClass: ariba.contract.core.MasterAgreementRequest                -->
+        <!-- ================================================================== -->
+        <inClass name="ariba.contract.core.ContractRequest">
+            <inClassVariant name="vcsv1">
+                <inField name="ClassProperties">
+                    <properties checkinHook="config.java.hook.vcsv1.CatContractRequestCheckinHook" submitHook="config.java.hook.vcsv1.CATCSVContractRequestSubmitHook"/>
+                </inField>
+
+                <inField name="ParentAgreement">
+                    <properties nameTableClass="config.java.nametable.vcsv1.CatParentContractNameTable"/>
+                </inField>
+        <!-- ======== ========= START OF Issue #375 ========================================-->
+
+                <!-- ** 03.02.06(ks) Added to ensure user sets SupplierLocation on header if not defaulted -->
+                <inField name="SupplierLocation">
+                    <validity>
+                        <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                    </validity>
+                </inField>
+<!-- SupplierLocation -->
+            <!-- ** 03.02.06(ks) Switched to use Custom trigger (to also reset to null) -->
+            <trigger event="FieldChange" field="Supplier" name="CatSetSupplierLocationOnSupplierChange">
+                <action implementation="config.java.action.vcsv1.CatSetMARSupplierLocation">
+                    <parameter name="Target" outputField="SupplierLocation"/>
+                    <parameter inputField="Supplier" name="Source"/>
+                </action>
+            </trigger>
+            <!-- 03.02.06(ks) Replaced problematic AML trigger with this copy SuplrLoc to all line items -->
+            <trigger event="FieldChange" field="SupplierLocation" name="CatSetSupplierLocationForLineItems">
+                <action implementation="config.java.action.vcsv1.CatSetMARLineItemsSupplierLocation"/>
+            </trigger>
+
+         <!-- ====================== END OF Issue #375 ======================================= -->
+
+        <!-- 05.17.06 (KS) CR47 -->
+            <inField name="IsInvoiceable">
+                <validity>
+                    <orCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                        <condition implementation="ariba.base.fields.condition.FalseBoolean" testField="IsInvoiceable">
+                            <parameter name="Message" value="@aml.cat.ui1/MessageIsInvoiceableInvalid"/>
+                        </condition>
+                    </orCondition>
+                </validity>
+                <properties validate="true"/>
+            </inField>
+            <inField name="IsReceivable">
+                <validity>
+                    <orCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                        <condition implementation="ariba.base.fields.condition.FalseBoolean" testField="IsReceivable">
+                            <parameter name="Message" value="@aml.cat.ui1/MessageIsReceivableInvalid"/>
+                        </condition>
+                    </orCondition>
+                </validity>
+            </inField>
+        <!-- CR47 END -->
+            <inField name="Requester">
+                <properties forceRefresh="true"/>
+            </inField>
+            <trigger event="FieldChange" field="Requester" name="SetContractShipToOnRequesterChange">
+                <notCondition>
+                    <condition implementation="ariba.base.core.condition.NonEmptyField" testField="PreviousVersion">
+                    </condition>
+                </notCondition>
+                <action implementation="config.java.action.vcsv1.CatSetContractShipTo"/>
+            </trigger>
+            <trigger event="FieldChange" field="ContractShipTo" name="SetMALIShipToOnShipToChange">
+                <action implementation="config.java.action.vcsv1.CatSetMALIShipTo"/>
+            </trigger>
+            <trigger event="FieldChange" field="AssessTaxButton" name="AssessTaxAndSetTaxFields">
+                <action implementation="config.java.action.vcsv1.CatAssessTax"/>
+            </trigger>
+            <!-- DELETED TRIGGER -->
+            <deleteTrigger name="SetSupplierLocationOnSupplierChange"/>
+            
+           <!--Issue # 890 Start : Sandeep Vaishnav 20/04/09 -->
+          <trigger event="Create" name="MARSetDefaultNotificationLimits">
+	                   <action implementation="config.java.action.CatSetDefaultNotificationLimits"/>
+            </trigger>
+            <!--Issue # 890 End : Sandeep Vaishnav 20/04/09 -->
+            
+            </inClassVariant>
+        </inClass>
+
+
+        <!-- ================================================================== -->
+        <!-- inClass: ariba.contract.core.MasterAgreementCoreApprovable     -->
+        <!-- ================================================================== -->
+        <inClass name="ariba.contract.core.ContractCoreApprovable">
+            <inClassVariant name="vcsv1">
+
+                <!--trigger name ="CatSetCountryAreaOnCountrySelect"
+                                event="FieldChange"
+                                field="ContractCountry">
+                    <action implementation="config.java.action.CatSetCountryAreaOnCountrySelect">
+                    </action>
+                </trigger-->
+                <trigger event="FieldChange" field="HierarchicalType" name="SetISAccumulatorFieldOnHTChange">
+                    <orCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="HierarchicalTypeString">
+                            <parameter name="TargetValue" value="SubAgreement"/>
+                        </condition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="HierarchicalTypeString">
+                                <parameter name="TargetValue" value="MasterAgreement"/>
+                        </condition>
+                    </orCondition>
+                    <action implementation="ariba.base.fields.action.SetField">
+                        <parameter name="Value" value="true"/>
+                        <parameter name="Target" outputField="IncludeSubAgreementAccumulators"/>
+                    </action>
+                </trigger>
+
+            <!-- ======== START OF CR25 ============ -->
+
+                <!-- Reset fields on change of Availability fields -->
+                <trigger event="FieldChange" field="ContractAvailability" name="CatResetFieldsOnContractAvailabilityChange">
+                    <action implementation="config.java.action.CatResetVectorFields">
+                        <parameter name="TargetValue" value="ContractCountry"/>
+                        <parameter name="TargetValue1" value="ContractFacility"/>
+                    </action>
+                </trigger>
+                <!-- Reset fields on change of AvailableCountry field -->
+                <trigger event="FieldChange" field="ContractCountry" name="CatResetFieldsOnContractCountryChange">
+                    <action implementation="config.java.action.CatResetVectorFields">
+                        <parameter name="TargetValue" value="ContractFacility"/>
+                    </action>
+                </trigger>
+
+                <field name="ContractAvailability">
+                     <type class="java.lang.String"/>
+                      <validity>
+                        <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                      </validity>
+                      <properties allowNoChoice="false" controllerType="PickList" fieldEditorClass="ariba.htmlui.fieldsui.fields.APEPickList" forceRefresh="true" label="Contract Availability" rank="95">
+                         <property name="validChoices">
+                             <vector>
+                             <entry value="Global"/>
+                             <entry value="National"/>
+                             </vector>
+                         </property>
+                         <property name="validChoicesOrder">
+                             <vector>
+                             <entry value="Global"/>
+                             <entry value="National"/>
+                             </vector>
+                         </property>
+                      </properties>
+                </field>
+                <field name="ContractCountry">
+                    <type class="ariba.basic.core.Country" vector="true"/>
+                    <visibility>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+                        <parameter name="TargetValue" value="National"/>
+                        </condition>
+                    </visibility>
+                    <properties chooserField="Name" controller="ariba.htmlui.baseui.fields.ARFVectorField" controllerType="TextLink" label="Country" nameTableClass="config.java.nametable.CatCountryByFacNameTable" rank="96" titleField="Name"/>
+                </field>
+                <field name="ContractFacility">
+                     <type class="cat.core.CatFacility" vector="true"/>
+                     <visibility>
+                        <andCondition>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+                                <parameter name="TargetValue" value="National"/>
+                            </condition>
+                            <condition implementation="ariba.approvable.core.condition.NonEmptyVector" testField="ContractCountry"/>
+                        </andCondition>
+                     </visibility>
+                     <properties chooserField="FacilityName" chooserGroup="AvailableFacilityGroup" chooserSearchGroup="AvailableFacilityGroup" controller="ariba.htmlui.baseui.fields.ARFVectorField" controllerType="TextLink" detailsGroup="CatFacilityDetailsGroup" label="Contract Facility" nameTableClass="config.java.nametable.CatFacilityNameTable" rank="97" titleFormat="%s (%s)" titleGroup="AvailableFacilityGroup"/>
+                </field>
+
+             <!-- Requirement C3 R4 Ann Kirkpatrick 09-12-05-->
+             <field name="RequisitionReferenceNumber">
+                <type class="java.lang.String"/>
+                <properties label="Requisition Reference #" rank="98"/>
+             </field>
+             <field name="ContractShipTo">
+                <type class="ariba.common.core.Address"/>
+                <validity>
+                    <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                </validity>
+                <properties controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="TextLink"/>
+             </field>
+            <trigger event="FieldChange" field="ContractAvailability" name="SetGlobalReleaseFlagOnGlobal">
+                <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+                    <parameter name="TargetValue" value="Global"/>
+                </condition>
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="GlobalReleaseFlag"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+            <trigger event="FieldChange" field="ContractAvailability" name="SetGlobalReleaseFlagOnNational">
+                <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+                    <parameter name="TargetValue" value="National"/>
+                </condition>
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="GlobalReleaseFlag"/>
+                    <parameter name="Value" value="false"/>
+                </action>
+            </trigger>
+         </inClassVariant>
+        </inClass>
+
+    <!-- 05.17.06 (KS) Issue#406 (CR36) Add PrecisionString field for MA/MAR printing purposes -->
+        <!-- ================================================================== -->
+        <!-- inClass: ariba.contract.core.MACALineItem                           -->
+        <!-- ================================================================== -->
+        <inClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+           <inClassVariant name="vcsv1">
+                <field name="PricePrecisionString">
+                    <type class="java.lang.String" length="30"/>
+                    <properties editable="false" fieldEditorClass="ariba.htmlui.fieldsui.fields.APETextField"/>
+                </field>
+                <!-- Start Of CR57 -->
+        <field name="HazmatWeight" respectable="true">
+            <type class="java.math.BigDecimal" precision="28" scale="20"/>
+                <validity>
+                    <orCondition>
+                            <condition implementation="ariba.base.fields.condition.NotEqualTo" testField="IsHazmat">
+                                <parameter name="TargetValue" value="true"/>
+                            </condition>
+                            <condition implementation="ariba.base.fields.condition.NonZeroField"/>
+                        <notCondition>
+                            <condition implementation="ariba.common.core.condition.UserHasPermission">
+                                <parameter name="PermissionName" value="CatHazmat"/>
+                            </condition>
+                        </notCondition>
+                    </orCondition>
+                </validity>
+            <properties charWidth="17" label="@aml.cat.ui1/LabelHazmatWeight" metaDataIntegration="Reference" precision="15"/>
+        </field>
+        <field name="DerivedTaxSummary">
+            <type class="java.lang.String" length="60"/>
+            <properties editable="false" fieldEditorClass="ariba.htmlui.fieldsui.fields.APETextField" label="@aml.cat.ui1/LabelMARDerivedTaxSummary"/>
+        </field>
+        <field name="LineAssessTaxButton" noPersist="true">
+            <type class="java.lang.Boolean"/>
+            <properties fieldEditorClass="ariba.htmlui.fieldsui.fields.APETriggerButton" hideLabel="true" title="@aml.cat.ui1/LabelMARLIAssessTaxButton"/>
+        </field>
+
+        <trigger event="FieldChange" field="LineAssessTaxButton" name="MARLineAssessTaxAndSetTaxFields">
+            <action implementation="config.java.action.vcsv1.CatAssessTax"/>
+        </trigger>
+
+        <!-- IsHazmat -->
+        <trigger event="FieldChange" field="CommodityExportMapEntry" name="SetIsHazmatOnCEMEChange">
+            <notCondition>
+                <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+            </notCondition>
+                <action implementation="config.java.action.vcsv1.CatSetHazmatIndicator"/>
+        </trigger>
+        <trigger event="FieldChangeByUser" field="MSDSNumber" name="SetIsHazmatOnMSDSNumberChange">
+            <notCondition>
+                <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+            </notCondition>
+                <action implementation="config.java.action.vcsv1.CatSetHazmatIndicator"/>
+        </trigger>
+        <trigger event="FieldChangeByUser" field="IsHazmat" name="SetMSDSHazmatWeightOnIsHazmatChange">
+            <condition implementation="ariba.base.fields.condition.EqualTo" testField="IsHazmat">
+                <parameter name="TargetValue" value="false"/>
+            </condition>
+            <action implementation="ariba.base.fields.action.SetField">
+                <parameter name="Value" value=""/>
+                <parameter name="Target" outputField="HazmatWeight"/>
+            </action>
+            <action implementation="ariba.base.fields.action.SetField">
+                <parameter name="Value" value=""/>
+                <parameter name="Target" outputField="MSDSNumber"/>
+            </action>
+        </trigger>
+        <trigger event="FieldChange" field="SupplierLocation" name="SetMARFOBPointOnSupplierLocChange" respectUserData="false">
+            <action implementation="config.java.action.vcsv1.CatSetFOBShippingPoint"/>
+        </trigger>
+<!-- TaxOverrideFlag (header) -->
+            <trigger event="FieldChange" field="TaxCodeOverride" name="SetMARHeaderOverrideOnTaxCodeOverride">
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="LineItemCollection.TaxOverrideFlag"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+            <trigger event="FieldChange" field="TaxAllFieldsOverride" name="SetMARHeaderOverrideOnTaxFieldOverride">
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="LineItemCollection.TaxOverrideFlag"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+<!-- TaxRate & TaxBase Proactive Initialization -->
+            <trigger event="Create" name="MARInitializeTaxRateAndTaxBaseToZero">
+                <action implementation="config.java.action.vcsv1.CatInitializeTaxRateAndBase"/>
+            </trigger>
+<!-- TaxCodeOverride -->
+            <trigger event="FieldChangeByUser" field="TaxCode" name="SetMARTaxCodeOverrideOnTaxCodeChange">
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="TaxCodeOverride"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+<!-- TaxAllFieldsOverride -->
+            <trigger event="FieldChangeByUser" field="TaxRate" name="SetMARTaxAllFieldsOverrideOnTaxRateChange">
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="TaxAllFieldsOverride"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+            <trigger event="FieldChangeByUser" field="TaxBase" name="SetMARTaxAllFieldsOverrideOnTaxBaseChange">
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="TaxAllFieldsOverride"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+            <trigger event="FieldChangeByUser" field="TaxState" name="SetMARTaxAllFieldsOverrideOnTaxStateChange">
+                <action implementation="ariba.base.fields.action.SetField">
+                    <parameter name="Target" outputField="TaxAllFieldsOverride"/>
+                    <parameter name="Value" value="true"/>
+                </action>
+            </trigger>
+<!-- DerivedTaxSummary -->
+            <trigger event="FieldChange" field="TaxCode" name="SetMARDerivedTaxSummaryOnTaxCodeChange">
+                <action implementation="config.java.action.vcsv1.CatSetDerivedTaxSummary"/>
+            </trigger>
+            <trigger event="FieldChange" field="TaxState" name="SetMARDerivedTaxSummaryOnTaxStateChange">
+                <action implementation="config.java.action.vcsv1.CatSetDerivedTaxSummary"/>
+            </trigger>
+            <trigger event="FieldChange" field="TaxRate" name="SetMARDerivedTaxSummaryOnTaxRateChange">
+                <action implementation="config.java.action.vcsv1.CatSetDerivedTaxSummary"/>
+            </trigger>
+            </inClassVariant>
+        </inClass>
+
+        <inClass name="ariba.procure.core.LineItemProductDescription">
+           <inClassVariant name="vcsv1">
+                <trigger event="FieldChange" field="Price" name="SetPricePrecisionStringFromLIPDPrice">
+                    <action implementation="config.java.action.vcsv1.CatSetPricePrecisionString"/>
+                </trigger>
+            </inClassVariant>
+        </inClass>
+
+
+
+    <!-- CR36 END -->
+
+        <!-- ================================================================== -->
+        <!-- inClass: ariba.contract.core.MARLineItem                           -->
+        <!-- ================================================================== -->
+        <inClass name="ariba.contract.core.ContractRequestLineItem">
+           <inClassVariant name="vcsv1">
+
+                <field name="DerivedAccountDistribution">
+                    <type class="java.lang.String" length="55"/>
+                    <properties editable="false" fieldEditorClass="ariba.htmlui.fieldsui.fields.APETextField" label="@aml.cat.ui1/LabelDerivedAccountDistribution"/>
+                </field>
+<!-- SetRollUpAccumulatorsToParent -->
+            <trigger event="Create" name="SetRollUpAccumulatorsToParent">
+                <action implementation="ariba.base.fields.action.SetField">
+                            <parameter name="Value" value="true"/>
+                            <parameter name="Target" outputField="RollUpAccumulatorsToParent"/>
+                </action>
+            </trigger>
+
+<!-- RollUpAccumulatorsToParentContract -->
+        <trigger event="Create" name="DefaultSubAccumulatorsFromParent">
+            <action implementation="ariba.base.fields.action.SetField">
+                <parameter name="Target" outputField="RollUpAccumulatorsToParent"/>
+                <parameter inputField="LineItemCollection.ParentAgreement.IncludeSubAgreementAccumulators" name="Value"/>
+            </action>
+        </trigger>
+
+<!-- SettlementCode Only set settlement code on no-release contracts.  Invoices must have code defaulted-->
+        <trigger event="Create" name="SetSettlementCodeOnCreate">
+                <notCondition>
+                    <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this"/>
+                </notCondition>
+                <action implementation="config.java.action.CatSetLineItemFieldFromParameter">
+                    <parameter name="FieldName" value="SettlementCode"/>
+                    <parameter name="ParamValue" value="Application.Caterpillar.Procure.DefaultSettlementCode"/>
+                    <parameter name="ClassName" value="cat.core.SettlementCode"/>
+               </action>
+        </trigger>
+<!--Reference Line Number for contracts-->
+                <trigger event="Create" name="SetReferenceLineNumOnCreate">
+                    <action implementation="config.java.action.vcsv1.CatSetReferenceLineNumber"/>
+                </trigger>
+<!-- Additional Charge Fields -->
+                <trigger event="FieldChangeByUser" field="ReferenceLineNumber" name="SetAdditionalChargeFieldsFromRefLine">
+                    <action implementation="config.java.action.vcsv1.CatSetAdditionalChargeLineItemFields"/>
+                </trigger>
+<!-- Trigger for the validate accounting button -->
+                <trigger event="FieldChange" field="ValidateAccounting" name="MARValidateAccountingAndSetValidationMessage">
+                    <action implementation="config.java.action.vcsv1.CatCSVValidateAccountingString"/>
+                </trigger>
+
+<!-- Delete the trigger that defaults the accounting on a MARLineItem -->
+                <deleteTrigger name="DefaultAccountingFromRequesterUserPreference"/>
+                <deleteTrigger name="SetSupplierLocationOnSupplierChange"/>
+
+                <trigger event="FieldChange" field="Supplier" name="DefaultSupplierLocationFromHeader">
+                    <action implementation="ariba.base.fields.action.SetField">
+                        <parameter name="Target" outputField="SupplierLocation"/>
+                        <parameter inputField="LineItemCollection.SupplierLocation" name="Value"/>
+                    </action>
+                </trigger>
+
+                <trigger event="DefaultFromApprovable" name="DefaultContractShipToFromHeader">
+                    <action implementation="ariba.base.fields.action.SetField">
+                        <parameter name="Target" outputField="ShipTo"/>
+                        <parameter inputField="LineItemCollection.ContractShipTo" name="Value"/>
+                    </action>
+                </trigger>
+           </inClassVariant>
+        </inClass>
+
+<!-- ************************************** GROUPS ****************************************** -->
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MABasicInfo                                                  -->
+        <!-- ================================================================== -->
+        <inGroup name="MABasicInfo">
+        <inGroupClass name="ariba.contract.core.ContractRequest">
+        <inGroupClassVariant name="vcsv1">
+            <groupField name="ReleaseType">
+                <properties editable="true"/>
+            </groupField>
+            <groupField name="Supplier">
+                <validity>
+                    <condition implementation="config.java.condition.CATContractValidateSupplier"/>
+                </validity>
+                <properties required="true"/>
+            </groupField>
+            <groupField name="SupplierLocation">
+                <properties chooserField="UniqueName" chooserGroup="CatSupplierLocationTable" label="@aml.cat.ui1/LabelSupplierLocation" required="true" titleField="UniqueName"/>
+            </groupField>
+            <!-- hide the related Contract fields as part of CR#26 -->
+            <groupField name="UseExternalIDForMAHint">
+                <properties hidden="true"/>
+            </groupField>
+            <groupField name="UseExternalIDForMA">
+                <properties hidden="true"/>
+            </groupField>
+        </inGroupClassVariant>
+        </inGroupClass>
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovable">
+            <inGroupClassVariant name="vcsv1">
+                <groupField name="ContractAvailability">
+                    <!--properties rank="95"
+                                 forceRefresh="true"
+                                  controllerType="PickList"/-->
+                </groupField>
+                <groupField name="ContractCountry">
+                    <!--properties rank="96"
+                            forceRefresh="true"
+                            controllerType="PickList"/-->
+                </groupField>
+                <groupField name="ContractFacility">
+                     <!--properties rank="97"
+                            forceRefresh="true"
+                            ignoreQueryCache="true"
+                            controllerType="TextLink"
+                            /-->
+                </groupField>
+                <groupField name="RequisitionReferenceNumber"/>
+                <groupField name="ContractShipTo">
+                    <properties allowCustomValue="false" chooserField="UniqueName" chooserGroup="CatChooserTable" label="Ship To" nameTableClass="config.java.nametable.CatShipToNameTable" rank="97" titleFormat="%s (%s, %s)" titleGroup="CatAddressSelection"/>
+                </groupField>
+                <groupField name="AssessTaxButton">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                   <properties rank="115"/>
+                </groupField>
+                <groupField name="AssessTaxMessage">
+                    <visibility>
+                        <andCondition>
+                            <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                            <condition implementation="ariba.common.core.condition.UserHasPermission">
+                                <parameter name="PermissionName" value="CatTax"/>
+                            </condition>
+                        </andCondition>
+                    </visibility>
+                    <properties rank="120"/>
+                </groupField>
+            </inGroupClassVariant>
+        </inGroupClass>
+        <!-- SP22 Manual Changes Start -->
+         <groupClass name="ariba.contract.core.ContractCoreApprovable">
+                <groupClassVariant name="vcsv1">
+                    <groupField name="GlobalReleaseFlag">
+                        <properties editable="false"/>
+                    </groupField>
+                </groupClassVariant>
+            </groupClass>
+       <!-- SP22 Manual Changes End -->
+    </inGroup>
+
+
+        <!-- ================================================================== -->
+        <!-- inClass: MARReleaseAccessCriteria                                  -->
+        <!-- ================================================================== -->
+<!-- *** Removed for Release 1 (due to use of String field for Facility) ***
+        <inClass name="ariba.contract.core.MAReleaseAccessCriteria">
+            <inClassVariant name="vcsv1">
+                <field name="Accounting_AccountingFacility"
+                       nullAllowed="true"
+                       noPersist="false">
+                    <type class="java.lang.String" length="10"/>
+                    <properties label="@aml.cat.ui/LabelAccountingFacility"
+                                controller="ariba.htmlui.fieldsui.fields.ARFTextField"
+                                charWidth="10"
+                                textLength="3"/>
+                </field>
+            </inClassVariant>
+        </inClass>
+-->
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MALimits                                                  -->
+        <!-- ================================================================== -->
+        <inGroup name="MALimits">
+            <inGroupClass name="ariba.contract.core.ForecastedSpend">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="TotalAmount">
+                        <properties hidden="true"/>
+                    </groupField>
+                    <groupField name="SavingPercentage">
+                        <properties hidden="true"/>
+                    </groupField>
+                    <groupField name="Frequency">
+                        <properties hidden="true"/>
+                    </groupField>
+                    <groupField name="Items">
+                        <properties hidden="true"/>
+                    </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MATermDescription                                         -->
+        <!-- ================================================================== -->
+        <inGroup name="MATermDescription">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+            <groupField name="Form">
+                        <visibility>
+                            <notCondition>
+                                <condition implementation="ariba.base.core.condition.NonEmptyField" testField="this"/>
+                            </notCondition>
+                        </visibility>
+            </groupField>
+            <groupField name="Description.Price">
+                        <properties forceRefresh="true"/>
+            </groupField>
+            <groupField name="Description.ReasonCode">
+                <validity>
+                    <orCondition>
+                        <notCondition>
+                                <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                    <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </notCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+                                <parameter name="TestField" value="Description.ReasonCode"/>
+                                <parameter name="TestValue" value="(no value)"/>
+                            </condition>
+                        </notCondition>
+                        <condition implementation="config.java.condition.CatNonZeroMoney" testField="Description.Price">
+                            <parameter name="Message" value="@aml.cat.ui/MessageReasonCodeInvalid"/>
+                        </condition>
+                    </orCondition>
+                </validity>
+                <visibility>
+                   <andCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                        <notCondition>
+                            <condition implementation="ariba.common.core.condition.NonZeroMoney" testField="Description.Price"/>
+                        </notCondition>
+                    </andCondition>
+                </visibility>
+                <properties rank="85"/>
+            </groupField>
+            <groupField name="TaxQualifier">
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                        <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                <validity>
+                   <orCondition>
+                            <notCondition>
+                                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                        <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </notCondition>
+                    <notCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="TaxQualifier">
+                        <parameter name="TargetValue" value="(no value)"/>
+                        </condition>
+                    </notCondition>
+                   </orCondition>
+                </validity>
+                        <properties rank="90"/>
+            </groupField>
+            <groupField name="TaxUse">
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                        <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                <!-- Start Of CR57 -->
+                <properties rank="92" required="true"/>
+                <validity>
+                    <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                </validity>
+                <!-- End Of CR57 -->
+            </groupField>
+            <groupField name="TaxCode">
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                        <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                <properties rank="95"/>
+            </groupField>
+            <groupField name="ReferenceLineNumber">
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                        <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                <editability>
+                    <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                </editability>
+                <properties editable="true" label="@aml.cat.ui1/LabelReferenceLineNumber" rank="25"/>
+            </groupField>
+            <groupField name="MSDSNumber">
+                <visibility>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                    </andCondition>
+                </visibility>
+                <properties rank="96"/>
+            </groupField>
+            <!-- Start Of CR57 -->
+            <groupField name="HazmatWeight">
+                <visibility>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.common.core.condition.UserHasPermission">
+                            <parameter name="PermissionName" value="CatHazmat"/>
+                        </condition>
+                    </andCondition>
+                </visibility>
+                <properties rank="98"/>
+            </groupField>
+
+            <groupField name="IsHazmat">
+                <visibility>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.common.core.condition.UserHasPermission">
+                            <parameter name="PermissionName" value="CatHazmat"/>
+                        </condition>
+                    </andCondition>
+                </visibility>
+                <editability>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.common.core.condition.UserHasPermission">
+                            <parameter name="PermissionName" value="CatHazmat"/>
+                        </condition>
+                        <!-- Removed as per last request
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.IsHazmatFromComOrUOM" testField="this"/>
+                        </notCondition>
+                        -->
+                    </andCondition>
+                </editability>
+                <properties forceRefresh="true" rank="87"/>
+            </groupField>
+            <!-- End Of CR57 -->
+            <!--groupField name="ValidateAccounting">
+                <visibility>
+                    <andCondition>
+                    <notCondition>
+                        <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem"
+                                testField="this"/>
+                    </notCondition>
+                    <notCondition>
+                        <condition implementation="config.java.condition.CatMasterAgreementWithRelease"
+                            testField="this">
+                        </condition>
+                    </notCondition>
+                    </andCondition>
+                </visibility>
+                <properties rank="100"/>
+            </groupField-->
+            <groupField name="CommodityCode">
+                <properties hidden="true"/>
+            </groupField>
+            <!--** Added Tax related fields to catalog line items in Contracts***-->
+            <groupField name="TaxRate">
+	                    <visibility>
+	                <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+	                    </visibility>
+	                    <editability>
+	                        <notCondition>
+	                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+	                        </notCondition>
+	                    </editability>
+	                    <properties forceRefresh="true" rank="100"/>
+	                </groupField>
+	                <groupField name="TaxBase">
+	                       <visibility>
+	                <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+	                       </visibility>
+	                    <editability>
+	                        <notCondition>
+	                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+	                        </notCondition>
+	                    </editability>
+	                    <properties rank="105"/>
+	                </groupField>
+	                <groupField name="TaxState">
+	                       <visibility>
+	                <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+	                       </visibility>
+	                    <editability>
+	                        <notCondition>
+	                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+	                        </notCondition>
+	                    </editability>
+	                    <properties forceRefresh="true" rank="110"/>
+	                </groupField>
+	                <groupField name="TaxCodeMessage">
+	                        <visibility>
+	                <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+	                       </visibility>
+	                    <editability>
+	                        <notCondition>
+	                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+	                        </notCondition>
+	                    </editability>
+	                    <properties rank="115"/>
+	                </groupField>
+	                <groupField name="TaxApprovalMessage">
+	                       <visibility>
+	                <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+	                       </visibility>
+	                    <properties rank="120"/>
+	                </groupField>
+	                <groupField name="LineAssessTaxButton">
+	                       <visibility>
+	                <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+	                       </visibility>
+	                    <properties rank="122"/>
+            </groupField>
+         <!--** Addition of Tax related fields to catalog line items in Contracts Ends***-->
+            
+            
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MAAdHocLineItemDetails                                         -->
+        <!-- ================================================================== -->
+        <inGroup name="MAAdHocLineItemDetails">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+            <groupField name="Description.Price">
+                <properties forceRefresh="true"/>
+            </groupField>
+            <groupField name="Description.UnitOfMeasure">
+                <properties required="true"/>
+            </groupField>
+            <groupField name="SupplierLocation">
+                <properties label="@aml.cat.ui1/LabelSupplierLocation" titleField="UniqueName"/>
+            </groupField>
+            <groupField name="ReferenceLineNumber">
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                    <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                        <editability>
+                <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                            </editability>
+                <properties editable="true" label="@aml.cat.ui1/LabelReferenceLineNumber" rank="25"/>
+            </groupField>
+            <groupField name="Description.CommonCommodityCode">
+                <validity>
+                    <orCondition>
+                        <andCondition>
+                            <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                            <notCondition>
+                                <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                                </condition>
+                            </notCondition>
+                        </andCondition>
+                        <andCondition>
+                            <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                            <condition implementation="config.java.condition.CatLowLevelCommodityCode" testField="this"/>
+                        </andCondition>
+                    </orCondition>
+                </validity>
+                <properties required="true"/>
+            </groupField>
+            <groupField name="Description.ReasonCode">
+                <validity>
+                    <orCondition>
+                        <notCondition>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </notCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+                                <parameter name="TestField" value="Description.ReasonCode"/>
+                                <parameter name="TestValue" value="(no value)"/>
+                            </condition>
+                        </notCondition>
+                        <condition implementation="config.java.condition.CatNonZeroMoney" testField="Description.Price">
+                            <parameter name="Message" value="@aml.cat.ui/MessageReasonCodeInvalid"/>
+                        </condition>
+                    </orCondition>
+                </validity>
+                <visibility>
+                    <andCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                        <notCondition>
+                            <condition implementation="ariba.common.core.condition.NonZeroMoney" testField="Description.Price"/>
+                        </notCondition>
+                    </andCondition>
+                </visibility>
+                <properties rank="85"/>
+            </groupField>
+            <groupField name="IsHazmat">
+                <visibility>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.common.core.condition.UserHasPermission">
+                            <parameter name="PermissionName" value="CatHazmat"/>
+                        </condition>
+                    </andCondition>
+                </visibility>
+                <editability>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.common.core.condition.UserHasPermission">
+                            <parameter name="PermissionName" value="CatHazmat"/>
+                        </condition>
+                        <!-- Removed as per last request
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.IsHazmatFromComOrUOM" testField="this"/>
+                        </notCondition>
+                        -->
+                    </andCondition>
+                </editability>
+                <properties forceRefresh="true" rank="87"/>
+            </groupField>
+            <groupField name="Description.SupplierPartNumber">
+                <properties required="true"/>
+            </groupField>
+            <groupField name="TaxQualifier">
+                <validity>
+                   <orCondition>
+                        <notCondition>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </notCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+                                <parameter name="TestField" value="TaxQualifier"/>
+                                <parameter name="TestValue" value="(no value)"/>
+                            </condition>
+                        </notCondition>
+                   </orCondition>
+                </validity>
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                        <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                <properties rank="90"/>
+            </groupField>
+
+            <!-- ***********Starts Sudheer Code ********** -->
+
+            <groupField name="BuyerCode">
+                <validity>
+                     <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                </validity>
+
+               <properties chooserField="UniqueName" chooserGroup="CatChooserTable" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="RecentUserChoice" label="@aml.cat.ui/LabelBuyerCode" metaDataIntegration="Reference" nameTableClass="config.java.nametable.CatBuyerCodeCRNameTable" rank="91" titleFormat="%s/%s (%s)" titleGroup="CatChooserTable" validate="true"/>
+            </groupField>
+
+               <!-- ***********Ends Sudheer Code ********** -->
+
+            <groupField name="TaxUse">
+                <visibility>
+                    <andCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                            </condition>
+                        </notCondition>
+                    </andCondition>
+                </visibility>
+                <validity>
+                    <orCondition>
+                        <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                        </condition>
+                        <condition implementation="ariba.base.fields.condition.NotEqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                        <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                    </orCondition>
+                </validity>
+                <properties rank="93"/>
+            </groupField>
+            <groupField name="TaxCode">
+                <visibility>
+                    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                        <parameter name="TargetValue" value="2"/>
+                    </condition>
+                </visibility>
+                <properties rank="95"/>
+            </groupField>
+            <groupField name="TaxRate">
+                <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                </visibility>
+                <editability>
+                    <notCondition>
+                        <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                    </notCondition>
+                </editability>
+                <properties forceRefresh="true" rank="100"/>
+            </groupField>
+            <groupField name="TaxBase">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                <editability>
+                    <notCondition>
+                        <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                    </notCondition>
+                </editability>
+                <properties rank="105"/>
+            </groupField>
+            <groupField name="TaxState">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                <editability>
+                    <notCondition>
+                        <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                    </notCondition>
+                </editability>
+                <properties forceRefresh="true" rank="110"/>
+            </groupField>
+            <groupField name="TaxCodeMessage">
+                    <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                <editability>
+                    <notCondition>
+                        <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                    </notCondition>
+                </editability>
+                <properties rank="115"/>
+            </groupField>
+            <groupField name="TaxApprovalMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                <properties rank="120"/>
+            </groupField>
+            <groupField name="LineAssessTaxButton">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                <properties rank="122"/>
+            </groupField>
+            <groupField name="MSDSNumber">
+                <visibility>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                    </andCondition>
+                </visibility>
+                <properties rank="125"/>
+            </groupField>
+            <!-- Start Of CR57 -->
+            <groupField name="HazmatWeight">
+                <visibility>
+                    <andCondition>
+                        <notCondition>
+                            <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                        </notCondition>
+                        <condition implementation="ariba.common.core.condition.UserHasPermission">
+                            <parameter name="PermissionName" value="CatHazmat"/>
+                        </condition>
+                        </andCondition>
+                    </visibility>
+                <properties rank="130"/>
+            </groupField>
+
+            <!-- End Of CR57 -->
+
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+
+    <!-- ================================================================== -->
+        <!-- inGroup: MARMilestoneSummary                                    -->
+        <!-- ================================================================== -->
+        <inGroup name="MARMilestoneSummary">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="StartDate">
+                        <properties showYearNavigation="true"/>
+                    </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MAReleaseAccess                                           -->
+        <!-- ================================================================== -->
+         <inGroup name="MAReleaseAccess">
+             <groupClass name="ariba.contract.core.ContractCoreApprovable">
+                 <groupClassVariant name="vcsv1">
+                     <groupField name="ReleaseAccessCriteria.Accounting_CostCenter">
+                         <properties hidden="false"/>
+                     </groupField>
+                 </groupClassVariant>
+             </groupClass>
+        </inGroup>
+<!-- *** Removed for Release 1 ***
+                     <groupField name="ReleaseAccessCriteria.Accounting_AccountingFacility">
+                         <visibility>
+                             <andCondition>
+                                 <condition implementation="ariba.base.fields.condition.TrueBoolean"
+                                            testField="RestrictReleaseAccessFlag"/>
+                                 <condition implementation="ariba.base.fields.condition.FalseBoolean"
+                                            testField="GlobalReleaseFlag"/>
+                             </andCondition>
+                         </visibility>
+                         <properties rank="30"/>
+                     </groupField>
+-->
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MAGlobalRelease                                           -->
+        <!-- ================================================================== -->
+       <!--  <inGroup name="MAGlobalRelease">
+            <groupClass name="ariba.contract.core.ContractCoreApprovable">
+                <groupClassVariant name="vcsv1">
+                    <groupField name="GlobalReleaseFlag">
+                        <properties editable="false"/>
+                    </groupField>
+                </groupClassVariant>
+            </groupClass>
+        </inGroup>  SP22 Manual Changes -->
+
+        <!-- ================================================================== -->
+        <!-- inGroup: AccountingUnsplittableFields                              -->
+        <!-- ================================================================== -->
+        <inGroup name="AccountingUnsplittableFields">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="CommodityExportMapEntry">
+                        <properties hidden="true"/>
+                    </groupField>
+                    <groupField name="BillingAddress">
+                        <!--editability clusterType="ariba.contract.core.MasterAgreementCoreApprovable">
+                            <notCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease"
+                                    testField="this">
+                                </condition>
+                            </notCondition>
+                        </editability-->
+                        <properties editable="false" rank="20"/>
+                    </groupField>
+                    <groupField name="AccountType">
+                        <editability clusterType="ariba.contract.core.ContractCoreApprovable">
+                            <notCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this"/>
+                            </notCondition>
+                        </editability>
+                        <properties rank="40"/>
+                    </groupField>
+                    <groupField name="SettlementCode">
+                        <visibility clusterType="ariba.purchasing.core.Requisition">
+                            <condition implementation="ariba.common.core.condition.UserHasPermission">
+                                <parameter name="PermissionName" value="CatPurchasing"/>
+                            </condition>
+                        </visibility>
+                        <visibility clusterType="ariba.contract.core.ContractCoreApprovable">
+                            <condition implementation="ariba.base.fields.condition.AlwaysTrue"/>
+                        </visibility>
+                        <editability clusterType="ariba.purchasing.core.Requisition">
+                            <orCondition>
+                                <notCondition>
+                                    <condition implementation="config.java.condition.CatFieldMatchingMALineItem" testField="this">
+                                        <parameter name="FieldName" value="SettlementCode"/>
+                                    </condition>
+                                </notCondition>
+                                <notCondition>
+                                    <condition implementation="ariba.base.core.condition.NonEmptyField" testField="this">
+                                    </condition>
+                                </notCondition>
+                            </orCondition>
+                        </editability>
+                        <properties rank="30" required="true"/>
+                    </groupField>
+                    <groupField name="ProjectNumber">
+                        <properties rank="50"/>
+                    </groupField>
+                    <groupField name="ValidateAccounting">
+                        <visibility clusterType="ariba.contract.core.ContractRequest">
+                            <andCondition>
+                            <notCondition>
+                                <condition implementation="config.java.condition.vcsv1.CatAdditionalChargeLineItem" testField="this"/>
+                            </notCondition>
+                            <notCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                            </notCondition>
+                            </andCondition>
+                        </visibility>
+                        <visibility clusterType="ariba.contract.core.Contract">
+                            <notCondition>
+                                <condition implementation="ariba.base.fields.condition.AlwaysTrue"/>
+                            </notCondition>
+                        </visibility>
+                        <properties rank="60"/>
+                    </groupField>
+                    <!--groupField name="AccountType">
+                        <properties hidden="true"/>
+                    </groupField-->
+                    <groupField name="ProjectNumber">
+                        <properties hidden="true"/>
+                    </groupField>
+                 </inGroupClassVariant>
+             </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MAMilestoneDescription                                    -->
+        <!-- ================================================================== -->
+        <!-- Requirement 32 R4 Milestone item level tax code ???? (KS) does this group even exist ???-->
+        <!--inGroup name="MAMilestoneDescription">
+            <inGroupClass name="ariba.contract.core.MACALineItem">
+                <inGroupClassVariant name="vcsv1">
+
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup-->
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MAMilestoneItemDescription                                -->
+        <!-- ================================================================== -->
+        <inGroup name="MAMilestoneItemDescription">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="StartDate">
+                        <properties rank="75" showYearNavigation="true"/>
+                    </groupField>
+                    <groupField name="CommodityCode">
+                        <properties hidden="true" required="false"/>
+                    </groupField>
+                    <groupField name="TaxQualifier">
+                        <visibility>
+                            <notCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                            </notCondition>
+                        </visibility>
+                        <validity>
+                            <orCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                                <condition implementation="ariba.base.fields.condition.NotEqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                    <parameter name="TargetValue" value="2"/>
+                                </condition>
+                                <notCondition>
+                                    <condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+                                        <parameter name="TestField" value="TaxQualifier"/>
+                                        <parameter name="TestValue" value="(no value)"/>
+                                    </condition>
+                                </notCondition>
+                            </orCondition>
+                        </validity>
+                        <properties rank="43"/>
+                    </groupField>
+                    <groupField name="TaxUse">
+                        <visibility>
+                            <notCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                            </notCondition>
+                        </visibility>
+                        <validity>
+                            <orCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                                <!-- Start Of CR57 -->
+                                <!--condition implementation="ariba.base.fields.condition.NotEqualTo"
+                                        testField="MasterAgreementCoreApprovable.TermType">
+                                    <parameter name="TargetValue" value="2"/>
+                                </condition-->
+                                <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                                <!-- End Of CR57 -->
+                            </orCondition>
+                        </validity>
+                        <!-- Start Of CR57 -->
+                        <properties rank="45" required="true"/>
+                        <!-- End Of CR57 -->
+                    </groupField>
+                    <groupField name="TaxCode">
+                        <visibility>
+                            <notCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                            </notCondition>
+                        </visibility>
+                        <properties rank="47"/>
+                    </groupField>
+                    <groupField name="TaxRate">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties forceRefresh="true" rank="50"/>
+                    </groupField>
+                    <groupField name="TaxBase">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="55"/>
+                    </groupField>
+                    <groupField name="TaxState">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties forceRefresh="true" rank="60"/>
+                    </groupField>
+                    <groupField name="TaxCodeMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="65"/>
+                    </groupField>
+                    <groupField name="TaxApprovalMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="70"/>
+                    </groupField>
+                    <groupField name="LineAssessTaxButton">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="72"/>
+                    </groupField>
+                    <groupField name="Milestone.SupplierContact">
+                        <properties rank="80"/>
+                    </groupField>
+                    <groupField name="Milestone.Verifier">
+                        <properties rank="85"/>
+                    </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MARecurringFeeDescription                                 -->
+        <!-- ================================================================== -->
+        <inGroup name="MARecurringFeeDescription">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <!-- ***********Starts Sudheer Code ********** -->
+
+                    <groupField name="BuyerCode">
+                        <validity>
+                              <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                        </validity>
+                        <properties chooserField="UniqueName" chooserGroup="CatChooserTable" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="RecentUserChoice" label="@aml.cat.ui/LabelBuyerCode" metaDataIntegration="Reference" nameTableClass="config.java.nametable.CatBuyerCodeCRNameTable" rank="89" titleFormat="%s/%s (%s)" titleGroup="CatChooserTable" validate="true"/>
+                    </groupField>
+
+                    <!-- ***********Ends Sudheer Code ********** -->
+                </inGroupClassVariant>
+            </inGroupClass>
+            <inGroupClass name="ariba.contract.core.ContractRequestLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="StartDate">
+                        <properties required="false" validate="false"/>
+                    </groupField>
+                    <groupField name="TaxQualifier">
+                        <validity>
+                           <orCondition>
+                            <notCondition>
+                                <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                    <parameter name="TargetValue" value="2"/>
+                                </condition>
+                            </notCondition>
+                            <notCondition>
+                                <condition implementation="ariba.base.fields.condition.EqualTo" testField="TaxQualifier">
+                                    <parameter name="TargetValue" value="(no value)"/>
+                                </condition>
+                            </notCondition>
+                           </orCondition>
+                        </validity>
+                        <visibility>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </visibility>
+                    <properties rank="90"/>
+                    </groupField>
+                    <!-- Start Of CR57 -->
+                    <groupField name="TaxUse">
+                        <visibility>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </visibility>
+                        <validity>
+                            <orCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                                <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                            </orCondition>
+                        </validity>
+                        <properties rank="92" required="true"/>
+                    </groupField>
+                    <!-- End Of CR57 -->
+                    <groupField name="TaxCode">
+                    <visibility>
+                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                            <parameter name="TargetValue" value="2"/>
+                        </condition>
+                    </visibility>
+                    <properties rank="95"/>
+                    </groupField>
+                    <groupField name="TaxRate">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties forceRefresh="true" rank="100"/>
+                    </groupField>
+                    <groupField name="TaxBase">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="105"/>
+                    </groupField>
+                    <groupField name="TaxState">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties forceRefresh="true" rank="110"/>
+                    </groupField>
+                    <groupField name="TaxCodeMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="115"/>
+                    </groupField>
+                    <groupField name="TaxApprovalMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="120"/>
+                    </groupField>
+                    <groupField name="LineAssessTaxButton">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="122"/>
+                    </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MAMiscellaneousDescription                                -->
+        <!-- ================================================================== -->
+        <inGroup name="MAMiscellaneousDescription">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <!-- ***********Starts Sudheer Code ********** -->
+                    <groupField name="BuyerCode">
+                         <validity>
+                             <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                         </validity>
+                         <properties chooserField="UniqueName" chooserGroup="CatChooserTable" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="RecentUserChoice" label="@aml.cat.ui/LabelBuyerCode" metaDataIntegration="Reference" nameTableClass="config.java.nametable.CatBuyerCodeCRNameTable" rank="89" titleFormat="%s/%s (%s)" titleGroup="CatChooserTable" validate="true"/>
+                    </groupField>
+
+                    <!-- ***********Ends Sudheer Code ********** -->
+                </inGroupClassVariant>
+            </inGroupClass>
+            <inGroupClass name="ariba.contract.core.ContractRequestLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="StartDate">
+                        <properties required="false" validate="false"/>
+                    </groupField>
+                    <groupField name="TaxQualifier">
+                        <validity>
+                           <orCondition>
+                                    <notCondition>
+                                        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                            <parameter name="TargetValue" value="2"/>
+                                    </condition>
+                                </notCondition>
+                            <notCondition>
+                                <condition implementation="ariba.base.fields.condition.EqualTo" testField="TaxQualifier">
+                                    <parameter name="TargetValue" value="(no value)"/>
+                                </condition>
+                            </notCondition>
+                           </orCondition>
+                        </validity>
+                        <visibility>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </visibility>
+                        <properties rank="90"/>
+                    </groupField>
+                    <!-- Start Of CR57 -->
+                    <groupField name="TaxUse">
+                        <visibility>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </visibility>
+                        <validity>
+                            <orCondition>
+                                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                                </condition>
+                                <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                            </orCondition>
+                        </validity>
+                        <properties rank="92" required="true"/>
+                    </groupField>
+                    <!-- End Of CR57 -->
+                    <groupField name="TaxCode">
+                        <visibility>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </visibility>
+                        <properties rank="95"/>
+                    </groupField>
+                    <groupField name="TaxRate">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties forceRefresh="true" rank="100"/>
+                    </groupField>
+                    <groupField name="TaxBase">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="105"/>
+                    </groupField>
+                    <groupField name="TaxState">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties forceRefresh="true" rank="110"/>
+                    </groupField>
+                    <groupField name="TaxCodeMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="115"/>
+                    </groupField>
+                    <groupField name="TaxApprovalMessage">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="120"/>
+                    </groupField>
+                    <groupField name="LineAssessTaxButton">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                        <properties rank="122"/>
+                    </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: LineItemPrint                                             -->
+        <!-- ================================================================== -->
+          <inGroup name="LineItemPrint">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <groupField name="Description.ReasonCode">
+                        <properties label="@aml.cat.ui/LabelReasonCode" rank="150"/>
+                    </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: MATermLimitsPrint                                             -->
+        <!-- ================================================================== -->
+          <inGroup name="MATermLimitsPrint">
+            <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <inGroupClassVariant name="vcsv1">
+                    <remove>
+                        <groupField name="Description.Price"/>
+                    </remove>
+                    <groupField name="PricePrecisionString">
+                        <properties label="@aml.Requisition/NegotiatedPriceLabel" rank="80"/>
+                        <visibility>
+                            <condition implementation="ariba.base.fields.condition.EqualTo" testField="TermType">
+                                <parameter name="TargetValue" value="2"/>
+                            </condition>
+                        </visibility>
+                     </groupField>
+                </inGroupClassVariant>
+            </inGroupClass>
+        </inGroup>
+
+        <!-- ================================================================== -->
+        <!-- inGroup: ObjectDuplicate                                           -->
+        <!-- ================================================================== -->
+
+        <inGroup name="ObjectDuplicate">
+            <groupClass name="ariba.contract.core.ContractRequestLineItem">
+                <groupClassVariant name="vcsv1">
+                    <groupField name="RollUpAccumulatorsToParent"/>
+                </groupClassVariant>
+            </groupClass>
+            <groupClass name="ariba.contract.core.ContractCoreApprovable">
+                <groupClassVariant name="vcsv1">
+                    <groupField name="ContractAvailability"/>
+                    <groupField name="ContractShipTo"/>
+                </groupClassVariant>
+            </groupClass>
+            <groupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                <groupClassVariant name="vcsv1">
+                    <groupField name="TaxQualifier"/>
+                    <groupField name="PricePrecisionString"/>
+                    <groupField name="FOBPoint"/>
+                </groupClassVariant>
+            </groupClass>
+        </inGroup>
+
+<!-- ================================================================== -->
+<!-- inGroup: Adding the Tax sumary to display on Details                                           -->
+<!-- ================================================================== -->
+
+    <inGroup name="ItemTermDetails">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+            <inGroupClassVariant name="vcsv1">
+                <groupField name="DerivedTaxSummary">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                    <properties editable="false" rank="60"/>
+                </groupField>
+            </inGroupClassVariant>
+        </inGroupClass>
+    </inGroup>
+
+    <inGroup name="RecurringFeeDetails">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+            <inGroupClassVariant name="vcsv1">
+                <groupField name="DerivedTaxSummary">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                    <properties editable="false" rank="80"/>
+                </groupField>
+            </inGroupClassVariant>
+        </inGroupClass>
+    </inGroup>
+
+    <inGroup name="MiscellaneousDetails">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+            <inGroupClassVariant name="vcsv1">
+                <groupField name="DerivedTaxSummary">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                    <properties editable="false" rank="60"/>
+                </groupField>
+            </inGroupClassVariant>
+        </inGroupClass>
+    </inGroup>
+
+    <inGroup name="MARMilestoneSummary">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+        <inGroupClassVariant name="vcsv1">
+                <groupField name="DerivedTaxSummary">
+                   <visibility>
+            <condition implementation="config.java.condition.vcsv1.CatMARTaxVisibility" testField="this"/>
+                   </visibility>
+                    <properties editable="false" rank="60"/>
+                </groupField>
+            </inGroupClassVariant>
+        </inGroupClass>
+    </inGroup>
+
+    </inModule>
+</extension>

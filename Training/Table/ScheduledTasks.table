@@ -1,0 +1,997 @@
+/*  Change History
+ Change#     Change By       Change Date     Description
+ WI 323      Manoj.R         17/09/2012      Extending the CloseOrderDate for Reopended PO's
+ CRQ000000046926 Vikram	     08/11/2012	     Changing the time period of TimeOutApprovables
+             Dharshan        10/06/2013      Commented CLIDB tasks
+*/
+{
+    AccruedReceivablesPush = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaP2PBasic, AribaP2PProfessional, CoreBuyer );
+                Visible = true;
+            };
+        };
+        RunOnLastDayOfMonth = false;
+        ScheduledTaskClassName = "ariba.accrual.core.AccruedReceivablesPush";
+    };
+    ArchiveOldPCCR = {
+        ApplicationHints = { Parameters = { Visible = false;};};
+        ApprovableClassName = ariba.charge.core.ChargeReconciliation;
+        ApprovableStatusString = Paying;
+        ScheduledTaskClassName = "ariba.approvable.server.ArchiveApprovables";
+        SourceLabelName = FolderNameReconcile;
+    };
+    AssignOrphanedChargesToChargeCard = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaTEBasic,
+                    AribaTEProfessional,
+                    CoreBuyer
+                );
+                Visible = true;
+            };
+        };
+        ScheduledTaskClassName = "ariba.expense.server.AssignPCardToCharges";
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Weekday;
+                Hour = 12;
+                Minute = 12;
+                Period = { Quantity = 1440; Unit = Minutes;};
+            };
+        };*/
+    };
+    BackGenerateAccrualTransactions = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/BackGenerateAccrualTransactionsDescription";
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        FromDate = "04/01/2008";
+        MaxRunTimePerRun = 600;
+        MaxRuns = 10;
+        Rerunnable = true;
+        ScheduledTaskClassName = "ariba.invoicing.migrate.BackGenerateAccrualTransactions";
+        ToDate = "04/30/2008";
+    };
+    BackGenerateEncumbranceTransactions = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/BackGenerateEncumbranceTransactionsDescription";
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        Rerunnable = true;
+        ScheduledTaskClassName = "ariba.invoicing.migrate.BackGenerateEncumbranceTransactions";
+    };
+    BackPopulateProcurementUnits = {
+        Rerunnable = true;
+        ScheduledTaskClassName = "ariba.server.ormsserver.BackPopulateProcurementUnits";
+    };
+    CAPSHazmatPush = {
+        ScheduledTaskClassName = config.java.schedule.sap.CAPSHazmatPush;
+        queryST = "select paramvalue from STAGING_MSC_PARAM where EVENTNAME = 'HAZMATPUSH' ";
+    };
+    CAPSSAPHazmatPush_FlatFile = {
+        FileName = "/msc/arb9r1/downstream/catdata/HAZ/data/MSC_HAZMAT_PUSH_SAP";
+        ScheduledTaskClassName = "config.java.schedule.sap.CAPSSAPHazmatPush_FlatFile";
+        queryST = "select paramvalue from STAGING_MSC_PARAM where EVENTNAME = 'HAZMATPUSH'";
+    };
+    
+    CATGenerateMonthlyChinaReports = {
+         ScheduledTaskClassName = "config.java.schedule.sap.CATGenerateMonthlyChinaReports";	
+    };
+    
+    CATActivateApprovalsOnStuckIR = {
+        ScheduledTaskClassName = "config.java.schedule.CatActivateApprovalsOnStuckIRs";
+    };
+    CATChainUserLoadSAP = {
+        ChainedScheduledTasks = (
+            SAP.Task.CatSAPUserLoad,
+            "SAP.IntegrationEvent.CATSAPInclusionsPull",
+            "SAP.IntegrationEvent.CATSAPExclusionsPull",
+            SAP.Task.CATSAPSupportUserConfigNew,
+            "SAP.IntegrationEvent.CATSAPSupportUserPull",
+            SAP.Task.CATSAPMissingSuperNew,
+            "SAP.IntegrationEvent.CATSAPMissingSupervisorPull",
+            "SAP.IntegrationEvent.CATSAPSupportUserDeletePull"
+        );
+        ContinueOnFailure = false;
+        ScheduledTaskClassName = ariba.app.server.ChainedScheduledTask;
+    };
+    CATClosePO = {
+        ScheduledTaskClassName = config.java.schedule.CATClosePO;
+    };
+/*
+    CATSAPCLIDBPush = {
+	ScheduledTaskClassName = "config.java.schedule.sap.CATSAPCLIDBPush";
+	queryST = "select paramvalue from STAGING_MSC_PARAM where EVENTNAME = 'CLIDBPUSH' ";
+	flatFilePathST1 = "/msc/arb9r1/downstream/catdata/CLI/data/MSC_SAP_CLIDBPOLineItem_PUSH";
+	flatFilePathST2 = "/msc/arb9r1/downstream/catdata/CLI/data/MSC_SAP_CLIDBPOSPLITACC_PUSH";
+	//Schedules = { Schedule1 = { DayOfWeek = Saturday; Hour = 11; Minute = 00;};};    	   
+    };
+*/
+    CATSAPDWInvoicePush_FlatFile = {
+        ScheduledTaskClassName = "config.java.schedule.sap.CATSAPDWInvoicePush_FlatFile";
+        flatFilePathST = "/msc/arb9r1/downstream/catdata/DW/MSC_DW_INVOICE_PUSH_SAP.txt";
+        queryST = "select paramvalue from STAGING_MSC_PARAM where EVENTNAME = 'DWInvoicePush' ";
+    };
+    CATSAPDWPOPush_FlatFile = {
+        ScheduledTaskClassName = "config.java.schedule.sap.CATSAPDWPOPush_FlatFile";
+        flatFilePathST = "/msc/arb9r1/downstream/catdata/DW/MSC_DW_PO_PUSH_SAP.txt";
+        queryST = "select paramvalue from STAGING_MSC_PARAM where EVENTNAME = 'DWPOPush' ";
+    };
+    CATSAPMissingSuperNew = {
+        MissingSupervisorFile = "config/variants/SAP/partitions/SAP/data/CATSAPMissingSuper.csv";
+        ScheduledTaskClassName = "config.java.schedule.sap.CATSAPMissingSuperNew";
+    };
+
+CATSAPSupplierPull = {
+            ChainedScheduledTasks = (
+                "SAP.IntegrationEvent.SAP_CSV_SupplierPull",
+                "SAP.IntegrationEvent.SAP_CSV_SupplierLocationPull",
+                 SAP.Task.CATSAPSupplierOrgIDUpdate
+                );
+            ContinueOnFailure = true;
+            ScheduledTaskClassName = ariba.app.server.ChainedScheduledTask;
+            Schedules = { Schedule1 = { Period = { Quantity = 20;  Unit = Minutes; }; }; };
+    };
+
+    CATSAPSupplierOrgIDUpdate = {
+        ScheduledTaskClassName = "config.java.schedule.sap.CATSAPSupplierPull";
+        queryST = "select paramvalue from STAGING_MSC_PARAM where EVENTNAME = 'CSORGIDFLAG'";
+    };
+
+    CATSAPSupportUserConfigNew = {
+        ScheduledTaskClassName = "config.java.schedule.sap.CATSAPSupportUserConfigNew";
+        SupportUserAddFile = "config/variants/SAP/partitions/SAP/data/CATSAPSupportUserAdd.csv";
+        SupportUserConfigFile = "config/variants/SAP/partitions/SAP/data/CATSAPSupportUserConfig.csv";
+        SupportUserDeleteFile = "config/variants/SAP/partitions/SAP/data/CATSAPSupportUserDelete.csv";
+    };
+    CXMLPaymentProposalLoader = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/CXMLPaymentProposalLoaderDescription";
+            Parameters = { ACL = None; Feature = ( AribaInvoice, AribaSettlement );};
+        };
+        MaxMessages = 10;
+        MaxRequests = 1;
+        MessageType = CopyRequest.PaymentProposalRequest;
+        ScheduledTaskClassName = "ariba.cxml.base.client.GetPendingServiceImpl";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 20; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    CXMLPaymentRemittanceLoader = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/CXMLPaymentRemittanceLoaderDescription";
+            Parameters = { ACL = None; Feature = ( AribaInvoice, AribaSettlement );};
+        };
+        MaxMessages = 10;
+        MaxRequests = 1;
+        ScheduledTaskClassName = "ariba.payment.cxml.CXMLPaymentRemittanceLoader";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 4; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    CatMigrateApprovablesChain = {
+        ChainedScheduledTasks = (
+            SAP.Task.CatMigrateApprovablesToNewUser,
+            "SAP.IntegrationEvent.CATMigrateApprovablesForUsersPull"
+        );
+        ContinueOnFailure = false;
+        ScheduledTaskClassName = ariba.app.server.ChainedScheduledTask;
+    };
+    CatMigrateApprovablesToNewUser = {
+        LogFile = "logs/changeuseronapp/CatUserChangeLog.txt";
+        ScheduledTaskClassName = "config.java.schedule.CATMigrateApprovable";
+    };
+    CatProcessStuckInvoices = {
+        ScheduledTaskClassName = "config.java.schedule.CatProcessStuckInvoices";
+    };
+    CatSAPUserLoad = {
+        ExclusionsFile = "config/variants/SAP/partitions/SAP/data/Exclusions.csv";
+        InclusionsFile = "config/variants/SAP/partitions/SAP/data/Inclusions.csv";
+        ScheduledTaskClassName = config.java.schedule.sap.CatSAPUserLoad;
+        UserConfigFile = "config/variants/SAP/partitions/SAP/data/UserLoadConfig.txt";
+    };
+    ChargeUpdateNotifier = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaTEBasic,
+                    AribaTEProfessional,
+                    CoreBuyer
+                );
+                Visible = true;
+            };
+        };
+        ChargeUpdateTimeout = 1;
+        ScheduledTaskClassName = ariba.charge.OverdueChargesNotifier;
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 1; Minute = 30;};};*/
+    };
+    ComputeConsecutiveOnSiteDays = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/ComputeConsecutiveOnSiteDaysTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/ComputeConsecutiveOnSiteDaysTaskDisplayName";
+        Reset = false;
+        ScheduledTaskClassName = "ariba.workforce.core.ComputeConsecutiveOnSiteDays";
+        /*Schedules = { Schedule1 = { DayOfWeek = Saturday; Hour = 3; Minute = 01;};};*/
+    };
+    ContractExpirationNotifier = {
+        ApplicationHints = {
+            Description = "@ariba.contract.core/ContractExpirationNotifierTaskDescription";
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaContractCompliance
+                );
+            };
+        };
+        DisplayName = "@ariba.contract.core/ContractExpirationNotifierTaskDisplayName";
+        ScheduledTaskClassName = "ariba.contract.ContractExpirationNotifier";
+    };
+    ContractMinimumCommitmentNotifier = {
+        ApplicationHints = {
+            Description = "@ariba.contract.core/ContractMinimumCommitmentNotifierTaskDescription";
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaContractCompliance
+                );
+            };
+        };
+        DisplayName = "@ariba.contract.core/ContractMinimumCommitmentNotifierTaskDisplayName";
+        ScheduledTaskClassName = "ariba.contract.ContractMinimumCommitmentNotifier";
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 0;};};*/
+    };
+    CorrectAccrualTransactionsAccumulators = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/CorrectAccrualTransactionsAccumulatorsDescription";
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        Rerunnable = true;
+        ScheduledTaskClassName = "ariba.invoicing.migrate.CorrectAccrualTransactionsAccumulators";
+    };
+    CorrectExpenseHeaderCategoryMaps = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = false;
+            };
+        };
+        ScheduledTaskClassName = "ariba.expense.server.CorrectEHCMtoETMapping";
+    };
+    CreateInvoicesForTimeSheets = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/CreateInvoicesForTimeSheetsTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/CreateInvoicesForTimeSheetsTaskDisplayName";
+        PreparerPasswordAdapter = "Application.Base.Data.AribaSystemUserPasswordAdapter";
+        PreparerUniqueName = Application.Base.Data.AribaSystemUser;
+        ScheduledTaskClassName = "ariba.workforce.core.CreateInvoicesForTimeSheets";
+        /*Schedules = { Schedule1 = { DayOfMonth = 1;};};*/
+        TimeSheetInvoicingGroupingLevel = Supplier;
+    };
+    CreateSummaryTables = {
+        ApplicationHints = {};
+        ScheduledTaskClassName = ariba.reporting.CreateSummaryTables;
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 0;};};*/
+    };
+    CreateSystemSavedSearches = {
+        SavedSearchesCSVFile = "./config/variants/SAP/partitions/SAP/data/PreloadedSavedSearches.csv";
+        ScheduledTaskClassName = "ariba.server.ormsserver.CreateSystemSavedSearchesTask";
+    };
+    Default = {
+        ApplicationHints = {
+            ApplicationHandler = "ariba.htmlui.admin.CustomerUserAdminFilter";
+            Parameters = { Permissions = ( ); Visible = true;};
+        };
+        StringTable = ariba.main.adminui;        
+        ExecutionNode = "buyerserverQA2";
+    };
+    DeferredTimeSheets = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/DeferredTimeSheetsTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/DeferredTimeSheetsTaskDisplayName";
+        ScheduledTaskClassName = "ariba.workforce.network.DeferredTimeSheets";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 1; Minute = 01;};};*/
+    };
+    DetailedGLPushPreparer = {
+        ApplicationHints = {
+            Description = "Checks for pending purchasing card order data that is ready to go to the G/L, writes that data to a staging table called GLData, and updates the purchase orders to indicate which charges have been pushed.This task is used by customers who have migrated to 9r1 and is not functional for customers who have new 9r1 installation.";
+            Parameters = { Visible = false;};
+        };
+        ColumnNames = "PCardOrder,CostCenter,AdjustmentType,MerchantId,MerchantName,AdapterSource,CardHolder,CardNumber";
+        Columns = "PCardOrder.OrderID,SplitAccounting.CostCenter.Name,LineItem.AdjustmentType.Name,Level2Charge.MerchantId,Level2Charge.MerchantName,Level2Charge.AdapterSource,PCard.CardHolder,PCard.CardNumber";
+        ScheduledTaskClassName = ariba.pcard.DetailedGLPushPreparer;
+    };
+    DisbursementCreator = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/DisbursementCreatorDescription";
+            Parameters = { ACL = None; Feature = ( AribaInvoice, AribaSettlement );};
+        };
+        ColumnNames = "PaymentTransactionId,PaymentDate,PaymentNumber,PaymentMethodType,SupplierName,SupplierBankName,SupplierBankID,SupplierBankIDType,SupplierBankAccountID,SupplierBankAccountType,SupplierBankInfoStreetAddress,SupplierBankInfoAddressCity,SupplierBankInfoAddressState,SupplierBankInfoAddressCountry,SupplierRemitToStreetAddress,SupplierRemitToAddressCity,SupplierRemitToAddressState,SupplierRemitToAddressCountry";
+        Columns = "UniqueName,PaymentDate,PaymentNumber,PaymentMethodType.UniqueName,SupplierLocation.Name,SupplierBankInfo.BankName,SupplierBankInfo.BankID,SupplierBankInfo.BankIDType.UniqueName,SupplierBankInfo.BankAccountID,SupplierBankInfo.BankAccountType.UniqueName,SupplierBankInfo.BankAddress.Lines,SupplierBankInfo.BankAddress.City,SupplierBankInfo.BankAddress.State,SupplierBankInfo.BankAddress.Country.UniqueName,SupplierRemitToAddress.Lines,SupplierRemitToAddress.City,SupplierRemitToAddress.State,SupplierRemitToAddress.Country.UniqueName";
+        ScheduledTaskClassName = ariba.payment.DisbursementCreator;
+        StringTable = ariba.payment.adminui;
+    };
+    EscalateApprovables = {
+        Condition = "Approvable.StatusString <> 'CollaborationFailed'";
+        EscalatePeriod = 4;
+        EscalateWarningPeriod = 2;
+        Exclusion1 = {
+            ApprovableTypes = ariba.purchasing.core.Requisition;
+            EscalatePeriod = 36501;
+            EscalateWarningPeriod = 36500;
+        };
+        Exclusion2 = {
+            ApprovableTypes = "ariba.invoicing.core.InvoiceReconciliation";
+            EscalatePeriod = 14;
+            EscalateWarningPeriod = 3;
+        };
+        ScheduledTaskClassName = "config.java.schedule.sap.CatSAPEscalateApprovables";
+    };
+    EscalateTravelAuthorizations = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+        EscalateBeforeMinutes = 480;
+        ScheduledTaskClassName = ariba.expense.server.EscalateTAs;
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Weekday;
+                Hour = 12;
+                Minute = 11;
+                Period = { Quantity = 720; Unit = Minutes;};
+            };
+        };*/
+        WarningBeforeMinutes = 960;
+    };
+    ExpenseReceiptImageNotifier = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+        ExpenseWithoutReceiptImageNotifyPeriod = 1;
+        ScheduledTaskClassName = "ariba.expense.server.ExpenseReceiptImageNotifier";
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 1; Minute = 30;};};*/
+    };
+    ExpenseReceiptsImageLoader = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+            };
+        };
+        IncomingFolder = "transactionData/image/incoming";
+        ProcessedFolder = "transactionData/image/processed";
+        ScheduledTaskClassName = "ariba.expense.server.ExpenseReceiptsImageLoader";
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 4; Minute = 48;};};*/
+    };
+    ExportExpenseGuidelineParams = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+        ExpenseGuidelinesTable = "./config/variants/SAP/partitions/SAP/data/ExpenseGuidelines.table";
+        ScheduledTaskClassName = "ariba.expense.server.ExportExpenseGuidelineParams";
+    };
+    FailedCollaborationRequests = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/FailedCollaborationRequestsTaskDescription";
+            Parameters = {
+                Feature = (
+                    AribaP2PProfessional,
+                    AribaProcurementContent,
+                    AribaCategoryProcurement
+                );
+            };
+        };
+        DisplayName = "@ariba.main.adminui/FailedCollaborationRequestsTaskDisplayName";
+        MaxNumberOfCollaborationRequests = 100;
+        ScheduledTaskClassName = "ariba.collaboration.core.network.FailedCollaborationRequests";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 2; Minute = 30;};};*/
+    };
+    FailedOrders = {
+        ScheduledTaskClassName = ariba.purchasing.ordering.FailedOrders;
+        /*Schedules = { Schedule1 = { Period = { Quantity = 6; Unit = Hours;};};};*/
+    };
+    FailedTimeSheets = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/FailedTimeSheetsTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/FailedTimeSheetsTaskDisplayName";
+        MaxNumberOfTimeSheets = 100;
+        RespectTimeSheetRoutingEnablement = true;
+        ScheduledTaskClassName = ariba.workforce.network.FailedTimeSheets;
+    };
+    FailedTravelAuthorizationOrders = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+
+            };
+        };
+        ScheduledTaskClassName = ariba.expense.server.FailedTAOs;
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Everyday;
+                Hour = 4;
+                Minute = 49;
+                Period = { Quantity = 360; Unit = Minutes;};
+            };
+        };*/
+    };
+    ForceProcessPCR = {
+        ApplicationHints = {
+            Description = "Forces the submission/approval of PCRs which are pending to be submitted/approved.This task is used by customers who have migrated to 9r1 and is not functional for customers who have new 9r1 installation.";
+            Parameters = { Visible = false;};
+        };
+    };
+    ForceReconcilePCCR = {
+        ApprovalTimeout = 0;
+        ReconcileTimeout = 0;
+        ScheduledTaskClassName = ariba.charge.core.ForceReconcilePCCR;
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 2;};};*/
+    };
+    ImportContracts = {
+        Adapter = ContractRequestPull;
+        ApplicationHints = {
+            Description = "@ariba.contract.core/ImportContractsTaskDescription";
+            Parameters = { Feature = ( AribaContractCompliance );};
+        };
+        DisplayName = "@ariba.contract.core/ImportContractsTaskDisplayName";
+        FailedToProcessFolder = "transactionData/excelimport/errors";
+        IncomingFolder = "transactionData/excelimport/incoming";
+        ProcessedFolder = "transactionData/excelimport/processed";
+        ScheduledTaskClassName = ariba.contract.ContractsImportLoader;
+    };
+    IncrementalRemittanceImport = {
+        DefaultStartDate = 20080901000000;
+        Event = RemittanceImport;
+        LoggingName = IncrementalRemittanceImport;
+        Partition = SAP;
+        ScheduledTaskClassName = "ariba.integration.core.IncrementalIntegrationEventTask";
+        Variant = SAP;
+    };
+    InvoicingBatchWorkTask = {
+        ApplicationHints = {
+            Parameters = {
+                ACL = None;
+                Advanced = true;
+                Feature = ( AribaInvoice );
+                Visible = true;
+            };
+        };
+        ScheduledTaskClassName = ariba.invoicing.InvoicingBatchTask;
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Everyday;
+                Period = { Quantity = 5; Unit = Minutes;};
+            };
+        };*/
+    };
+    LoadExpenseGuidelineParams = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+        ExpenseGuidelinesTable = "./config/variants/SAP/partitions/SAP/data/ExpenseGuidelines.table";
+        ScheduledTaskClassName = "ariba.expense.server.LoadExpenseGuidelineParams";
+    };
+    LoadLaborComplianceRules = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/LoadLaborComplianceRulesTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/LoadLaborComplianceRulesTaskDisplayName";
+        ScheduledTaskClassName = "ariba.workforce.core.LoadLaborComplianceRules";
+    };
+    LoadedChargeProcessor = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaTEBasic,
+                    AribaTEProfessional,
+                    CoreBuyer
+                );
+                Visible = true;
+            };
+        };
+        ScheduledTaskClassName = ariba.charge.ChargeProcessScheduledTask;
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 2; Minute = 0;};};*/
+    };
+    MigrateL2Charge = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaTEBasic,
+                    AribaTEProfessional,
+                    CoreBuyer
+                );
+                Visible = false;
+            };
+        };
+        ChargeMigrationPeriodInMonth = 0;
+        ScheduledTaskClassName = ariba.expense.server.ChargeMigrator;
+    };
+    MigrateVATCodeAndRateData = {
+        ApplicationHints = { Parameters = { Visible = false;};};
+        ScheduledTaskClassName = "ariba.expense.server.VATCodeAndRateDataMigrator";
+    };
+    MilestoneNotifier = {
+        ScheduledTaskClassName = ariba.receiving.MilestoneNotifier;
+    };
+    MonitorLongRunningTasks = {
+        ScheduledTaskClassName = "ariba.server.ormsserver.LongRunningScheduledTaskMonitorTask";
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Weekday;
+                Hour = 12;
+                Minute = 20;
+                Period = { Quantity = 60; Unit = Minutes;};
+            };
+        };*/
+    };
+    NewChargesNotifier = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaTEBasic,
+                    AribaTEProfessional,
+                    CoreBuyer
+                );
+                Visible = true;
+            };
+        };
+    };
+    OverdueChargesNotifier = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaTEBasic,
+                    AribaTEProfessional,
+                    CoreBuyer
+                );
+                Visible = true;
+            };
+        };
+        NotificationOnAllOverdueCharges = false;
+    };
+    OverdueExpenseReceiptNotifier = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+    };
+    PaymentAggregator = {
+        AggregationFieldsGroup = PaymentAggregationGroup;
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/PaymentAggregatorDescription";
+            Parameters = { ACL = None; Feature = ( AribaInvoice, AribaSettlement );};
+        };
+        PaymentAggregatorClass = ariba.payment.AribaPaymentAggregator;
+        ScheduledTaskClassName = ariba.payment.AggregatePaymentsTask;
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 3; Minute = 30;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    PostProcessSettlementEnablement = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/PostProcessSettlementEnablementDescription";
+            Parameters = {
+                ACL = None;
+                Advanced = true;
+                Feature = ( AribaInvoice, AribaSettlement );
+            };
+        };
+        ScheduledTaskClassName = "ariba.payment.PostProcessSettlementEnablement";
+        StringTable = ariba.payment.adminui;
+        TargetPaymentModel = ExternalPay;
+    };
+    ProcessAutoReceipts = {
+        DelayPeriod = 0;
+        Force = true;
+        ScheduledTaskClassName = ariba.receiving.ProcessAutoReceipts;
+        Schedules = { Schedule1 = { DayOfWeek = Everyday; Period = { Quantity = 2; Unit = Hours;};};};
+    };
+    ProcessContractorCreation = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/ProcessContractorCreationTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/ProcessContractorCreationTaskDisplayName";
+        ScheduledTaskClassName = "ariba.workforce.core.ProcessContractorCreation";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 1; Minute = 01;};};*/
+    };
+    ProcessERPHeaderStatusPull = {
+        QueryPeriod = 30;
+        ScheduledTaskClassName = "ariba.purchasing.ordering.ProcessERPHeaderStatusPull";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 1;};};*/
+    };
+    ProcessHeldApprovables = {
+        ScheduledTaskClassName = ariba.purchasing.ProcessHeldApprovables;
+    };
+    ProcessPaidPaymentTransactions = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/ProcessPaidPaymentTransactionsDescription";
+            Parameters = { ACL = None; Feature = ( AribaSettlement );};
+        };
+        ScheduledTaskClassName = "ariba.payment.ProcessPaidPaymentTransactions";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 4; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    ProcessPendingOrdersWithURLSendMethod = {
+        OrderingMethod = URL;
+        ScheduledTaskClassName = "ariba.purchasing.ordering.ProcessStuckOrderRecipients";
+    };
+    ProcessPendingPaymentRequests = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/ProcessPendingPaymentRequestsDescription";
+            Parameters = { ACL = None; Feature = ( AribaSettlement );};
+        };
+        ScheduledTaskClassName = "ariba.payment.ProcessPendingPaymentRequests";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 3; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    ProcessPendingReceipts = {
+        ReasonableWorkingDaysInPending = 1;
+        ScheduledTaskClassName = ariba.receiving.ProcessPendingReceipts;
+    };
+    ProcessReceipts = {
+        ProcessPeriod = 0;
+        ScheduledTaskClassName = ariba.receiving.ProcessReceipts;
+    };
+    ProcessSkippedPaymentRequests = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/ProcessSkippedPaymentRequests";
+            Parameters = { Feature = ( AribaSettlement ); Visible = true;};
+        };
+        ScheduledTaskClassName = "ariba.payment.ProcessSkippedPaymentRequests";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 5; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    ProcessStuckERPOrders = {
+        OrderMethod = ariba.sap.server.SAPPOERP;
+        ProcessPeriodInDays = 5;
+        ScheduledTaskClassName = "ariba.purchasing.ordering.ProcessStuckOrderRecipients";
+    };
+    ProcessStuckInvoicesScheduledTask = { ScheduledTaskClassName = ariba.invoicing.ProcessStuckInvoices;};
+    ProcessStuckPaymentRequests = {
+        ApplicationHints = {
+            Feature = ( AribaInvoice );
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        ReasonableWorkingDaysInPending = 30;
+        ScheduledTaskClassName = "ariba.payment.ProcessStuckPaymentRequests";
+        StringTable = ariba.invoicing.adminui;
+    };
+    RecomputeConsecutiveOnSiteDays = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/RecomputeConsecutiveOnSiteDaysTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/RecomputeConsecutiveOnSiteDaysTaskDisplayName";
+        Reset = true;
+        ScheduledTaskClassName = "ariba.workforce.core.ComputeConsecutiveOnSiteDays";
+    };
+    RemoveOutdatedIR = { ScheduledTaskClassName = ariba.approvable.server.RemoveOutdatedIR;};
+    ResendFailedContractRecipients = {
+        ApplicationHints = {
+            Description = "@ariba.contract.core/ResendFailedContractRecipientsTaskDescription";
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaContractCompliance
+                );
+            };
+        };
+        DisplayName = "@ariba.contract.core/ResendFailedContractRecipientsTaskDisplayName";
+        RecipientClassName = ariba.contract.core.ContractRecipient;
+        ScheduledTaskClassName = "ariba.approvable.core.ResendFailedRecipients";
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 0;};};*/
+    };
+    ResendFailedExpenseRecipients = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+        RecipientClassName = ariba.expense.core.ExpenseRecipient;
+        ScheduledTaskClassName = "ariba.approvable.core.ResendFailedRecipients";
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 0;};};*/
+    };
+    ResendFailedPaymentRequests = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/ResendFailedPaymentRequestsDescription";
+            Parameters = { ACL = None; Advanced = true; Feature = ( AribaSettlement );};
+        };
+        ScheduledTaskClassName = "ariba.payment.ResendFailedPaymentRequests";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 2; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    ResendFailedPaymentTransactions = {
+        ApplicationHints = {
+            Description = "@ariba.payment.adminui/ResendFailedPaymentTransactionsDescription";
+            Parameters = { ACL = None; Advanced = true; Feature = ( AribaSettlement );};
+        };
+        ScheduledTaskClassName = "ariba.payment.ResendFailedPaymentTransactions";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 2; Minute = 00;};};*/
+        StringTable = ariba.payment.adminui;
+    };
+    ResetBackGenerateAccrualTransactions = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/ResetBackGenerateAccrualTransactionsDescription";
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        ScheduledTaskClassName = "ariba.invoicing.migrate.BackGenerateAccrualTransactions";
+    };
+    ResetBackGenerateEncumbranceTransactions = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/ResetBackGenerateEncumbranceTransactionsDescription";
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        ScheduledTaskClassName = "ariba.invoicing.migrate.BackGenerateEncumbranceTransactions";
+    };
+    ResetBackPopulateProcurementUnits = {
+        ScheduledTaskClassName = "ariba.server.ormsserver.BackPopulateProcurementUnits";
+    };
+    "ResetCorrectAccrualTransactionsAccumulators" = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/ResetCorrectAccrualTransactionsAccumulatorsDescription";
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        ScheduledTaskClassName = "ariba.invoicing.migrate.CorrectAccrualTransactionsAccumulators";
+    };
+    RetryFailedCCInvoice = {
+        ApplicationHints = {
+            Description = "@ariba.invoicing.adminui/RetryFailedCCInvoiceDescription";
+            Parameters = { ACL = None; Advanced = true; Feature = ( AribaInvoice );};
+        };
+        ScheduledTaskClassName = ariba.invoicing.RetryFailedCCInvoice;
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Weekday;
+                Hour = 12;
+                Minute = 20;
+                Period = { Quantity = 60; Unit = Minutes;};
+            };
+        };*/
+        StringTable = ariba.invoicing.adminui;
+    };
+    RetryFailedCollaborationLaunch = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = (
+                    AribaP2PProfessional,
+                    AribaProcurementContent,
+                    AribaCategoryProcurement
+                );
+            };
+        };
+        Condition = "Approvable.StatusString = 'CollaborationFailed'";
+        EscalatePeriod = 2;
+        EscalateWarningPeriod = 0;
+        ScheduledTaskClassName = "ariba.approvable.server.EscalateApprovables";
+    };
+    RetryFailedInvoiceDurableEvents = {
+        ApplicationHints = {
+            Description = "@ariba.invoicing.adminui/RetryFailedInvoiceDurableEventsDescription";
+            Parameters = { ACL = None; Advanced = true; Feature = ( AribaInvoice );};
+        };
+        ScheduledTaskClassName = "ariba.invoicing.RetryFailedInvoiceDurableEvents";
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Weekday;
+                Hour = 12;
+                Minute = 20;
+                Period = { Quantity = 60; Unit = Minutes;};
+            };
+        };*/
+        StringTable = ariba.invoicing.adminui;
+    };
+    SAPSupplierBulkLoad = {
+        NoOfRec = 25;
+        ScheduledTaskClassName = "config.java.schedule.sap.SAPSupplierBulkLoad";
+        queryST = "select distinct SUPPLIERID,COMPANYCODE,PURCHASEORG,SAPSOURCE FROM ibm_sap_supplier_supplement WHERE ISNEW =2 order by SUPPLIERID";
+    };
+    SendSurveyNotification = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/SendSurveyNotificationTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/SendSurveyNotificationTaskDisplayName";
+        RecurrenceDays = 0;
+        ScheduledTaskClassName = "ariba.workforce.core.SendSurveyNotification";
+        /*Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 1; Minute = 03;};};*/
+    };
+    SettingDWFlag = { 
+    	ScheduledTaskClassName = config.java.schedule.sap.SettingDWFlag;
+    	//Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 00; Minute = 02;};};
+    };
+    StuckCollaborationRequests = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/StuckCollaborationRequestsTaskDescription";
+            Parameters = {
+                Feature = (
+                    AribaP2PProfessional,
+                    AribaProcurementContent,
+                    AribaCategoryProcurement
+                );
+            };
+        };
+        DisplayName = "@ariba.main.adminui/StuckCollaborationRequestsTaskDisplayName";
+        MaxDaysAllowedInSendingStatus = 1;
+        MaxNumberOfCollaborationRequests = 100;
+        ScheduledTaskClassName = "ariba.collaboration.core.network.StuckCollaborationRequests";
+        /*Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour = 2; Minute = 0;};};*/
+    };
+    StuckTimeSheets = {
+        ApplicationHints = {
+            Description = "@ariba.main.adminui/StuckTimeSheetsTaskDescription";
+            Parameters = { ACL = None; Feature = ( AribaCategoryProcurement );};
+        };
+        DisplayName = "@ariba.main.adminui/StuckTimeSheetsTaskDisplayName";
+        MaxDaysAllowedInSendingStatus = 1;
+        MaxNumberOfTimeSheets = 100;
+        RespectTimeSheetRoutingEnablement = true;
+        ScheduledTaskClassName = ariba.workforce.network.StuckTimeSheets;
+    };
+    /*TimeoutApprovables = {
+        ScheduledTaskClassName = "ariba.approvable.server.TimeoutApprovables";
+        TimeoutPeriod = 30;
+        TimeoutWarningPeriod = 24;
+    };*/
+    TimeoutApprovables = {
+        ScheduledTaskClassName = "ariba.approvable.server.TimeoutApprovables";
+        TimeoutPeriod = 40;
+        TimeoutWarningPeriod = 35;
+    };
+    UpdateContractStates = {
+        ApplicationHints = {
+            Description = "@ariba.contract.core/UpdateContractStatesTaskDescription";
+            Parameters = {
+                Feature = (
+                    AribaP2PBasic,
+                    AribaP2PProfessional,
+                    AribaContractCompliance
+                );
+            };
+        };
+        DisplayName = "@ariba.contract.core/UpdateContractStatesTaskDisplayName";
+        ScheduledTaskClassName = ariba.contract.UpdateContractStates;
+    };
+    UpdateTaxLineTypesOnIRsTask = {
+        ApplicationHints = {
+            Description = "@ariba.invoicing.adminui/UpdateTaxLineTypesOnIRsTaskDescription";
+            Feature = ( AribaInvoice );
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        LineTypeMap = {};
+        ScheduledTaskClassName = "ariba.invoicing.migrate.UpdateTaxLineTypesOnIRsTask";
+        StringTable = ariba.invoicing.adminui;
+    };
+    UpdateTaxOnIRsTask = {
+        ApplicationHints = {
+            Description = "@ariba.invoicing.adminui/UpdateTaxOnIRsTaskDescription";
+            Feature = ( AribaInvoice );
+            Parameters = { ACL = None; Advanced = true;};
+        };
+        BatchSize = 100;
+        FixTaxLineTypesUsingTaxDetailData = false;
+        ScheduledTaskClassName = "ariba.invoicing.migrate.UpdateTaxOnIRsTask";
+        StringTable = ariba.invoicing.adminui;
+    };
+    WarnForUnsubmittedTravelAuthorizations = {
+        ApplicationHints = {
+            Parameters = {
+                Feature = ( AribaTEBasic, AribaTEProfessional, AribaTravelExpense );
+                Visible = true;
+            };
+        };
+        ScheduledTaskClassName = "ariba.expense.server.WarnForNotSubmittedTAs";
+        /*Schedules = {
+            Schedule1 = {
+                DayOfWeek = Weekday;
+                Hour = 12;
+                Minute = 17;
+                Period = { Quantity = 60; Unit = Minutes;};
+            };
+        };*/
+        WarnAfterCreationMinutes = 20;
+    };
+    
+    CATBuyerCodePull = {
+	ApplicationHints = {   Description = "Import latest Buyer code from Gporg to SAP Partition";  };
+	DisplayName = "Import US BuyerCode from GpOrg";
+	Event = CATBuyerCodePull;
+	LoggingName = CATBuyerCodePull;
+	Partition = SAP;
+	ScheduledTaskClassName = "ariba.integration.core.IncrementalIntegrationEventTask";
+	Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 0;};};
+	Variant = SAP;
+    };
+    
+    CATMigrateLegacyClosedOrders = {
+         ApplicationHints = {Description = "Migrates orders closed using Close-Reopen eForm";};
+         DisplayName = "Migrate Legacy Closed Orders";
+         ScheduledTaskClassName = "config.java.schedule.migration.CATMigrateLegacyClosedOrders";
+         BatchSize = 100;
+         NoOfRecordsToProcess = 10000;         
+    };  
+    
+        CATGenerateMonthlyChinaReports = {
+            	ScheduledTaskClassName = "config.java.schedule.sap.CATGenerateMonthlyChinaReports";	
+                   /* Schedules = { Schedule1 = { DayOfWeek = Everyday; Hour =17 ; Minute =30 ;};};*/
+                    ExecutionNode = "buyerserverQA2";
+    };
+    // WI 323 Starts
+    CatExtendCloseOrderDate = {
+             ScheduledTaskClassName = "config.java.schedule.CatExtendCloseOrderDate";
+             Schedules = { Schedule1 = { DayOfWeek = Weekday; Hour = 00; Minute = 02;};}
+   };
+   //  WI 323 Ends
+  //SP22 Manual Changes Start
+  RequisitionReceivedDateMigratorTask = {
+       ApplicationHints = {
+           Description = "This will fetch all the fully received Requisitions existing
+           in the system having ReceivedDate as null, and populate the ReceivedDate of those
+           Requisitions with the last PO's ReceivedDate (i.e. the PO that was received before
+           the Requisition went to ReceivedState.)";
+           Parameters = { ACL = None; Advanced = true;};
+       };
+DisplayName = "Requisition Received Date Migrator Task";
+Rerunnable = true;
+MaxRunTimePerRun = 90;
+MaxRuns = 100;
+       ScheduledTaskClassName = "ariba.purchasing.server.RequisitionReceivedDateMigratorTask";
+   };
+   ResetRequisitionReceivedDateMigratorTask = {
+       ApplicationHints = {
+           Description = "Reset the status of Requisition Received Date Migrator Task";
+           Parameters = { ACL = None; Advanced = true;};
+       };
+DisplayName = "Reset Requisition Received Date Migrator Task";    
+       ScheduledTaskClassName="ariba.purchasing.server.RequisitionReceivedDateMigratorTask";
+   };
+BackgroundQueuedObjectProcessor = {
+   ScheduledTaskClassName = "ariba.server.ormsserver.BackgroundQueuedObjectProcessor";
+   Schedules = {
+       Schedule1 = {
+       DayOfWeek = Weekday;
+       Hour = 0;
+       };
+   };
+};
+//SP22 Manual Changes End 
+    
+}

@@ -1,0 +1,3866 @@
+{
+    Application = {
+        Approvable = {
+            AllowSplitAccounting = true;
+            AllowedAttachmentExtensions = (
+                txt,
+                csv,
+                xls,
+                xlsx,
+                doc,
+                docx,
+                dotx,
+                potx,
+                ppt,
+                pptx,
+                ppsx,
+                sldx,
+                xltx,
+                pdf,
+                ps,
+                rtf,
+                htm,
+                html,
+                pdf,
+                xml,
+                ppt,
+                jpeg,
+                jpg,
+                bmp,
+                gif,
+                zip,
+                rtf,
+                ps,
+                csv,
+                docx
+            );
+            ApprovablesAllowedForTerminatedUser = (
+                ariba.purchasing.core.ERPOrder,
+                ariba.purchasing.core.Requisition,
+                ariba.common.core.UserProfile,
+                ariba.purchasing.core.PurchaseOrder,
+                ariba.pcard.core.PCardOrder,
+                ariba.purchasing.core.DirectOrder,
+                ariba.receiving.core.Receipt,
+                ariba.receiving.core.ReceiptTracker
+            );
+            BackwardCompatibility = { ShowDoneApprovePage = true;};
+            MaxAccountingSplits = 99;
+            MaxAttachmentSize = 4096;
+            MaxUsersInApprovalNode = 500;
+            ViewableAttachmentExtensions = ( txt, htm, html, jpeg, jpg, bmp, gif );
+        };
+        Authentication = {
+            AllowNullPasswordWizardCredential = true;
+            ModifyUserProfileOnInitialLogon = false;
+            OrganicGrowth = false;
+            OrganicPasswordGrowthCredential = Supervisor.UniqueName;
+            PasswordAdapter = PasswordAdapter1;
+            ValidateUser = Force;
+        };
+        Base = {
+            AddressIdPrefix = AD;
+            ApprovableIdMethod = "";
+            CompanyHolidays = "Jan-1-2006:Jul-4-2006:Dec-25-2006";
+            Data = {
+                AribaGuestSystemUser = aribaguestsystem;
+                AribaGuestSystemUserPasswordAdapter = PasswordAdapter1;
+                AribaSystemUser = mscadmin;
+                AribaSystemUserPasswordAdapter = PasswordAdapter1;
+                DefaultBillToAddress = 15;
+                DefaultCurrency = USD;
+                DefaultLanguage = English;
+                DefaultOrganicUserLocale = en_US;
+                MLSEditLanguages = {};
+            };
+            DefaultLocale = en_US;
+            FiscalNewYear = "Sun Jan 01 00:00:00 CST 2006";
+            NotificationFromAddress = "My_Supply_Cabinet@cat.com";
+            NotificationFromNameKey = DefaultNotificationFromName;
+            PartitionLabel = "";
+            PunchOutEnabled = true;
+            SendWebJumperAsAttachment = false;
+            SkipWeekendsAndHolidays = true;
+            ValidateAccounting = false;
+        };
+        CategoryProcurement = {
+            AddCustomInvitedSupplierGroup = "";
+            AddCustomInvitedSupplierPermission = "";
+            AllowChangeSuppliersWhileCollaborating = false;
+            ChangeSuppliersWhileCollaboratingGroup = "";
+            "ChangeSuppliersWhileCollaboratingPermission" = "";
+            "CollaboratingSuppliersMustIncludeAllItems" = false;
+            DefaultValueQualifier = NotToExceed;
+            EndCollaborationGroup = "";
+            EndCollaborationPermission = "";
+            UsePermissions = false;
+        };
+        Caterpillar = {
+            Procure = {
+                AribaNetwork = { AddressToRemoveFromPO = "Ariba Supplier Network (ASN)";};
+            };
+        };
+        Charge = {
+            AdjustChargeAmountAgainstReceipt = false;
+            AutoAcceptAmount = 10;
+            AutoAcceptPercentage = 0.15;
+            ChargeReconciliationEngine = "ariba.charge.AribaChargeReconciliationEngine";
+            ChargeReconciliationMethod = "ariba.charge.AribaChargeReconciliationMethod";
+            DefaultTaxTypeName = sales;
+            Enabled = true;
+            PCCRDefaultLIDescription = "";
+            PaymentSendMethod = Silent;
+            ResetApprovalsOnReconcile = true;
+            SkipAmount = 5;
+        };
+        Eform = {
+            CustomEformNameTable = "ariba.approvable.core.nametable.EformNameTable";
+            EformRegistration = "";
+        };
+        Expense = {
+            ExpenseReportUploadModules = {
+                ariba_expense_core_ExpenseReport = {
+                    csv = ariba.expense.server.ERCSVUploadModule;
+                    table = "ariba.expense.core.ERHashtableUploadModule";
+                };
+                ariba_expense_core_TravelAuthorization = { table = "ariba.expense.core.TAHashtableUploadModule";};
+            };
+            TAChargeReconciliationEngine = "ariba.expense.core.TAChargeReconciliationEngine";
+            Tax = {
+                ExpenseTaxCodeBasedTaxServiceProvider = {
+                    JoinField = TaxCode;
+                    RankField = Rank;
+                    ServiceProvider = "ariba.expense.core.tax.ExpenseTaxCodeBasedTaxServiceProvider";
+                    TaxCodeLookupAccrualField = IsAccrual;
+                    TaxCodeLookupClass = "ariba.expense.core.tax.ExpenseTaxCodeLookup";
+                    TaxCodeLookupField = TaxCode;
+                    TaxCodeOutboundFieldsGroup = ExpenseTaxCodeLookupOutboundFieldsGroup;
+                    TaxRateLookupClass = "ariba.expense.core.tax.ExpenseTaxRateLookup_TaxCode";
+                    TaxRateLookupEffectiveDateField = EffectiveDate;
+                    TaxRateLookupField = TaxRate;
+                    TaxRateLookupTaxTypeField = TaxType;
+                    TaxRateOutboundFieldsGroup = "ExpenseTaxRateLookupOutboundFieldsGroup_TaxCode";
+                };
+            };
+        };
+        Invoicing = {
+            AllowReusingInvoiceNumber = ( Failed, Canceled );
+            AutoAcceptAmount = 10;
+            AutoAcceptPercentage = 0.15;
+            CXMLInvoiceCreator = "config.java.invoicing.CatCXMLInvoiceCreator";
+            DefaultTaxTypeName = sales;
+            DisableInvalidFieldCheckOnSubmit = false;
+            "DisableRereconciliationOfRelatedIRsForContract" = false;
+            "DisableRereconciliationOfRelatedIRsForOrder" = false;
+            EnableTaxesOnShippingAndHandlingItems = false;
+            Enabled = true;
+            IgnoreZeroHeaderTax = true;
+            IgnoreZeroLineHandling = false;
+            IgnoreZeroLineShipping = false;
+            InvoiceAutoReceivingEnabled = false;
+            InvoiceEntryAllowOverInvoicing = false;
+            InvoicePaymentMethod = ariba.payment.AribaInvoicePaymentMethod;
+            InvoiceReconciliationEngine = "config.java.invoicing.CatInvoiceReconciliationEngine";
+            InvoiceReconciliationMethod = "config.java.invoicing.CatInvoiceReconciliationMethod";
+            InvoiceRejectionMethod = "ariba.invoicing.AribaInvoiceRejectionMethod";
+            InvoiceStatusCommentFormatter = "ariba.invoicing.AribaInvoiceStatusCommentFormatter";
+            "MaxInvoiceLineItemNumberAllowedForValidation" = 5000;
+            MaximumInvoiceProcessDelays = 3;
+            "OffloadInvoiceProcessingOnReceivableChange" = false;
+            PayableERPErrorPullEvent = InvoiceERPErrorPull;
+            PayableERPInfoPullEvent = InvoiceERPInfoPull;
+            PayableERPStatusPullEvent = InvoiceERPStatusPull;
+            PayablePushEvent = PaymentPush;
+            PaymentSendMethod = Silent;
+            ProcessPaymentsForTaxAccrual = true;
+            RejectRequiresNoMoreApprovals = true;
+            ResetApprovalsOnReconcile = true;
+            ShippingCommodityCode = 7810;
+            SkipAmount = 5;
+            SpecialHandlingCommodityCode = 7812;
+            SupportCancelInvoices = true;
+            TaxAccrualExceptions = ( UnderTaxVariance, AccrualTaxVariance );
+            TaxIDDomains = ( vatID, gstID );
+            UseInvoiceDateAsCalendarDate = false;
+            UseInvoiceERPIntegration = true;
+            ValidateRemittanceLocation = false;
+        };
+        Mobile = {
+            AllowMobileInstall = false;
+            DataDownloadTimeout = 60;
+            JavaWebStartClassId = "clsid:5852F5ED-8BF4-11D4-A245-0080C6F74284";
+            JavaWebStartInstallURL = "http://java.sun.com/products/plugin/autodl/jinstall-1_4_2-windows-i586.cab";
+            MobilePermission = "";
+        };
+        Password = {
+            NewPasswordTokenLifeSpan = 720;
+            PasswordExpireLimit = -1;
+            PasswordExpireWarning = 14;
+            PasswordResetTokenLifeSpan = 720;
+            RestrictLastXPasswordsUsed = 3;
+        };
+        Procure = {
+            AllowAdHocCarbonCopyDirectOrders = true;
+            AllowChangeOnChargedRequisition = false;
+            AllowChangeRequisition = false;
+            AllowOrderChangeInInvoiced = false;
+            AllowOrderChangeInReceived = false;
+            AllowOrderChangeInReceiving = true;
+            AllowShippedOrderCancel = false;
+            AllowShippedOrderChange = false;
+            AllowShippingOrderCancel = false;
+            AllowShippingOrderChange = false;
+            AllowZeroItemPrice = true;
+            AmountVariance = 100.00;
+            AmountVarianceWithTaxes = 50.00;
+            AutoReceiveImportedReqs = false;
+            AutoReceiveLineItemAmount = "";
+            AutoReceiveOrderAmount = "";
+            AutoUpdateCurrencyConversionRate = true;
+            CanSendPCardOrderForNonCatalog = false;
+            CompanyName = Caterpillar;
+            "CorrectAccrualTransactionsAccumulatorsFromDate" = "";
+            "CorrectAccrualTransactionsAccumulatorsToDate" = "";
+            CustomCatalogImplementation = "";
+            DecimalMaxDigits = -1;
+            DefaultUnitOfMeasure = EA;
+            ERPPushFailNotificationPermission = PurchasingAgent;
+            EnableAccrualTransactionHistory = false;
+            EnableEncumbranceTransactionHistory = false;
+            LineItemPrintFontSize = 2;
+            OrderContractFile = "";
+            OverReceivingOperator = AND;
+            OverReceivingPercentage = 0;
+            OverReceivingQuantity = 0;
+            OverReceivingValue = 0;
+            PCardOrderMaxAmount = 1000;
+            PCardReconciliationOnReceived = true;
+            PaymentTermsDefaulter = ariba.payment.AribaPaymentTermsDefaulter;
+            PercentVariance = 10;
+            PercentVarianceWithTaxes = 5;
+            PunchOutSetupExtrinsicsClass = "";
+            PurchaseOrderCancelErrorPullEvent = PurchaseOrderCancelErrorPull;
+            PurchaseOrderCancelEvent = PurchaseOrderCancelPush;
+            PurchaseOrderCancelPullEvent = PurchaseOrderCancelPull;
+            PurchaseOrderCancelStatusPullEvent = PurchaseOrderCancelStatusPull;
+            PurchaseOrderChangeErrorPullEvent = PurchaseOrderChangeErrorPull;
+            PurchaseOrderChangeEvent = PurchaseOrderChangePush;
+            PurchaseOrderChangePullEvent = PurchaseOrderChangePull;
+            PurchaseOrderChangeStatusPullEvent = PurchaseOrderChangeStatusPull;
+            PurchaseOrderERPHeaderStatusPullEvent = PurchOrdHeaderStatusImport;
+            PurchaseOrderErrorPullEvent = PurchaseOrderErrorPull;
+            PurchaseOrderEvent = PurchaseOrderPush;
+            PurchaseOrderPullEvent = PurchaseOrderPull;
+            PurchaseOrderStatusPullEvent = PurchaseOrderStatusPull;
+            ReceiptByPartNumberFile = "";
+            ReceiptCreationMethods = "ariba.receiving.core.CreateSingleReceiptMethod";
+            ReceiptDataByPartitionedCommodityCode = false;
+            ReceiptPullEvent = ReceiptPull;
+            ReceiptPushErrorPullEvent = ReceiptErrorPull;
+            RecurringFeeItemCalendarBasedFlag = false;
+            RelaxDefaultOnRequesterChange = false;
+            SendNotificationsForReceiving = true;
+            SendPOInternalVersionToSupplier = false;
+            SubmitSupplierLocationCondition = "ariba.procure.core.condition.ValidSupplierLocation";
+            "SuppressOCASNNotificationsToRequestorPreparer" = false;
+            TextOrderWidth = 100;
+            UnderReceivingOperator = AND;
+            UnderReceivingPercentage = 5;
+            UnderReceivingQuantity = 2;
+            UnderReceivingValue = 100;
+            UseCancelOrderIntegration = false;
+            UseChangeOrderIntegration = false;
+            UseReqOrPOIntegration = true;
+            WholeNumberMaxDigits = -1;
+        };
+        Reports = { CSVReportsCharset = UTF-8; EnableUserCurrencyDisplay = false;};
+        SamlConfiguration = {
+            AddServiceProviderReturnURL = false;
+            BindingType = Post;
+            CorpAuthPrivateKey = "";
+            IdentityProviderPublicKey = "";
+            IdentityProviderURL = "";
+            TestResponse = false;
+        };
+        Tax = {
+            AribaTaxCodeBasedTaxServiceProvider = {
+                JoinField = TaxCode;
+                RankField = Rank;
+                ServiceProvider = "ariba.tax.AribaTaxCodeBasedTaxServiceProvider";
+                TaxCodeBasedRateLookupSupported = true;
+                TaxCodeLookupAccrualField = IsAccrual;
+                TaxCodeLookupClass = ariba.core.TaxCodeLookup;
+                TaxCodeLookupField = TaxCode;
+                TaxCodeOutboundFieldsGroup = TaxCodeLookupOutboundFieldsGroup;
+                TaxRateLookupClass = ariba.core.TaxRateLookup_TaxCode;
+                TaxRateLookupEffectiveDateField = EffectiveDate;
+                TaxRateLookupField = TaxRate;
+                TaxRateLookupTaxTypeField = TaxType;
+                TaxRateOutboundFieldsGroup = TaxRateLookupOutboundFieldsGroup_TaxCode;
+            };
+            AribaTaxServiceProvider = {
+                OutboundFieldsGroup = TaxRateLookupOutboundFieldsGroup;
+                RateLookupClass = ariba.core.TaxRateLookup;
+                RateLookupField = TaxRate;
+                RateOrderByField = Rank;
+                ServiceProvider = ariba.tax.AribaTaxServiceProvider;
+                TaxCodeBasedRateLookupSupported = false;
+            };
+            DefaultProvider = AribaTaxCodeBasedTaxServiceProvider;
+            Enabled = true;
+            TaxableAmountGetter = "";
+        };
+        UI = {
+            ApprovablesNotDisplayedInMyDocuments = (
+                ariba.common.core.SupplierProfileRequest,
+                ariba.receiving.core.Receipt,
+                ariba.receiving.core.MilestoneTracker,
+                ariba.contract.core.Contract,
+                "ariba.invoicing.core.InvoiceReconciliation",
+                ariba.payment.core.Payment,
+                ariba.payment.core.PaymentTransaction,
+                ariba.purchasing.core.PurchaseOrder,
+                ariba.purchasing.core.CopyOrder,
+                ariba.purchasing.core.DirectOrder,
+                ariba.purchasing.core.ERPOrder,
+                ariba.pcard.core.PCardOrder,
+                ariba.charge.core.ChargeReconciliation,
+                ariba.charge.core.Charge,
+                ariba.collaboration.core.Proposal,
+                ariba.collaboration.core.CounterProposal,
+                "ariba.collaboration.core.CollaborationRequest",
+                "ariba.expense.core.TravelAuthorizationOrder"
+            );
+            AutoRefreshInterval = 0;
+            CompanyNewsFile = companynews.html;
+            DisplayEuroSymbol = true;
+            EnableReceiving = true;
+            EnableReconciliation = false;
+            MaxRecentUserChoices = 5;
+            PortletExpirationTime = 20;
+            PortletIdPrefix = BuyerPortlet;
+            ShowInitialSearchResults = false;
+            UsabilitySurveyLink = "";
+        };
+        User = { CanSupplierSelfRegister = false;};
+        Workforce = {
+            AllowTimeSheetViolations = false;
+            BillRatePrecision = "";
+            ContractorCreationProcessor = "ariba.workforce.core.AribaContractorCreationProcessor";
+            ContractorEngine = "ariba.workforce.core.AribaContractorEngine";
+            DefaultContractorUserPasswordAdapter = "Application.Base.Data.AribaSystemUserPasswordAdapter";
+            DoNotAcceptCoemploymentRiskCandidate = false;
+            EndDayForWorkWeek = 6;
+            LaborComplianceEngine = "ariba.workforce.core.LaborComplianceEngineImpl";
+            MaxConsecutiveOnSiteDays = 180;
+            MinGoodSitDays = 30;
+            StartDayForWorkWeek = 2;
+            TimeSheetHourPrecision = 2;
+            TimeSheetRoutingEnabled = true;
+            UnapprovedTimeSheetForecastDays = 15;
+            UnapprovedTimeSheetRoutingDeferDays = 0;
+            UseBatchContractorCreation = false;
+        };
+    };
+    Partitions = {
+        LSAP = {
+            Application = {
+                Approvable = {
+                    Defaulting = {
+                        ProcurementUnit = {
+                            ariba.charge.core.Charge = (
+                                Order.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.charge.core.ChargeReconciliation = (
+                                Order.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser,
+                                Charge.ProcurementUnit
+                            );
+                            ariba.common.core.Accounting = (
+                                ProcurementUnit,
+                                CostCenter.ProcurementUnit,
+                                CostCenter.CompanyCode.ProcurementUnit
+                            );
+                            ariba.common.core.User = (
+                                Accounting.ProcurementUnit,
+                                PurchaseGroup.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Accounting.CostCenter.ProcurementUnit
+                            );
+                            ariba.contract.core.ContractRequest = (
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.expense.core.ExpenseLineItemCollection" = (
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.invoicing.core.Invoice = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.invoicing.core.InvoiceReconciliation" = (
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser,
+                                Invoice.ProcurementUnit
+                            );
+                            ariba.payment.core.Payment = ( InvoiceReconciliation.ProcurementUnit );
+                            ariba.purchasing.core.CopyOrder = (
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser,
+                                LineItems.Accountings.SplitAccountings,
+                                LineItems.Requester.PartitionedUser
+                            );
+                            ariba.purchasing.core.Requisition = (
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.receiving.core.MilestoneTracker = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                            ariba.receiving.core.Receipt = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                        };
+                    };
+                    OrganizationPartitioner = "ariba.common.core.OrganizationalPartitioner";
+                };
+                Base = {
+                    Data = {
+                        AribaSystemUser = mscadmin;
+                        DefaultBillToAddress = CGM_1100;
+                        DefaultCurrency = USD;
+                        ReportingCurrency = USD;
+                    };
+                    DefaultLocale = en_US;
+                    ScheduledTasksFile = "variants/SAP/partitions/LSAP/ScheduledTasks.table";
+                };
+                Catalog = {
+                    DefaultCatalogSortDirection = descending;
+                    DefaultCatalogSortField = Relevance;
+                };
+                Caterpillar = {
+                    Procure = {
+                        ApprovablesToEscalateOnEal = "ariba.purchasing.core.Requisition:ariba.receiving.core.Receipt:ariba.invoicing.core.InvoiceReconciliation";
+                        FaxDefaultLogFile = "/msc/arb9r1/downstream/Server/transactionData/orders/fax/wsfax/fax.log";
+                        FaxDefaultTempFile = "/msc/arb9r1/downstream/Server/transactionData/orders/fax/wsfax/temp.xml";
+                        MaxEscalationApprovalLevel = E7;
+                    };
+                };
+                Charge = {
+                    OverdueChargesWarningPeriod = 7;
+                    PaymentRequestSendMethods = MessagingQueue;
+                };
+                ClassificationCodes = {
+                    DecoratedDomainLookup = "ariba.purchasing.core.DecoratedClassificationDomainLookup";
+                };
+                Contract = {
+                    MasterAgreement = {
+                        ASNBPOForPrivateSupplier = true;
+                        AllowChange = true;
+                        AllowCollaborativeInvoicing = false;
+                        AlwaysRegenerateApprovalGraph = false;
+                        ApplySupAndCommTermsToNonCatalogItems = true;
+                        ContractSendMethodName = URL;
+                        CreateSubscriptionForNonCatalogItems = true;
+                        CumulativePricingState = Ordered;
+                        CustomMasterAgreementImplementation = "";
+                        EnableAutoSelect = true;
+                        MAReceivingTypeMethod = "ariba.contract.receiving.ContractReceivingTypeRule";
+                        ReleaseAvailableBalanceState = Ordered;
+                        UseMasterAgreementIdForPurchaseOrderId = false;
+                        WaitForMASubscriptionLoad = true;
+                    };
+                };
+                ElectronicOrder = {
+                    Defaults = {
+                        ElectronicOrderPasswordAdapter = PasswordAdapter1;
+                        "ElectronicOrderPreparerForIntegrationLoad" = dmarino;
+                        "ElectronicOrderRequesterForIntegrationLoad" = dmarino;
+                    };
+                    ElectronicOrderExtensionHook = "";
+                };
+                Expense = {
+                    AdjustPermissionStyle = AdjustExpenseReportNotAllowed;
+                    ChargeItemsRequireReceipts = false;
+                    DefaultExpenseType = Airfare;
+                    EnableFixErrorsViolations = true;
+                    EnableTravelAuthorization = true;
+                    ExpenseExcelTemplate = "./config/variants/SAP/partitions/LSAP/data/ExpenseTemplate.xls";
+                    ExpenseGuidelinesTable = "./config/variants/SAP/partitions/LSAP/data/ExpenseGuidelines.table";
+                    ExpenseSendMethod = MessagingQueue;
+                    ExpenseTypesNotBillable = ( Personal, HealthClub );
+                    ExpenseTypesRequireItemization = ( Hotel );
+                    ExpenseWithoutReceiptImageNotifyPeriod = 1;
+                    ExpenseWithoutReceiptNotifyPeriod = 14;
+                    ForceFullChargeItemization = false;
+                    GiftAndEntertainmentPolicyURL = "";
+                    HotelWizardExpenseTypes = (
+                        Breakfast,
+                        Lunch,
+                        Dinner,
+                        Parking,
+                        Telephone,
+                        Tips,
+                        Laundry
+                    );
+                    Imaging = {
+                        AllApproversViewReceipts = true;
+                        Enabled = false;
+                        ImagingProviderImplementorClass = "";
+                    };
+                    ItemizeExpenseTypes = ( Hotel );
+                    NotifyExpenseReceiptManagers = true;
+                    PassAuditRequiredBeforeProcessing = false;
+                    "PrepopulateExpenseFromTravelAuthorization" = true;
+                    ShowExpenseReportsForMaxDays = 30;
+                    ShowGroupByExpenseTypeInCart = false;
+                    ShowMyTripsForMaxDays = 30;
+                    ShowViolationForUnreconciledCharge = true;
+                    Tax = {
+                        CountriesRequireState = ( CA );
+                        Enabled = true;
+                        UseGrossAmounts = true;
+                        UseVATDefaults = false;
+                    };
+                    TravelBookingProvider = {
+                        AllowCancel = true;
+                        AllowChange = true;
+                        CustomerIdentity = "";
+                        Domain = bogus-duns;
+                        Identity = 165603902;
+                        PunchOutURL = "http://localhost:7778/ExpensePunchoutTest/aribaLiveSetup.htm";
+                        SendMethods = {
+                            URL = {
+                                Formatter = ariba.expense.ordering.TAOOrderFormatter;
+                                Sender = ariba.expense.ordering.TAOOrderSender;
+                            };
+                        };
+                    };
+                    UseBaseHotelRateForLimit = true;
+                    UseTravelAuthorization = true;
+                };
+                InterfaceTables = { ExternalConnection = Ariba;};
+                Invoicing = {
+                    AutoAcceptAmount = 0;
+                    AutoAcceptPercentage = 0.0;
+                    "DisableRereconciliationOfRelatedIRsForContract" = true;
+                    DisallowDispute = false;
+                    InvoicePaymentMethod = "config.java.invoicing.sap.SAPInvoicePaymentMethodPush";
+                    InvoiceReconciliationEngine = "config.java.invoicing.sap.CatSAPInvoiceReconciliationEngine";
+                    InvoiceReconciliationMethod = "config.java.invoicing.sap.CatSAPInvoiceReconciliationMethod";
+                    PaymentSendMethod = Silent;
+                    ProcessPaymentsForTaxAccrual = false;
+                    ResetApprovalsOnReconcile = false;
+                    SkipAmount = 0;
+                    ValidateRemittanceLocation = false;
+                };
+                Messaging = {
+                    Channels = {};
+                    EnableProcessPendingReceipts = true;
+                    MessageConfigurationFiles = {
+                        CXML = {
+                            LSAP = (
+                                "./config/variants/SAP/partitions/LSAP/cxml/MessageConfiguration.table"
+                            );
+                        };
+                        File = {
+                            LSAP = (
+                                "./config/variants/SAP/partitions/LSAP/file/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                    MessageDefinitionFiles = {
+                        SAP = (
+                            "./config/variants/SAP/messages/MessageDefinition.table"
+                        );
+                    };
+                };
+                Mobile = {
+                    MobileParametersTable = "config/variants/SAP/partitions/LSAP/data/MobileParameters.table";
+                };
+                Procure = {
+                    ASNOrderForPrivateSupplier = false;
+                    AllowAttributeSearching = false;
+                    AllowChangeRequisition = true;
+                    AssetDataByCommodityCodeFile = "./config/variants/SAP/partitions/LSAP/data/AssetDataByCommodityCode.csv";
+                    AssetDataMethod = ariba.receiving.AssetDataRule;
+                    AutoReceiveLineItemAmount = 25;
+                    AutoReceiveOrderAmount = 0;
+                    BlanketOrderMethods = ( ariba.sap.server.SAPPOERPCC );
+                    CustomCatalogImplementation = "config.java.catalog.sap.CatSAPCustomCatalogFilter";
+                    DecimalMaxDigits = 5;
+                    DefaultPaymentTerms = 0001;
+                    DefaultUnitOfMeasure = EA;
+                    OrderMethods = ( "config.java.ordering.CatSAPAllDirectOrder" );
+                    "OrderReceivedForInvoicingOnReceiptApproval" = false;
+                    OverReceivingOperator = OR;
+                    OverReceivingPercentage = 10;
+                    OverReceivingQuantity = 0;
+                    OverReceivingValue = 0;
+                    PCardReceivingTypeMethod = "ariba.pcard.receiving.PCardReceivingTypeRule";
+                    PaymentTermsDefaulter = "ariba.sap.common.SAPPaymentTermsDefaulter";
+                    PurchaseOrderCancelEvent = PurchaseOrderCancelExport;
+                    PurchaseOrderChangeEvent = PurchaseOrderChangeExport;
+                    PurchaseOrderEvent = PurchaseOrderExport;
+                    ReceiptDataByPartitionedCommodityCode = false;
+                    ReceiptSendMethod = Silent;
+                    ReceiptTrackerByCommodityCodeFile = "./config/variants/SAP/partitions/LSAP/data/ReceiptTrackerByCommodityCode.csv";
+                    ReceiptTrackerMethod = ariba.receiving.ReceiptTrackerRule;
+                    ReceivingTypeMethod = "config.java.receiving.CatSAPReceivingTypeRule";
+                    ShowcXMLAccountingFields = false;
+                    SubmitSupplierLocationValidator = "ariba.procure.core.validator.SupplierLocationValidator";
+                    UnderReceivingOperator = AND;
+                    UnderReceivingPercentage = 0;
+                    UnderReceivingQuantity = 0;
+                    UnderReceivingValue = 0;
+                    UseCancelOrderIntegration = true;
+                    UseChangeOrderIntegration = true;
+                    UseReceiptIntegration = true;
+                    UseReqOrPOIntegration = true;
+                    WholeNumberMaxDigits = 10;
+                };
+                Reports = {
+                    EnableEuroDualCurrencyDisplay = false;
+                    ReportsTotalCurrency = "";
+                };
+                Settlement = {
+                    DynamicDiscountsEnabled = false;
+                    Enabled = false;
+                    LocalPaymentModelSupported = true;
+                    PaymentDiscountSelectionPolicy = TakeDiscountMaximum;
+                    PaymentDiscountSelector = "ariba.payment.AribaPaymentDiscountSelector";
+                    PaymentModel = ExternalPay;
+                    PaymentRequestSendMethods = AribaNetwork;
+                    PaymentScheduler = ariba.payment.AribaPaymentScheduler;
+                    PaymentTermsEffectiveDateSkipDays = 0;
+                    PaymentTermsLineTypeCategories = ( 1 );
+                    PaymentTransactionSendMethods = AribaNetwork;
+                };
+                Tax = { Enabled = false;};
+                UI = {};
+                Workforce = {
+                    LaborComplianceExtensionFile = "./config/variants/SAP/partitions/LSAP/data/LaborComplianceExt.lcf";
+                };
+            };
+        };
+        None = {
+            Application = {
+                Approvable = {
+                    ApprovalRequestEscalateWarningPeriod = 0.0;
+                    ApprovalRequestEscalationPeriod = 0.0;
+                    EncryptAttachments = false;
+                    OrganizationPartitioningEnabled = false;
+                    ProcurementUnitPopulate = (
+                        ariba.purchasing.core.Requisition,
+                        ariba.purchasing.core.PurchaseOrder,
+                        ariba.receiving.core.Receipt,
+                        ariba.invoicing.core.Invoice,
+                        "ariba.invoicing.core.InvoiceReconciliation",
+                        ariba.payment.core.Payment,
+                        ariba.payment.core.PaymentTransaction,
+                        "ariba.expense.core.ExpenseLineItemCollection",
+                        "ariba.common.core.punchout.PunchOutLineItemCollection"
+                    );
+                };
+                Base = {
+                    Barcode = { AllowHumanReadable = false;};
+                    Data = { DefaultLanguage = English;};
+                    DefaultLocale = en_US;
+                    PreferredEmailFormat = HTML;
+                    ScheduledTasksFile = "variants/Plain/partitions/None/ScheduledTasks.table";
+                };
+                Caterpillar = { DisableIntegration = false;};
+                Messaging = {
+                    MessageConfigurationFiles = {
+                        CXML = {
+                            None = (
+                                "config/variants/Plain/partitions/None/cxml/MessageConfiguration.table",
+                                "./config/variants/Plain/partitions/None/cxml/MessageConfiguration.table"
+                            );
+                        };
+                        File = {
+                            None = (
+                                "config/variants/Plain/partitions/None/file/MessageConfiguration.table"
+                            );
+                        };
+                        HTTP = {
+                            None = (
+                                "config/variants/Plain/partitions/None/http/MessageConfiguration.table"
+                            );
+                        };
+                        WS = {
+                            None = (
+                                "config/variants/Plain/partitions/None/ws/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                    MessageDefinitionFiles = {
+                        Plain = (
+                            "./ariba/variants/Plain/messages/MessageDefinition.table",
+                            "./config/variants/Plain/messages/MessageDefinition.table"
+                        );
+                    };
+                };
+                PasswordAdapters = {
+                    PasswordAdapter1 = {
+                        AddDestinationURL = false;
+                        AddServiceProviderReturnURL = false;
+                        CertificateContent = "";
+                        CorpAuthEnabled = true;
+                        CorpAuthLogoutURL = "https://mysupplycabinet.cat.com/Buyer/logout.jsp";
+                        CorpAuthPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxB1lCnrgr/OvxiLoRq01WUQuaKODUsSw9EPLvxjwkOdD73ofJbBkMzcuXrxCu+cNHKK9y9ZT3P704YIzD3ZSZXr4JBhZ19Z+fSmIblqd7lREC+5/7aCQOx5VNlBvMLHVbAKNuqpMh8baTvaKcsAy2N35DlBBalBWpYaZZJU7bAvesPkh7A70pwG0VgUwNmNZyO/l88D3NZtTGUmtsDYvv/UM+JG4KmWYBShAH8wxSFzTOuDCZ/WP9UGVEdKz0+4JJHk1aE0Hlczgdgq+qtzgvVklsOEzEXVitjUrfnyTZZP66IFW6O1IOgJQURtlh4PX/AEFtDMN/75IekzVdcUfBQIDAQAB";
+                        CorpAuthType = 0;
+                        CorpAuthURL = "https://mysupplycabinet.cat.com/Buyer/sso";
+                        SendSAMLRequest = false;
+                    };
+                };
+            };
+        };
+        SAP = {
+            Application = {
+                Approvable = {
+                    Defaulting = {
+                        ProcurementUnit = {
+                            ariba.charge.core.Charge = (
+                                Order.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.charge.core.ChargeReconciliation = (
+                                Order.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser,
+                                Charge.ProcurementUnit
+                            );
+                            ariba.common.core.Accounting = (
+                                ProcurementUnit,
+                                CostCenter.ProcurementUnit,
+                                CostCenter.CompanyCode.ProcurementUnit
+                            );
+                            ariba.common.core.User = (
+                                Accounting.ProcurementUnit,
+                                PurchaseGroup.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Accounting.CostCenter.ProcurementUnit
+                            );
+                            ariba.contract.core.ContractRequest = (
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.expense.core.ExpenseLineItemCollection" = (
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.invoicing.core.Invoice = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit,
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.invoicing.core.InvoiceReconciliation" = (
+                                PurchaseOrg.ProcurementUnit,
+                                PurchaseOrg.CompanyCode.ProcurementUnit,
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser,
+                                Invoice.ProcurementUnit
+                            );
+                            ariba.payment.core.Payment = ( InvoiceReconciliation.ProcurementUnit );
+                            ariba.purchasing.core.CopyOrder = (
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser,
+                                LineItems.Accountings.SplitAccountings,
+                                LineItems.Requester.PartitionedUser
+                            );
+                            ariba.purchasing.core.Requisition = (
+                                CompanyCode.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.receiving.core.MilestoneTracker = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                            ariba.receiving.core.Receipt = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                        };
+                    };
+                    OrganizationPartitioner = "ariba.common.core.OrganizationalPartitioner";
+                };
+                Base = {
+                    Data = {
+                        AribaSystemUser = mscadmin;
+                        DefaultBillToAddress = 1885;
+                        DefaultCurrency = USD;
+                        ReportingCurrency = USD;
+                    };
+                    DefaultLocale = en_US;
+                    ScheduledTasksFile = "variants/SAP/partitions/SAP/ScheduledTasks.table";
+                };
+                Catalog = {
+                    DefaultCatalogSortDirection = descending;
+                    DefaultCatalogSortField = Relevance;
+                };
+                Caterpillar = {
+                    Procure = {
+                        ApprovablesToEscalateOnEal = "ariba.purchasing.core.Requisition:ariba.receiving.core.Receipt:ariba.invoicing.core.InvoiceReconciliation";
+                        FaxDefaultLogFile = "/msc/arb9r1/downstream/Server/transactionData/orders/fax/wsfax/fax.log";
+                        FaxDefaultTempFile = "/msc/arb9r1/downstream/Server/transactionData/orders/fax/wsfax/temp.xml";
+                        MaxEscalationApprovalLevel = E7;
+                    };
+                };
+                Charge = {
+                    OverdueChargesWarningPeriod = 7;
+                    PaymentRequestSendMethods = MessagingQueue;
+                };
+                ClassificationCodes = {
+                    DecoratedDomainLookup = "ariba.purchasing.core.DecoratedClassificationDomainLookup";
+                };
+                Contract = {
+                    MasterAgreement = {
+                        ASNBPOForPrivateSupplier = true;
+                        AllowChange = true;
+                        AllowCollaborativeInvoicing = false;
+                        AlwaysRegenerateApprovalGraph = false;
+                        ApplySupAndCommTermsToNonCatalogItems = true;
+                        ContractSendMethodName = URL;
+                        CreateSubscriptionForNonCatalogItems = true;
+                        CumulativePricingState = Ordered;
+                        CustomMasterAgreementImplementation = "";
+                        EnableAutoSelect = true;
+                        MAReceivingTypeMethod = "ariba.contract.receiving.ContractReceivingTypeRule";
+                        ReleaseAvailableBalanceState = Ordered;
+                        UseMasterAgreementIdForPurchaseOrderId = false;
+                        WaitForMASubscriptionLoad = true;
+                    };
+                };
+                ElectronicOrder = {
+                    Defaults = {
+                        ElectronicOrderPasswordAdapter = PasswordAdapter1;
+                        "ElectronicOrderPreparerForIntegrationLoad" = dmarino;
+                        "ElectronicOrderRequesterForIntegrationLoad" = dmarino;
+                    };
+                    ElectronicOrderExtensionHook = "";
+                };
+                Expense = {
+                    AdjustPermissionStyle = AdjustExpenseReportNotAllowed;
+                    ChargeItemsRequireReceipts = false;
+                    DefaultExpenseType = Airfare;
+                    EnableFixErrorsViolations = true;
+                    EnableTravelAuthorization = true;
+                    ExpenseExcelTemplate = "./config/variants/SAP/partitions/SAP/data/ExpenseTemplate.xls";
+                    ExpenseGuidelinesTable = "./config/variants/SAP/partitions/SAP/data/ExpenseGuidelines.table";
+                    ExpenseSendMethod = MessagingQueue;
+                    ExpenseTypesNotBillable = ( Personal, HealthClub );
+                    ExpenseTypesRequireItemization = ( Hotel );
+                    ExpenseWithoutReceiptImageNotifyPeriod = 1;
+                    ExpenseWithoutReceiptNotifyPeriod = 14;
+                    ForceFullChargeItemization = false;
+                    GiftAndEntertainmentPolicyURL = "";
+                    HotelWizardExpenseTypes = (
+                        Breakfast,
+                        Lunch,
+                        Dinner,
+                        Parking,
+                        Telephone,
+                        Tips,
+                        Laundry
+                    );
+                    Imaging = {
+                        AllApproversViewReceipts = true;
+                        Enabled = false;
+                        ImagingProviderImplementorClass = "";
+                    };
+                    ItemizeExpenseTypes = ( Hotel );
+                    NotifyExpenseReceiptManagers = true;
+                    PassAuditRequiredBeforeProcessing = false;
+                    "PrepopulateExpenseFromTravelAuthorization" = true;
+                    ShowExpenseReportsForMaxDays = 30;
+                    ShowGroupByExpenseTypeInCart = false;
+                    ShowMyTripsForMaxDays = 30;
+                    ShowViolationForUnreconciledCharge = true;
+                    Tax = {
+                        CountriesRequireState = ( CA );
+                        Enabled = true;
+                        UseGrossAmounts = true;
+                        UseVATDefaults = false;
+                    };
+                    TravelBookingProvider = {
+                        AllowCancel = true;
+                        AllowChange = true;
+                        CustomerIdentity = "";
+                        Domain = bogus-duns;
+                        Identity = 165603902;
+                        PunchOutURL = "http://localhost:7778/ExpensePunchoutTest/aribaLiveSetup.htm";
+                        SendMethods = {
+                            URL = {
+                                Formatter = ariba.expense.ordering.TAOOrderFormatter;
+                                Sender = ariba.expense.ordering.TAOOrderSender;
+                            };
+                        };
+                    };
+                    UseBaseHotelRateForLimit = true;
+                    UseTravelAuthorization = true;
+                };
+                InterfaceTables = { ExternalConnection = Ariba;};
+                Invoicing = {
+                    AutoAcceptAmount = 0;
+                    AutoAcceptPercentage = 0.0;
+                    "DisableRereconciliationOfRelatedIRsForContract" = true;
+                    DisallowDispute = false;
+                    InvoicePaymentMethod = "config.java.invoicing.sap.SAPInvoicePaymentMethodPush";
+                    InvoiceReconciliationEngine = "config.java.invoicing.sap.CatSAPInvoiceReconciliationEngine";
+                    InvoiceReconciliationMethod = "config.java.invoicing.sap.CatSAPInvoiceReconciliationMethod";
+                    PaymentSendMethod = Silent;
+                    ProcessPaymentsForTaxAccrual = false;
+                    ResetApprovalsOnReconcile = false;
+                    SkipAmount = 0;
+                    ValidateRemittanceLocation = false;
+                };
+                Messaging = {
+                    Channels = {};
+                    EnableProcessPendingReceipts = true;
+                    MessageConfigurationFiles = {
+                        CXML = {
+                            SAP = (
+                                "./config/variants/SAP/partitions/SAP/cxml/MessageConfiguration.table"
+                            );
+                        };
+                        File = {
+                            SAP = (
+                                "./config/variants/SAP/partitions/SAP/file/MessageConfiguration.table"
+                            );
+                        };
+                        WS = {
+                            SAP = (
+                                "./config/variants/SAP/partitions/SAP/ws/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                    MessageDefinitionFiles = {
+                        SAP = (
+                            "./config/variants/SAP/messages/MessageDefinition.table"
+                        );
+                    };
+                };
+                Mobile = {
+                    MobileParametersTable = "config/variants/SAP/partitions/SAP/data/MobileParameters.table";
+                };
+                Procure = {
+                    ASNOrderForPrivateSupplier = false;
+                    AllowAttributeSearching = false;
+                    AllowChangeRequisition = true;
+                    AssetDataByCommodityCodeFile = "./config/variants/SAP/partitions/SAP/data/AssetDataByCommodityCode.csv";
+                    AssetDataMethod = ariba.receiving.AssetDataRule;
+                    AutoReceiveLineItemAmount = 25;
+                    AutoReceiveOrderAmount = 0;
+                    BlanketOrderMethods = ( ariba.sap.server.SAPPOERPCC );
+                    CustomCatalogImplementation = "config.java.catalog.sap.CatSAPCustomCatalogFilter";
+                    DecimalMaxDigits = 5;
+                    DefaultPaymentTerms = 0001;
+                    DefaultUnitOfMeasure = EA;
+                    OrderMethods = ( "config.java.ordering.CatSAPAllDirectOrder" );
+                    "OrderReceivedForInvoicingOnReceiptApproval" = false;
+                    OverReceivingOperator = OR;
+                    OverReceivingPercentage = 10;
+                    OverReceivingQuantity = 0;
+                    OverReceivingValue = 0;
+                    PCardReceivingTypeMethod = "ariba.pcard.receiving.PCardReceivingTypeRule";
+                    PaymentTermsDefaulter = "ariba.sap.common.SAPPaymentTermsDefaulter";
+                    PurchaseOrderCancelEvent = PurchaseOrderCancelExport;
+                    PurchaseOrderChangeEvent = PurchaseOrderChangeExport;
+                    PurchaseOrderEvent = PurchaseOrderExport;
+                    ReceiptDataByPartitionedCommodityCode = false;
+                    ReceiptSendMethod = Silent;
+                    ReceiptTrackerByCommodityCodeFile = "./config/variants/SAP/partitions/SAP/data/ReceiptTrackerByCommodityCode.csv";
+                    ReceiptTrackerMethod = ariba.receiving.ReceiptTrackerRule;
+                    ReceivingTypeMethod = "config.java.receiving.CatSAPReceivingTypeRule";
+                    ShowcXMLAccountingFields = false;
+                    SubmitSupplierLocationValidator = "ariba.procure.core.validator.SupplierLocationValidator";
+                    UnderReceivingOperator = AND;
+                    UnderReceivingPercentage = 0;
+                    UnderReceivingQuantity = 0;
+                    UnderReceivingValue = 0;
+                    UseCancelOrderIntegration = true;
+                    UseChangeOrderIntegration = true;
+                    UseReceiptIntegration = true;
+                    UseReqOrPOIntegration = true;
+                    WholeNumberMaxDigits = 10;
+                };
+                Reports = {
+                    EnableEuroDualCurrencyDisplay = false;
+                    ReportsTotalCurrency = "";
+                };
+                Settlement = {
+                    DynamicDiscountsEnabled = false;
+                    Enabled = false;
+                    LocalPaymentModelSupported = true;
+                    PaymentDiscountSelectionPolicy = TakeDiscountMaximum;
+                    PaymentDiscountSelector = "ariba.payment.AribaPaymentDiscountSelector";
+                    PaymentModel = ExternalPay;
+                    PaymentRequestSendMethods = AribaNetwork;
+                    PaymentScheduler = ariba.payment.AribaPaymentScheduler;
+                    PaymentTermsEffectiveDateSkipDays = 0;
+                    PaymentTermsLineTypeCategories = ( 1 );
+                    PaymentTransactionSendMethods = AribaNetwork;
+                };
+                Tax = { Enabled = false;};
+                UI = {};
+                Workforce = {
+                    LaborComplianceExtensionFile = "./config/variants/SAP/partitions/SAP/data/LaborComplianceExt.lcf";
+                };
+            };
+        };
+        ezopen = {
+            Application = {
+                Approvable = {
+                    Defaulting = {
+                        ProcurementUnit = {
+                            ariba.charge.core.Charge = (
+                                Order.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.charge.core.ChargeReconciliation = (
+                                Order.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.common.core.Accounting = (
+                                ProcurementUnit,
+                                CostCenter.ProcurementUnit,
+                                Company.ProcurementUnit,
+                                Region.ProcurementUnit
+                            );
+                            ariba.common.core.User = (
+                                Accounting.ProcurementUnit,
+                                Accounting.CostCenter.ProcurementUnit,
+                                Accounting.Company.ProcurementUnit,
+                                Accounting.Region.ProcurementUnit
+                            );
+                            ariba.contract.core.ContractRequest = ( Requester.PartitionedUser );
+                            "ariba.expense.core.ExpenseLineItemCollection" = ( Requester.PartitionedUser );
+                            ariba.invoicing.core.Invoice = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.invoicing.core.InvoiceReconciliation" = ( Invoice.ProcurementUnit );
+                            ariba.payment.core.Payment = ( InvoiceReconciliation.ProcurementUnit );
+                            ariba.purchasing.core.CopyOrder = (
+                                Requester.PartitionedUser,
+                                LineItems.Accountings.SplitAccountings,
+                                LineItems.Requester.PartitionedUser
+                            );
+                            ariba.purchasing.core.Requisition = ( Requester.PartitionedUser );
+                            ariba.receiving.core.MilestoneTracker = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                            ariba.receiving.core.Receipt = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                        };
+                    };
+                    OrganizationPartitioner = "ariba.common.core.OrganizationalPartitioner";
+                };
+                Base = {
+                    Data = {
+                        AribaSystemUser = mscadmin;
+                        DefaultBillToAddress = 36_BillTo;
+                        DefaultCurrency = USD;
+                    };
+                    DefaultLocale = en_US;
+                    ScheduledTasksFile = "variants/vcsv3/partitions/ezopen/ScheduledTasks.table";
+                };
+                Catalog = {
+                    DefaultCatalogSortDirection = descending;
+                    DefaultCatalogSortField = Relevance;
+                };
+                Caterpillar = {
+                    Procure = {
+                        AllowChangeRequisition = true;
+                        ApprovablesToEscalateOnEal = "ariba.purchasing.core.Requisition:ariba.receiving.core.Receipt:ariba.invoicing.core.InvoiceReconciliation";
+                        ApprovalLimitsFile = "config/variants/vcsv3/data/CATApprovalLimits.csv";
+                        CompanyName = "";
+                        DefaultBuyerCode = 41EU;
+                        DepartmentForCapital = E0290;
+                        DepartmentPrefixesExemptFromApproval = X;
+                        DivisionForCapital = 036;
+                        EmergencyBuyLimit = 25000;
+                        ExpenseForCapital = 0000;
+                        MaxEscalationApprovalLevel = E7;
+                        NeedByAdder = 0;
+                    };
+                };
+                Charge = {
+                    OverdueChargesWarningPeriod = 7;
+                    PaymentRequestSendMethods = MessagingQueue;
+                };
+                ClassificationCodes = {
+                    DecoratedDomainLookup = "ariba.purchasing.core.DecoratedClassificationDomainLookup";
+                };
+                Contract = {
+                    MasterAgreement = {
+                        AllowChange = true;
+                        AllowCollaborativeInvoicing = false;
+                        AlwaysRegenerateApprovalGraph = false;
+                        ApplySupAndCommTermsToNonCatalogItems = true;
+                        ContractSendMethodName = URL;
+                        CreateSubscriptionForNonCatalogItems = true;
+                        CumulativePricingState = Ordered;
+                        CustomMasterAgreementImplementation = "";
+                        EnableAutoSelect = true;
+                        MAReceivingTypeMethod = "ariba.contract.receiving.ContractReceivingTypeRule";
+                        ReleaseAvailableBalanceState = Ordered;
+                        UseMasterAgreementIdForPurchaseOrderId = false;
+                        WaitForMASubscriptionLoad = true;
+                    };
+                };
+                ElectronicOrder = {
+                    Defaults = {
+                        ElectronicOrderPasswordAdapter = PasswordAdapter1;
+                        "ElectronicOrderPreparerForIntegrationLoad" = dmarino;
+                        "ElectronicOrderRequesterForIntegrationLoad" = dmarino;
+                    };
+                    ElectronicOrderExtensionHook = "";
+                };
+                Expense = {
+                    AdjustPermissionStyle = AdjustExpenseReportNotAllowed;
+                    ChargeItemsRequireReceipts = false;
+                    DefaultExpenseType = Airfare;
+                    EnableFixErrorsViolations = true;
+                    EnableTravelAuthorization = true;
+                    ExpenseExcelTemplate = "./config/variants/vcsv3/partitions/ezopen/data/ExpenseTemplate.xls";
+                    ExpenseGuidelinesTable = "./config/variants/vcsv3/partitions/ezopen/data/ExpenseGuidelines.table";
+                    ExpenseSendMethod = MessagingQueue;
+                    ExpenseTypesNotBillable = ( Personal, HealthClub );
+                    ExpenseTypesRequireItemization = ( Hotel );
+                    ExpenseWithoutReceiptImageNotifyPeriod = 1;
+                    ExpenseWithoutReceiptNotifyPeriod = 14;
+                    ForceFullChargeItemization = false;
+                    GiftAndEntertainmentPolicyURL = "";
+                    HotelWizardExpenseTypes = (
+                        Breakfast,
+                        Lunch,
+                        Dinner,
+                        Parking,
+                        Telephone,
+                        Tips,
+                        Laundry
+                    );
+                    Imaging = {
+                        AllApproversViewReceipts = true;
+                        Enabled = false;
+                        ImagingProviderImplementorClass = "";
+                    };
+                    ItemizeExpenseTypes = ( Hotel );
+                    NotifyExpenseReceiptManagers = true;
+                    PassAuditRequiredBeforeProcessing = false;
+                    "PrepopulateExpenseFromTravelAuthorization" = true;
+                    ShowExpenseReportsForMaxDays = 30;
+                    ShowGroupByExpenseTypeInCart = false;
+                    ShowMyTripsForMaxDays = 30;
+                    ShowViolationForUnreconciledCharge = true;
+                    Tax = {
+                        CountriesRequireState = ( CA );
+                        Enabled = true;
+                        UseGrossAmounts = true;
+                        UseVATDefaults = false;
+                    };
+                    TravelBookingProvider = {
+                        AllowCancel = true;
+                        AllowChange = true;
+                        CustomerIdentity = "";
+                        Domain = bogus-duns;
+                        Identity = 165603902;
+                        PunchOutURL = "http://localhost:7778/ExpensePunchoutTest/aribaLiveSetup.htm";
+                        SendMethods = {
+                            URL = {
+                                Formatter = ariba.expense.ordering.TAOOrderFormatter;
+                                Sender = ariba.expense.ordering.TAOOrderSender;
+                            };
+                        };
+                    };
+                    UseBaseHotelRateForLimit = true;
+                    UseTravelAuthorization = true;
+                };
+                Invoicing = {
+                    AutoAcceptAmount = 0;
+                    AutoAcceptPercentage = 0.0;
+                    DisallowDispute = false;
+                    InvoiceReconciliationEngine = "config.java.invoicing.vcsv3.CatEZOInvoiceReconciliationEngine";
+                    InvoiceReconciliationMethod = "config.java.invoicing.vcsv3.CatEZOInvoiceReconciliationMethod";
+                    ProcessPaymentsForTaxAccrual = false;
+                    SkipAmount = 0;
+                    ValidateRemittanceLocation = false;
+                };
+                Messaging = {
+                    MessageConfigurationFiles = {
+                        CXML = {
+                            ezopen = (
+                                "./config/variants/vcsv3/partitions/ezopen/cxml/MessageConfiguration.table"
+                            );
+                        };
+                        File = {
+                            ezopen = (
+                                "./config/variants/vcsv3/partitions/ezopen/file/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                    MessageDefinitionFiles = {
+                        vcsv3 = (
+                            "./config/variants/vcsv3/messages/MessageDefinition.table"
+                        );
+                    };
+                };
+                Mobile = {
+                    MobileParametersTable = "config/variants/vcsv3/partitions/ezopen/data/MobileParameters.table";
+                };
+                Procure = {
+                    ASNOrderForPrivateSupplier = false;
+                    AllowAttributeSearching = false;
+                    AllowChangeRequisition = true;
+                    AssetDataByCommodityCodeFile = "./config/variants/vcsv3/partitions/ezopen/data/AssetDataByCommodityCode.csv";
+                    AssetDataMethod = ariba.receiving.AssetDataRule;
+                    BlanketOrderMethods = ( ariba.purchasing.ordering.AllDirectOrder );
+                    CustomCatalogImplementation = "config.java.catalog.vcsv3.CatEZOAccessTypeCustomCatalog";
+                    DecimalMaxDigits = -1;
+                    DefaultPaymentTerms = 030;
+                    DefaultUnitOfMeasure = EA;
+                    OrderMethods = ( "config.java.ordering.vcsv3.CatEZOAllDirectOrder" );
+                    "OrderReceivedForInvoicingOnReceiptApproval" = false;
+                    OverReceivingOperator = AND;
+                    OverReceivingPercentage = 1000000;
+                    OverReceivingQuantity = 100000000;
+                    OverReceivingValue = 10000000000;
+                    PCardReceivingTypeMethod = "ariba.pcard.receiving.PCardReceivingTypeRule";
+                    ReceiptDataByPartitionedCommodityCode = false;
+                    ReceiptEvent = ReceiptPush;
+                    ReceiptSendMethod = Silent;
+                    ReceiptTrackerByCommodityCodeFile = "./config/variants/vcsv3/partitions/ezopen/data/ReceiptTrackerByCommodityCode.csv";
+                    ReceiptTrackerMethod = ariba.receiving.ReceiptTrackerRule;
+                    ReceivingTypeMethod = ariba.receiving.ReceivingTypeRule;
+                    ShowcXMLAccountingFields = false;
+                    SubmitSupplierLocationValidator = "ariba.procure.core.validator.SupplierLocationValidator";
+                    UnderReceivingOperator = AND;
+                    UnderReceivingPercentage = 0;
+                    UnderReceivingQuantity = 0;
+                    UnderReceivingValue = 100;
+                    UseCancelOrderIntegration = false;
+                    UseChangeOrderIntegration = false;
+                    UseReqOrPOIntegration = false;
+                    WholeNumberMaxDigits = -1;
+                };
+                Reports = {
+                    EnableEuroDualCurrencyDisplay = false;
+                    ReportsTotalCurrency = "";
+                };
+                Settlement = {
+                    DynamicDiscountsEnabled = false;
+                    Enabled = false;
+                    LocalPaymentModelSupported = true;
+                    PaymentDiscountSelectionPolicy = TakeDiscountMaximum;
+                    PaymentDiscountSelector = "ariba.payment.AribaPaymentDiscountSelector";
+                    PaymentModel = ExternalPay;
+                    PaymentRequestSendMethods = AribaNetwork;
+                    PaymentScheduler = ariba.payment.AribaPaymentScheduler;
+                    PaymentTermsEffectiveDateSkipDays = 0;
+                    PaymentTermsLineTypeCategories = ( 1 );
+                    PaymentTransactionSendMethods = AribaNetwork;
+                };
+                UI = {};
+                Workforce = {
+                    LaborComplianceExtensionFile = "./config/variants/vcsv3/partitions/ezopen/data/LaborComplianceExt.lcf";
+                };
+            };
+        };
+        mfg1 = {
+            Application = {
+                Approvable = {
+                    AllowSplitAccounting = false;
+                    Defaulting = {
+                        ProcurementUnit = {
+                            ariba.charge.core.Charge = (
+                                Order.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.charge.core.ChargeReconciliation = (
+                                Order.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.common.core.Accounting = (
+                                ProcurementUnit,
+                                CostCenter.ProcurementUnit,
+                                Company.ProcurementUnit,
+                                Region.ProcurementUnit
+                            );
+                            ariba.common.core.User = (
+                                Accounting.ProcurementUnit,
+                                Accounting.CostCenter.ProcurementUnit,
+                                Accounting.Company.ProcurementUnit,
+                                Accounting.Region.ProcurementUnit
+                            );
+                            ariba.contract.core.ContractRequest = ( Requester.PartitionedUser );
+                            "ariba.expense.core.ExpenseLineItemCollection" = ( Requester.PartitionedUser );
+                            ariba.invoicing.core.Invoice = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.invoicing.core.InvoiceReconciliation" = ( Invoice.ProcurementUnit );
+                            ariba.payment.core.Payment = ( InvoiceReconciliation.ProcurementUnit );
+                            ariba.purchasing.core.CopyOrder = (
+                                Requester.PartitionedUser,
+                                LineItems.Accountings.SplitAccountings,
+                                LineItems.Requester.PartitionedUser
+                            );
+                            ariba.purchasing.core.Requisition = ( Requester.PartitionedUser );
+                            ariba.receiving.core.MilestoneTracker = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                            ariba.receiving.core.Receipt = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                        };
+                    };
+                };
+                Base = {
+                    Data = {
+                        AribaSystemUser = mscadmin;
+                        DefaultBillToAddress = B1DX;
+                        DefaultCurrency = GBP;
+                        ReportingCurrency = GBP;
+                    };
+                    DefaultLocale = en_GB;
+                    ScheduledTasksFile = "variants/vcsv2/partitions/mfg1/ScheduledTasks.table";
+                    ValidateAccounting = false;
+                };
+                Catalog = {
+                    DefaultCatalogSortDirection = descending;
+                    DefaultCatalogSortField = Relevance;
+                };
+                Caterpillar = {
+                    Procure = {
+                        ApprovablesToEscalateOnEal = "ariba.purchasing.core.Requisition:ariba.receiving.core.Receipt:ariba.invoicing.core.InvoiceReconciliation";
+                        ApprovalLimitsFile = "config/variants/vcsv2/data/CATApprovalLimits.csv";
+                        DefaultTermsAndConditionsLocation = "config/attachments/TermsAndConditions";
+                        HazmatUOMFile = "config/variants/vcsv2/data/CATHazmatUnitOfMeasure.csv";
+                        MaxEscalationApprovalLevel = E7;
+                        NeedByAdder = 0;
+                    };
+                };
+                Charge = {
+                    OverdueChargesWarningPeriod = 7;
+                    PaymentRequestSendMethods = MessagingQueue;
+                };
+                ClassificationCodes = {
+                    DecoratedDomainLookup = "ariba.purchasing.core.DecoratedClassificationDomainLookup";
+                };
+                Contract = {
+                    MasterAgreement = {
+                        ASNBPOForPrivateSupplier = true;
+                        AllowChange = true;
+                        AllowCollaborativeInvoicing = false;
+                        AlwaysRegenerateApprovalGraph = false;
+                        ApplySupAndCommTermsToNonCatalogItems = true;
+                        ContractSendMethodName = URL;
+                        CreateSubscriptionForNonCatalogItems = true;
+                        CumulativePricingState = Ordered;
+                        CustomMasterAgreementImplementation = "";
+                        EnableAutoSelect = true;
+                        MAReceivingTypeMethod = "ariba.contract.receiving.ContractReceivingTypeRule";
+                        ReleaseAvailableBalanceState = Ordered;
+                        UseMasterAgreementIdForPurchaseOrderId = false;
+                        WaitForMASubscriptionLoad = true;
+                    };
+                };
+                ElectronicOrder = {
+                    Defaults = {
+                        ElectronicOrderPasswordAdapter = PasswordAdapter1;
+                        "ElectronicOrderPreparerForIntegrationLoad" = dmarino;
+                        "ElectronicOrderRequesterForIntegrationLoad" = dmarino;
+                    };
+                    ElectronicOrderExtensionHook = "";
+                };
+                Expense = {
+                    AdjustPermissionStyle = AdjustExpenseReportNotAllowed;
+                    ChargeItemsRequireReceipts = false;
+                    DefaultExpenseType = Airfare;
+                    EnableFixErrorsViolations = true;
+                    EnableTravelAuthorization = true;
+                    ExpenseExcelTemplate = "./config/variants/vcsv2/partitions/mfg1/data/ExpenseTemplate.xls";
+                    ExpenseGuidelinesTable = "./config/variants/vcsv2/partitions/mfg1/data/ExpenseGuidelines.table";
+                    ExpenseSendMethod = MessagingQueue;
+                    ExpenseTypesNotBillable = ( Personal, HealthClub );
+                    ExpenseTypesRequireItemization = ( Hotel );
+                    ExpenseWithoutReceiptImageNotifyPeriod = 1;
+                    ExpenseWithoutReceiptNotifyPeriod = 14;
+                    ForceFullChargeItemization = false;
+                    GiftAndEntertainmentPolicyURL = "";
+                    HotelWizardExpenseTypes = (
+                        Breakfast,
+                        Lunch,
+                        Dinner,
+                        Parking,
+                        Telephone,
+                        Tips,
+                        Laundry
+                    );
+                    Imaging = {
+                        AllApproversViewReceipts = true;
+                        Enabled = false;
+                        ImagingProviderImplementorClass = "";
+                    };
+                    ItemizeExpenseTypes = ( Hotel );
+                    NotifyExpenseReceiptManagers = true;
+                    PassAuditRequiredBeforeProcessing = false;
+                    "PrepopulateExpenseFromTravelAuthorization" = true;
+                    ShowExpenseReportsForMaxDays = 30;
+                    ShowGroupByExpenseTypeInCart = false;
+                    ShowMyTripsForMaxDays = 30;
+                    ShowViolationForUnreconciledCharge = true;
+                    Tax = {
+                        CountriesRequireState = ( CA );
+                        Enabled = true;
+                        UseGrossAmounts = true;
+                        UseVATDefaults = false;
+                    };
+                    TravelBookingProvider = {
+                        AllowCancel = true;
+                        AllowChange = true;
+                        CustomerIdentity = "";
+                        Domain = bogus-duns;
+                        Identity = 165603902;
+                        PunchOutURL = "http://localhost:7778/ExpensePunchoutTest/aribaLiveSetup.htm";
+                        SendMethods = {
+                            URL = {
+                                Formatter = ariba.expense.ordering.TAOOrderFormatter;
+                                Sender = ariba.expense.ordering.TAOOrderSender;
+                            };
+                        };
+                    };
+                    UseBaseHotelRateForLimit = true;
+                    UseTravelAuthorization = true;
+                };
+                Invoicing = {
+                    AutoAcceptAmount = 0;
+                    AutoAcceptPercentage = 0.0;
+                    DefaultTaxTypeName = vat;
+                    DisallowDispute = false;
+                    InvoiceReconciliationEngine = "config.java.invoicing.vcsv2.CatMFGInvoiceReconciliationEngine";
+                    ProcessPaymentsForTaxAccrual = false;
+                    SkipAmount = 0;
+                    ValidateRemittanceLocation = false;
+                };
+                Messaging = {
+                    MessageConfigurationFiles = {
+                        CXML = {
+                            mfg1 = (
+                                "./config/variants/vcsv2/partitions/mfg1/cxml/MessageConfiguration.table"
+                            );
+                        };
+                        File = {
+                            mfg1 = (
+                                "./config/variants/vcsv2/partitions/mfg1/file/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                    MessageDefinitionFiles = {
+                        vcsv2 = (
+                            "./config/variants/vcsv2/messages/MessageDefinition.table"
+                        );
+                    };
+                };
+                Mobile = {
+                    MobileParametersTable = "config/variants/vcsv2/partitions/mfg1/data/MobileParameters.table";
+                };
+                Procure = {
+                    ASNOrderForPrivateSupplier = false;
+                    AllowAttributeSearching = false;
+                    AllowChangeRequisition = true;
+                    AssetDataByCommodityCodeFile = "";
+                    AssetDataMethod = ariba.receiving.AssetDataRule;
+                    BlanketOrderMethods = ( ariba.purchasing.ordering.AllDirectOrder );
+                    CustomCatalogImplementation = "config.java.catalog.vcsv2.CatMFGCustomCatalog";
+                    DecimalMaxDigits = -1;
+                    DefaultPaymentTerms = E30;
+                    DefaultUnitOfMeasure = EA;
+                    OrderMethods = ( "config.java.ordering.vcsv2.CatMFGAllDirectOrder" );
+                    "OrderReceivedForInvoicingOnReceiptApproval" = false;
+                    PCardReceivingTypeMethod = "ariba.pcard.receiving.PCardReceivingTypeRule";
+                    ReceiptDataByPartitionedCommodityCode = false;
+                    ReceiptEvent = ReceiptPush;
+                    ReceiptSendMethod = Silent;
+                    ReceiptTrackerByCommodityCodeFile = "";
+                    ReceiptTrackerMethod = ariba.receiving.ReceiptTrackerRule;
+                    ReceivingTypeMethod = ariba.receiving.ReceivingTypeRule;
+                    ShowcXMLAccountingFields = false;
+                    SubmitSupplierLocationValidator = "ariba.procure.core.validator.SupplierLocationValidator";
+                    UnderReceivingOperator = AND;
+                    UnderReceivingPercentage = 0;
+                    UnderReceivingQuantity = 0;
+                    UnderReceivingValue = 0;
+                    UseCancelOrderIntegration = false;
+                    UseChangeOrderIntegration = false;
+                    UseReqOrPOIntegration = false;
+                    WholeNumberMaxDigits = -1;
+                };
+                Reports = {
+                    EnableEuroDualCurrencyDisplay = false;
+                    ReportsTotalCurrency = "";
+                };
+                Settlement = {
+                    DynamicDiscountsEnabled = false;
+                    Enabled = false;
+                    LocalPaymentModelSupported = true;
+                    PaymentDiscountSelectionPolicy = TakeDiscountMaximum;
+                    PaymentDiscountSelector = "ariba.payment.AribaPaymentDiscountSelector";
+                    PaymentModel = ExternalPay;
+                    PaymentRequestSendMethods = AribaNetwork;
+                    PaymentScheduler = ariba.payment.AribaPaymentScheduler;
+                    PaymentTermsEffectiveDateSkipDays = 0;
+                    PaymentTermsLineTypeCategories = ( 1 );
+                    PaymentTransactionSendMethods = AribaNetwork;
+                };
+                Tax = { Enabled = false;};
+                UI = { EnableReceiving = true;};
+                Workforce = {
+                    LaborComplianceExtensionFile = "./config/variants/vcsv2/partitions/mfg1/data/LaborComplianceExt.lcf";
+                };
+            };
+        };
+        pcsv1 = {
+            Application = {
+                Approvable = {
+                    Defaulting = {
+                        ProcurementUnit = {
+                            ariba.charge.core.Charge = (
+                                Order.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.charge.core.ChargeReconciliation = (
+                                Order.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            ariba.common.core.Accounting = (
+                                ProcurementUnit,
+                                CostCenter.ProcurementUnit,
+                                Company.ProcurementUnit,
+                                Region.ProcurementUnit
+                            );
+                            ariba.common.core.User = (
+                                Accounting.ProcurementUnit,
+                                Accounting.CostCenter.ProcurementUnit,
+                                Accounting.Company.ProcurementUnit,
+                                Accounting.Region.ProcurementUnit
+                            );
+                            ariba.contract.core.ContractRequest = ( Requester.PartitionedUser );
+                            "ariba.expense.core.ExpenseLineItemCollection" = ( Requester.PartitionedUser );
+                            ariba.invoicing.core.Invoice = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit,
+                                Requester.PartitionedUser
+                            );
+                            "ariba.invoicing.core.InvoiceReconciliation" = ( Invoice.ProcurementUnit );
+                            ariba.payment.core.Payment = ( InvoiceReconciliation.ProcurementUnit );
+                            ariba.purchasing.core.CopyOrder = (
+                                Requester.PartitionedUser,
+                                LineItems.Accountings.SplitAccountings,
+                                LineItems.Requester.PartitionedUser
+                            );
+                            ariba.purchasing.core.Requisition = ( Requester.PartitionedUser );
+                            ariba.receiving.core.MilestoneTracker = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                            ariba.receiving.core.Receipt = (
+                                Order.ProcurementUnit,
+                                MasterAgreement.ProcurementUnit
+                            );
+                        };
+                    };
+                    OrganizationPartitioner = "ariba.common.core.OrganizationalPartitioner";
+                };
+                Base = {
+                    ApprovableIdMethod = "config.java.ordering.CatApprovableIdMethod";
+                    Data = {
+                        AribaSystemUser = mscadmin;
+                        DefaultBillToAddress = 15;
+                        DefaultCurrency = USD;
+                    };
+                    DefaultLocale = en_US;
+                    ScheduledTasksFile = "variants/vcsv1/partitions/pcsv1/ScheduledTasks.table";
+                };
+                Catalog = {
+                    DefaultCatalogSortDirection = descending;
+                    DefaultCatalogSortField = Relevance;
+                };
+                Caterpillar = {
+                    Procure = {
+                        ApprovablesToEscalateOnEal = "ariba.purchasing.core.Requisition:ariba.receiving.core.Receipt:ariba.invoicing.core.InvoiceReconciliation";
+                        ApprovalLimitsFile = "config/variants/vcsv1/data/CATApprovalLimits.csv";
+                        DefaultSettlementCode = 01;
+                        DepartmentForCapital = E0290;
+                        DepartmentPrefixesExemptFromApproval = "X,D5189";
+                        FSURL = "http://globalsweb.ecorp.cat.com/fasd/ws/services/AccountValidationService";
+                        FilteredBuyerCodeFacilities = U9;
+                        MaxEscalationApprovalLevel = E7;
+                        NeedByAdder = 0;
+                    };
+                };
+                Charge = {
+                    OverdueChargesWarningPeriod = 7;
+                    PaymentRequestSendMethods = MessagingQueue;
+                };
+                ClassificationCodes = {
+                    DecoratedDomainLookup = "ariba.purchasing.core.DecoratedClassificationDomainLookup";
+                };
+                Contract = {
+                    MasterAgreement = {
+                        ASNBPOForPrivateSupplier = true;
+                        AllowChange = true;
+                        AllowCollaborativeInvoicing = false;
+                        AlwaysRegenerateApprovalGraph = false;
+                        ApplySupAndCommTermsToNonCatalogItems = true;
+                        ContractSendMethodName = URL;
+                        CreateSubscriptionForNonCatalogItems = true;
+                        CumulativePricingState = Ordered;
+                        CustomMasterAgreementImplementation = "";
+                        DefaultSettlementCode = 01;
+                        EnableAutoSelect = true;
+                        MAReceivingTypeMethod = "ariba.contract.receiving.ContractReceivingTypeRule";
+                        ReleaseAvailableBalanceState = Ordered;
+                        UseMasterAgreementIdForPurchaseOrderId = false;
+                        WaitForMASubscriptionLoad = true;
+                    };
+                };
+                ElectronicOrder = {
+                    Defaults = {
+                        ElectronicOrderPasswordAdapter = PasswordAdapter1;
+                        "ElectronicOrderPreparerForIntegrationLoad" = dmarino;
+                        "ElectronicOrderRequesterForIntegrationLoad" = dmarino;
+                    };
+                    ElectronicOrderExtensionHook = "";
+                };
+                Expense = {
+                    AdjustPermissionStyle = AdjustExpenseReportNotAllowed;
+                    ChargeItemsRequireReceipts = false;
+                    DefaultExpenseType = Airfare;
+                    EnableFixErrorsViolations = true;
+                    EnableTravelAuthorization = true;
+                    ExpenseExcelTemplate = "./config/variants/vcsv1/partitions/pcsv1/data/ExpenseTemplate.xls";
+                    ExpenseGuidelinesTable = "./config/variants/vcsv1/partitions/pcsv1/data/ExpenseGuidelines.table";
+                    ExpenseSendMethod = MessagingQueue;
+                    ExpenseTypesNotBillable = ( Personal, HealthClub );
+                    ExpenseTypesRequireItemization = ( Hotel );
+                    ExpenseWithoutReceiptImageNotifyPeriod = 1;
+                    ExpenseWithoutReceiptNotifyPeriod = 14;
+                    ForceFullChargeItemization = false;
+                    GiftAndEntertainmentPolicyURL = "";
+                    HotelWizardExpenseTypes = (
+                        Breakfast,
+                        Lunch,
+                        Dinner,
+                        Parking,
+                        Telephone,
+                        Tips,
+                        Laundry
+                    );
+                    Imaging = {
+                        AllApproversViewReceipts = true;
+                        Enabled = false;
+                        ImagingProviderImplementorClass = "";
+                    };
+                    ItemizeExpenseTypes = ( Hotel );
+                    NotifyExpenseReceiptManagers = true;
+                    PassAuditRequiredBeforeProcessing = false;
+                    "PrepopulateExpenseFromTravelAuthorization" = true;
+                    ShowExpenseReportsForMaxDays = 30;
+                    ShowGroupByExpenseTypeInCart = false;
+                    ShowMyTripsForMaxDays = 30;
+                    ShowViolationForUnreconciledCharge = true;
+                    Tax = {
+                        CountriesRequireState = ( CA );
+                        Enabled = true;
+                        UseGrossAmounts = true;
+                        UseVATDefaults = false;
+                    };
+                    TravelBookingProvider = {
+                        AllowCancel = true;
+                        AllowChange = true;
+                        CustomerIdentity = "";
+                        Domain = bogus-duns;
+                        Identity = 165603902;
+                        PunchOutURL = "http://localhost:7778/ExpensePunchoutTest/aribaLiveSetup.htm";
+                        SendMethods = {
+                            URL = {
+                                Formatter = ariba.expense.ordering.TAOOrderFormatter;
+                                Sender = ariba.expense.ordering.TAOOrderSender;
+                            };
+                        };
+                    };
+                    UseBaseHotelRateForLimit = true;
+                    UseTravelAuthorization = true;
+                };
+                Invoicing = {
+                    AutoAcceptAmount = 0;
+                    AutoAcceptPercentage = 0.0;
+                    DisallowDispute = false;
+                    InvoiceReconciliationEngine = "config.java.invoicing.vcsv1.CatCSVInvoiceReconciliationEngine";
+                    InvoiceReconciliationMethod = "config.java.invoicing.vcsv1.CatCSVInvoiceReconciliationMethod";
+                    ProcessPaymentsForTaxAccrual = false;
+                    SkipAmount = 0;
+                    ValidateRemittanceLocation = false;
+                };
+                Messaging = {
+                    MessageConfigurationFiles = {
+                        CXML = {
+                            pcsv1 = (
+                                "./config/variants/vcsv1/partitions/pcsv1/cxml/MessageConfiguration.table"
+                            );
+                        };
+                        File = {
+                            pcsv1 = (
+                                "./config/variants/vcsv1/partitions/pcsv1/file/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                    MessageDefinitionFiles = {
+                        vcsv1 = (
+                            "./config/variants/vcsv1/messages/MessageDefinition.table"
+                        );
+                    };
+                };
+                Mobile = {
+                    MobileParametersTable = "config/variants/vcsv1/partitions/pcsv1/data/MobileParameters.table";
+                };
+                Procure = {
+                    ASNOrderForPrivateSupplier = false;
+                    AllowAttributeSearching = false;
+                    AllowChangeRequisition = true;
+                    AssetDataByCommodityCodeFile = "";
+                    AssetDataMethod = ariba.receiving.AssetDataRule;
+                    AutoReceiveLineItemAmount = 500.00;
+                    AutoReceiveOrderAmount = "";
+                    BlanketOrderMethods = ( ariba.purchasing.ordering.AllDirectOrder );
+                    CompanyName = "Caterpillar Inc.";
+                    CustomCatalogImplementation = "config.java.catalog.vcsv1.CatCSVUserCustomCatalog";
+                    DecimalMaxDigits = -1;
+                    DefaultPaymentTerms = "";
+                    DefaultUnitOfMeasure = EA;
+                    OrderMethods = ( "config.java.ordering.vcsv1.CatCSVAllDirectOrder" );
+                    "OrderReceivedForInvoicingOnReceiptApproval" = false;
+                    OverReceivingOperator = OR;
+                    OverReceivingPercentage = 10000;
+                    OverReceivingQuantity = 100000;
+                    OverReceivingValue = 10000000;
+                    PCardReceivingTypeMethod = "config.java.receiving.CatNoReceiptTypeMethod";
+                    ReceiptDataByPartitionedCommodityCode = false;
+                    ReceiptEvent = ReceiptPush;
+                    ReceiptSendMethod = Silent;
+                    ReceiptTrackerByCommodityCodeFile = "";
+                    ReceiptTrackerMethod = ariba.receiving.ReceiptTrackerRule;
+                    ReceivingTypeMethod = "config.java.receiving.CatReceivingTypeRule";
+                    ShowcXMLAccountingFields = false;
+                    SubmitSupplierLocationValidator = "ariba.procure.core.validator.SupplierLocationValidator";
+                    UnderReceivingOperator = OR;
+                    UnderReceivingPercentage = 0;
+                    UnderReceivingQuantity = 0;
+                    UnderReceivingValue = 0;
+                    UseCancelOrderIntegration = false;
+                    UseChangeOrderIntegration = false;
+                    UseReqOrPOIntegration = false;
+                    WholeNumberMaxDigits = -1;
+                };
+                Reports = {
+                    EnableEuroDualCurrencyDisplay = false;
+                    ReportsTotalCurrency = "";
+                };
+                Settlement = {
+                    DynamicDiscountsEnabled = false;
+                    Enabled = false;
+                    LocalPaymentModelSupported = true;
+                    PaymentDiscountSelectionPolicy = TakeDiscountMaximum;
+                    PaymentDiscountSelector = "ariba.payment.AribaPaymentDiscountSelector";
+                    PaymentModel = ExternalPay;
+                    PaymentRequestSendMethods = AribaNetwork;
+                    PaymentScheduler = ariba.payment.AribaPaymentScheduler;
+                    PaymentTermsEffectiveDateSkipDays = 0;
+                    PaymentTermsLineTypeCategories = ( 1 );
+                    PaymentTransactionSendMethods = AribaNetwork;
+                };
+                UI = {};
+                Workforce = {
+                    LaborComplianceExtensionFile = "./config/variants/vcsv1/partitions/pcsv1/data/LaborComplianceExt.lcf";
+                };
+            };
+        };
+        supplierdirect = {
+            Application = {
+                Approvable = { OrganizationalVisibilityPartitioning = false;};
+                Base = {
+                    Data = {
+                        AribaSystemUser = mscadmin;
+                        DefaultBillToAddress = 15;
+                        DefaultCurrency = USD;
+                    };
+                    DefaultLocale = en_US;
+                    ScheduledTasksFile = "variants/Plain/partitions/supplierdirect/ScheduledTasks.table";
+                };
+                Catalog = {
+                    DefaultCatalogSortDirection = descending;
+                    DefaultCatalogSortField = Relevance;
+                };
+                Charge = {
+                    OverdueChargesWarningPeriod = 7;
+                    PaymentRequestSendMethods = MessagingQueue;
+                };
+                Contract = {
+                    MasterAgreement = {
+                        ASNBPOForPrivateSupplier = true;
+                        AllowChange = true;
+                        AllowCollaborativeInvoicing = false;
+                        AlwaysRegenerateApprovalGraph = false;
+                        ApplySupAndCommTermsToNonCatalogItems = true;
+                        ContractSendMethodName = URL;
+                        CreateSubscriptionForNonCatalogItems = true;
+                        CumulativePricingState = Ordered;
+                        CustomMasterAgreementImplementation = "";
+                        EnableAutoSelect = true;
+                        MAReceivingTypeMethod = "ariba.contract.receiving.ContractReceivingTypeRule";
+                        ReleaseAvailableBalanceState = Ordered;
+                        UseMasterAgreementIdForPurchaseOrderId = false;
+                        WaitForMASubscriptionLoad = true;
+                    };
+                };
+                Expense = {
+                    AdjustPermissionStyle = AdjustExpenseReportNotAllowed;
+                    ChargeItemsRequireReceipts = false;
+                    DefaultExpenseType = Airfare;
+                    EnableFixErrorsViolations = true;
+                    EnableTravelAuthorization = true;
+                    ExpenseExcelTemplate = "./config/variants/Plain/partitions/supplierdirect/data/ExpenseTemplate.xls";
+                    ExpenseGuidelinesTable = "./config/variants/Plain/partitions/supplierdirect/data/ExpenseGuidelines.table";
+                    ExpenseSendMethod = MessagingQueue;
+                    ExpenseTypesNotBillable = ( Personal, HealthClub );
+                    ExpenseTypesRequireItemization = ( Hotel );
+                    ExpenseWithoutReceiptImageNotifyPeriod = 1;
+                    ExpenseWithoutReceiptNotifyPeriod = 14;
+                    ForceFullChargeItemization = false;
+                    GiftAndEntertainmentPolicyURL = "";
+                    HotelWizardExpenseTypes = (
+                        Breakfast,
+                        Lunch,
+                        Dinner,
+                        Parking,
+                        Telephone,
+                        Tips,
+                        Laundry
+                    );
+                    Imaging = {
+                        AllApproversViewReceipts = true;
+                        Enabled = false;
+                        ImagingProviderImplementorClass = "";
+                    };
+                    ItemizeExpenseTypes = ( Hotel );
+                    NotifyExpenseReceiptManagers = true;
+                    PassAuditRequiredBeforeProcessing = false;
+                    "PrepopulateExpenseFromTravelAuthorization" = true;
+                    ShowExpenseReportsForMaxDays = 30;
+                    ShowGroupByExpenseTypeInCart = false;
+                    ShowMyTripsForMaxDays = 30;
+                    ShowViolationForUnreconciledCharge = true;
+                    Tax = {
+                        CountriesRequireState = ( CA );
+                        Enabled = true;
+                        UseGrossAmounts = true;
+                        UseVATDefaults = false;
+                    };
+                    TravelBookingProvider = {
+                        AllowCancel = true;
+                        AllowChange = true;
+                        CustomerIdentity = "";
+                        Domain = bogus-duns;
+                        Identity = 165603902;
+                        PunchOutURL = "http://localhost:7778/ExpensePunchoutTest/aribaLiveSetup.htm";
+                        SendMethods = {
+                            URL = {
+                                Formatter = ariba.expense.ordering.TAOOrderFormatter;
+                                Sender = ariba.expense.ordering.TAOOrderSender;
+                            };
+                        };
+                    };
+                    UseBaseHotelRateForLimit = true;
+                    UseTravelAuthorization = true;
+                };
+                Invoicing = {
+                    AddTaxesAndChargesAtLineLevelByDefault = false;
+                    AllowReusingInvoiceNumber = ( );
+                    "AlwaysDisplayRejectButtonForIRsInApproving" = false;
+                    DisallowDispute = false;
+                    ExternalReconciliationEnabled = false;
+                    ValidateRemittanceLocation = false;
+                };
+                Messaging = {
+                    MessageConfigurationFiles = {
+                        File = {
+                            supplierdirect = (
+                                "config/variants/Plain/partitions/supplierdirect/file/MessageConfiguration.table"
+                            );
+                        };
+                    };
+                };
+                Procure = {
+                    ASNOrderForPrivateSupplier = false;
+                    AllowAttributeSearching = false;
+                    AllowChangeRequisition = true;
+                    AssetDataByCommodityCodeFile = "./config/variants/Plain/partitions/supplierdirect/data/AssetDataByCommodityCode.csv";
+                    AssetDataMethod = ariba.receiving.AssetDataRule;
+                    BlanketOrderMethods = ( );
+                    DecimalMaxDigits = 5;
+                    DefaultUnitOfMeasure = EA;
+                    OrderMethods = ( );
+                    "OrderReceivedForInvoicingOnReceiptApproval" = false;
+                    OverReceivingOperator = OR;
+                    OverReceivingPercentage = 10;
+                    OverReceivingQuantity = 0;
+                    OverReceivingValue = 0;
+                    PCardReceivingTypeMethod = "ariba.pcard.receiving.PCardReceivingTypeRule";
+                    PurchaseOrderCancelEvent = PurchaseOrderCancelPush;
+                    PurchaseOrderChangeEvent = PurchaseOrderChangePush;
+                    PurchaseOrderEvent = PurchaseOrderPush;
+                    ReceiptByCommodityCodeFile = "";
+                    ReceiptByPartNumberFile = "";
+                    ReceiptDataByPartitionedCommodityCode = false;
+                    ReceiptEvent = ReceiptPush;
+                    ReceiptSendMethod = Silent;
+                    ReceiptTrackerByCommodityCodeFile = "./config/variants/Plain/partitions/supplierdirect/data/ReceiptTrackerByCommodityCode.csv";
+                    ReceiptTrackerMethod = ariba.receiving.ReceiptTrackerRule;
+                    ReceivingTypeMethod = ariba.receiving.ReceivingTypeRule;
+                    ShowcXMLAccountingFields = true;
+                    SubmitSupplierLocationValidator = "ariba.procure.core.validator.SupplierLocationValidator";
+                    UnderReceivingOperator = AND;
+                    UnderReceivingPercentage = 0;
+                    UnderReceivingQuantity = 0;
+                    UnderReceivingValue = 0;
+                    UseCancelOrderIntegration = false;
+                    UseChangeOrderIntegration = false;
+                    UseReqOrPOIntegration = false;
+                    WholeNumberMaxDigits = -1;
+                };
+                Settlement = {
+                    DynamicDiscountsEnabled = false;
+                    Enabled = false;
+                    LocalPaymentModelSupported = true;
+                    PaymentDiscountSelectionPolicy = TakeDiscountMaximum;
+                    PaymentDiscountSelector = "ariba.payment.AribaPaymentDiscountSelector";
+                    PaymentScheduler = ariba.payment.AribaPaymentScheduler;
+                    PaymentTermsEffectiveDateSkipDays = 0;
+                    PaymentTermsLineTypeCategories = ( 1 );
+                    PaymentTransactionSendMethods = AribaNetwork;
+                };
+                UI = {};
+            };
+        };
+    };
+    System = {
+        Admin = {
+            AdministrationApplicationFiles = (
+                BuyerAdminConfigExt,
+                ServerExt,
+                BuyerExt,
+                ReceivingAdminConfigExt,
+                InvoicingAdminConfigExt,
+                SettlementAdminConfigExt
+            );
+            AdministrationConfigurationFiles = (
+                AdminConfig,
+                CustomizationConfig,
+                UserAdminConfig,
+                DashboardAdminConfig,
+                ReceivingAdminConfig,
+                PCardAdminConfig,
+                PurchasingAdminConfig,
+                BuyerAdminConfig,
+                P2PAdminConfig,
+                CategoryTypeAdminConfig,
+                ContractAdminConfig,
+                InvoicingAdminConfig,
+                ExpenseAdminConfig,
+                WorkforceAdminConfig
+            );
+            AdministrationExtensionFile = AdminConfigExt;
+            AllowTemplateRules = true;
+            "AutoSetAdapterSourceAfterManualModification" = false;
+            ClassEditor = {
+                ExcludedClass = (
+                    ariba.procure.core.GlobalItemProperties,
+                    "ariba.procure.core.PropertiesWithMappableStorageFields",
+                    "ariba.procure.core.CategoryItemProperties",
+                    ariba.procure.core.CategoryItem,
+                    "ariba.procure.core.SharedGlobalItemProperties",
+                    "ariba.procure.core.CategoryTemplateDetails",
+                    "ariba.collaboration.core.CollaborationLineItemDetails"
+                );
+            };
+            MaxConfigFileDisplayed = 10000;
+            SensitivePermissions = (
+                project.sourcing.manage,
+                bid.delete,
+                bid.surrogate,
+                AuditViewer,
+                ScheduledTasks,
+                IntegrationEvents,
+                ParametersEditor,
+                UserSessions,
+                ActOnBehalf,
+                CommodityCodeManager,
+                CustomizationFiles,
+                ASNSettings,
+                BrandingSettings
+            );
+            SupportedLanguages = {
+                BrazilianPortuguese = pt_BR;
+                Dutch = nl_NL;
+                English = en_US;
+                French = fr_FR;
+                German = de_DE;
+                Hungarian = hu_HU;
+                Italian = it_IT;
+                Japanese = ja_JP;
+                Polish = pl_PL;
+                Russian = ru_RU;
+                SimplifiedChinese = zh_CN;
+                Spanish = es_ES;
+                Swedish = sv_SE;
+                Turkish = tr_TR;
+            };
+        };
+        Approvable = {
+            "AllowDeletionOfAttachmentsAndCommentsOnNonComposing" = true;
+            "AllowDeletionOfAttachmentsAndCommentsOnWithdrawn" = true;
+            AllowDeletionOfNonComposingApprovables = false;
+            AllowDeletionOfWithdrawnApprovables = true;
+            PermissionsRemovedForTerminatedUser = ( CreateInvoice );
+            ViewAttachmentLinksInSummary = true;
+        };
+        Authentication = {
+            Credentials = { MyCredentials = { Password = ""; Username = "";};};
+            Keystores = {
+                MyKeystore = {
+                    File = "";
+                    Keys = { Key1 = { Alias = ""; KeyPassword = "";};};
+                    StorePassword = "";
+                    Type = jks;
+                };
+            };
+        };
+        Base = {
+            AMLDTDLocation = "ariba/base/meta/core";
+            AMLModules = (
+                ariba.base.core.Base,
+                ariba.base.server.core.BaseServer,
+                "ariba.server.workflowserver.meta.Workflow",
+                ariba.common.meta.Integration,
+                ariba.common.meta.Core,
+                ariba.common.meta.ExpenseReport,
+                ariba.portlet.core.Portlet,
+                ariba.common.meta.Requisition,
+                ariba.admin.meta.CommonAdmin,
+                ariba.admin.meta.Admin,
+                ariba.catalog.meta.Platform,
+                ariba.catalog.meta.Type,
+                ariba.catalog.meta.Admin,
+                ariba.catalog.meta.Search,
+                ariba.catalog.base.meta.CatalogBase,
+                ariba.common.meta.ExpenseAdmin,
+                ariba.cXML.meta.cxml,
+                ariba.auth.meta.Auth,
+                ariba.approvable.rules.Rules,
+                ariba.approvable.core.Approvable,
+                ariba.buyeradmin.meta.BuyerAdmin,
+                ariba.admin.meta.RuleAdmin,
+                ariba.invoicing.core.Invoicing,
+                ariba.invoicing.core.InvoicingAdmin,
+                ariba.payment.core.Payment,
+                ariba.procure.core.Procure,
+                ariba.procure.core.ProcureAdmin,
+                ariba.receiving.core.Receiving,
+                ariba.contract.core.Contract,
+                ariba.purchasing.core.Ordering,
+                ariba.pcard.core.PCard,
+                ariba.procure.core.Service,
+                ariba.workforce.core.Workforce,
+                ariba.kitting.core.Kitting,
+                ariba.collaboration.core.Collaboration,
+                ariba.base.model.BaseModel,
+                ariba.dashboard.core.Core,
+                ariba.app.util.AppUtil,
+                ariba.payment.core.PaymentCore,
+                ariba.pricing.core.Pricing,
+                ariba.search.core.Search,
+                ariba.reconciliation.core.Reconciliation,
+                ariba.reporting.core.Reporting,
+                ariba.tax.core.Tax,
+                ariba.statement.core.Statement,
+                ariba.charge.core.Charge,
+                ariba.charge.core.ChargeAdmin,
+                ariba.l2charge.core.L2Charge,
+                ariba.itemmaster.core.ItemMaster,
+                "ariba.electronicorder.core.ElectronicOrder",
+                "ariba.accounting.core.AdvancedAccountingCore",
+                ariba.receiving.core.ReceivingAdmin,
+                ariba.payment.core.PaymentAdmin
+            );
+            AMSEmailID1 = "pgskannan@in.ibm.com";
+            AMSEmailID2 = "chchandr@in.ibm.com";
+            AMSEmailID3 = "madhavan.chari@in.ibm.com";
+            ASMSharedRoot = "/msc/arb9r1/downstream/shared";
+            AddUserIdToWebJumperNotification = true;
+            AdministratorEmailAddress = "My_Supply_Cabinet@cat.com";
+            "AllowAddApprovalRequestAnywhereInComposingState" = false;
+            AllowSystemMetadataRuntimeModifications = true;
+            AribaFile = {
+                FallbackToFileSystemOnRead = false;
+                FileSystemSourceOfTruth = true;
+            };
+            CATEmailID = "Shane_Mike_E@cat.com";
+            CloseOrderAfter = 365;
+            CloseOrderReopen = 180;
+            CustomInitializationClassNames = ( );
+            DBName = ARBA9R1P;
+            DBPwd = D2e6ErzJ;
+            DBUser = arbdbusr;
+            Data = {
+                AutoCreateSimpleMapEntries = false;
+                BaseCurrency = USD;
+                DefaultOrganization = "[Buyer]";
+                ReportingCurrency = USD;
+                SystemAdministratorGroup = "MSC Administrator";
+            };
+            DefaultLocale = en_US;
+            Directories = {
+                AttachmentDir = "transactionData/attachments";
+                MultipleAttachmentDirLocations = (
+                    "transactionData/attachments",
+                    "transactionData/attachments1"
+                );
+                SupplierDir = "transactionData/supplier";
+            };
+            DisableLoginSecurity = false;
+            DisableRPCSecurity = false;
+            DocRoot = "/msc/arb9r1/downstream/WebComponents";
+            DurableEmail = {
+                InitialWaitDurationinMilliSeconds = 0;
+                MaximumRetryCount = 96;
+                NumTrialsAllowed = 0;
+                RetryDelayInMinutes = 15;
+            };
+            EmailApprovalAudit = false;
+            EmailApprovalAutoReject = false;
+            EmailApprovalAutoRejectAudit = false;
+            EmailApprovalAutoRejectNotification = false;
+            EmailApprovalEnabled = false;
+            EmailApprovalIncludeComment = true;
+            EmailApprovalMailToLink = false;
+            EmailApprovalMailToLinkEncoding = UTF-8;
+            EmailApprovalReplyTo = "approval@your.host.here";
+            EmailAutoReject = false;
+            EmailSimpleTemplateEngine = "ariba.htmlui.htmlemail.AribaEmailSimpleTemplateEngine";
+            EmailSimpleTemplateFormatter = "ariba.htmlui.htmlemail.AribaSimpleTemplateFormatter";
+            EnableChecksum = true;
+            ExceededRowCountWarningMaxCountPerRealm = 100;
+            ExceededRowCountWarningValidityTime = 7200000;
+            ExtrinsicAMLPath = ( "./" );
+            HTTPNonProxyHosts = "localhost|mysupplycabinet.cat.com|spendanalysis.cat.com|arlmscp01.lrd.cat.com|arlmscp02.lrd.cat.com|mscp.cat.com|anap.cat.com|wpsp.ecorp.cat.com|globalsweb.ecorp.cat.com|atm.cat.com|tufws.cat.com|*.lrd.cat.com|*.*.cat.com|*.cat.com|ussmisapwdp.bi.int";
+            HTTPProxyHost = proxy.cat.com;
+            HTTPProxyPort = 80;
+            HTTPSNonProxyHosts = "localhost|mysupplycabinet.cat.com|spendanalysis.cat.com|arlmscp01.lrd.cat.com|arlmscp02.lrd.cat.com|mscp.cat.com|anap.cat.com|wpsp.ecorp.cat.com|globalsweb.ecorp.cat.com|atm.cat.com|tufws.cat.com|*.lrd.cat.com|*.*.cat.com|*.cat.com|ussmisapwdp.bi.int";
+            HTTPSProxyHost = proxy.cat.com;
+            HTTPSProxyPassword = "";
+            HTTPSProxyPort = 80;
+            HTTPSProxyUsername = "";
+            HideMetaReferenceFinder = false;
+            InstanceName = Buyer;
+            IntrinsicAMLPath = ( "./" );
+            LocalSMTPServer = false;
+            LocalTempDirectory = temp;
+            MainServletName = Main;
+            MetadataValidators = "";
+            Modules = (
+                Procure,
+                Admin,
+                CatRegistry,
+                CatAdmin,
+                CatSearch,
+                Basic,
+                Receiving,
+                Purchasing,
+                PCard,
+                Invoicing,
+                Contract,
+                Eform,
+                Reporting,
+                Charge,
+                Collaboration,
+                Expense,
+                Workforce
+            );
+            Production = false;
+            PurgeFlushBatchSize = 5000;
+            RealmRootDir = .;
+            RemoteHostsMask = 0.0.0.0;
+            ResourceURL = "/AribaBuyer";
+            SMTPDomainName = cat.com;
+            SMTPServerNameList = ( intramail.cis.cat.com );
+            SecureParameters = (
+                System.J2EEServer.WebLogic.Password,
+                "System.DatabaseSchemas.Transaction.Schema1.AribaDBPassword",
+                System.Inspector.DebugPassword,
+                System.Inspector.AdminPassword,
+                System.Inspector.ReadOnlyPassword,
+                System.Security.EncryptionKeys.1,
+                System.Security.EncryptionKeys.2
+            );
+            SpendMangementDashboardUrl = "";
+            StratSourcingURL = "";
+            StratSourcingUrl = "";
+            SupplierStubFacilityCode = DP;
+            SuppliereFormID = "MSC_Supplier_eForm@cat.com";
+            SystemData = true;
+            ToolsDefault = {
+                JavaMemoryMax = 1024m;
+                JavaMemoryStart = 1024m;
+                JavaStackJava = 1M;
+                JavaStackNative = 1M;
+                JavaVMArguments = (
+                    "-XX:MaxPermSize=256m",
+                    "-Djava.net.preferIPv4Stack=true",
+                    "-Djavax.net.ssl.trustStore=/tcserver/CatWAS6OpenAppTrustFile.jks",
+                    "-Djavax.net.ssl.trustStorePassword=OpenApp",
+                    "-Djavax.net.debug=true"
+                );
+            };
+            UIModules = (
+                ariba.htmlui.catadmin.CatAdminModule,
+                ariba.htmlui.catsearch.CatSearchModule,
+                ariba.htmlui.kitadmin.KitAdminModule,
+                ariba.user.htmlui.UserUIModule,
+                ariba.htmlui.procure.ProcureModule,
+                ariba.htmlui.admin.AdminModule,
+                ariba.htmlui.buyeradmin.BuyerAdminModule,
+                ariba.htmlui.procure.InvoicingModule,
+                "ariba.htmlui.collaboration.CollaborationModule",
+                ariba.htmlui.eform.EformModule,
+                ariba.htmlui.expense.ExpenseModule,
+                ariba.htmlui.workforce.WorkforceModule
+            );
+            WebjumperNotificationBaseURL = "";
+            WebjumperUserNameField = UniqueName;
+        };
+        Catalog = {
+            Content = {
+                CategoryImageEnabled = true;
+                CategoryImageLevel = 0;
+                ContentCacheSize = 100;
+                ContentPath = catalogcontent;
+                Enabled = true;
+                ExtendedInfoFields = ( specsheet, demo, hazmatsheet );
+                ImageCopyMaxKiloBytes = 50;
+                ImageCopyTimeout = 8;
+                ImageUtilImpl = ariba.catalog.util.ImageUtilImpl;
+                InvalidContentRetryInterval = 86400;
+                TempContentPath = "/msc/arb9r1/downstream/Server/config/catalog/tempcatalogcontent";
+                ThumbnailGenerationTimeout = 8;
+                ThumbnailHeight = 128;
+                ThumbnailWidth = 128;
+                ValidContentRefreshInterval = 2592000;
+            };
+            Hierarchy = {
+                CategoryDraftTable = "config/cataloghierarchydraft.xml";
+                CategoryTable = "config/cataloghierarchy.xml";
+                Order = OrderInFile;
+            };
+            MaxPollRequests = 50;
+            Network = {
+                DefaultMSCif = false;
+                RequestHandlers = (
+                    "ariba.catalog.admin.server.dispatch.CatalogChangeRequestHandler",
+                    "ariba.catalog.admin.server.dispatch.ProfileRequestHandler",
+                    "test.ariba.catalog.admin.server.SubscriptionListReflector",
+                    "test.ariba.catalog.admin.server.SubscriptionContentReflector",
+                    "ariba.catalog.admin.server.dispatch.PunchOutSetupRequestHandler"
+                );
+                ValidateRequests = false;
+            };
+            NetworkDeployed = false;
+            NoUpdateAfterApprove = false;
+            OrgIDDomain = buyersystemid;
+            Publishing = {
+                AutoPublish = true;
+                CatalogContractEnforced = false;
+                CountErrorTolerance = 20;
+                Executable = {
+                    BroadcastExec = remote-broadcast-production;
+                    DeleteExec = remotedelete;
+                    PublishExec = remotepublish;
+                    TimeOut = 1200;
+                };
+                IndexManagerClassName = ariba.altavista.base.AVIndexManager;
+                NumberOfGoodVersionsToKeep = 1;
+                PublishAlwaysReturnOK = false;
+                PublisherErrorsBeforeRebuild = 20;
+            };
+            PunchoutItemIndexing = false;
+            Search = {
+                CustomPriceImplementation = "";
+                CustomSortByAsc1 = false;
+                CustomSortByAsc2 = true;
+                CustomSortByAttr1 = DefaultRelevance;
+                CustomSortByAttr2 = ShortName;
+                MaxConstraints = 1200;
+                NumSearchNodes = 2;
+                QueryCacheRowLimit = 0;
+                QueryCacheSize = 1024;
+                SearchCategoryNames = true;
+                SearchTimeout = 20000;
+                ToleratedNodeFailures = 1;
+            };
+            SearchIndex = {
+                CharsToWild = 3;
+                Debug = false;
+                EnableFuzzySpelling = true;
+                EnableSoundex = true;
+                EnableStemming = true;
+                FilterCacheSize = 32;
+                FixedDocSize = 48;
+                MaxBuffered = 350;
+                MergeFactor = 30;
+                NumSearchers = 2;
+                RealmSuffix = false;
+                RootDirectory = searchIndex;
+            };
+            SharedServiceBuild = false;
+            StandaloneDeployed = false;
+            TestNewFeatures = ( );
+            UI = {
+                AlternateSecurePort = "";
+                DeveloperLoginAllowed = true;
+                FileServletBufferSize = 8192;
+                ItemContentPageSize = 50;
+                MaxFavoritesPerGroup = 100;
+                MaxItemWithLink = 8000;
+                PromoteChildCategories = true;
+                RefinementControllerLimit = 50;
+                RefinementControllerValueLength = 20;
+                UserFavoriteHighlightCacheSize = 1000;
+            };
+            Validation = {
+                DuplicateItemValidation = true;
+                MaxImportValidationErrors = 100;
+                StrictCIFParsing = false;
+                ValidationPrimitives = "config/validation/system/validationprimitives.table";
+                ValidationServices = {
+                    default = "ariba.catalog.basevalidation.validation.ValidationServiceImpl";
+                };
+                ValidationTree = "config/validation/system/validationtree.table";
+                ValueMapAdapters = (
+                    "ariba.catalog.base.validation.unspsc.EGCIValueMapAdapter/egci",
+                    "ariba.catalog.base.validation.unspsc.UNSPSCValueMapAdapter/unspsc",
+                    "ariba.catalog.base.validation.unspsc.SPSCValueMapAdapter/spsc"
+                );
+            };
+            Workflow = {
+                ContainerTransformers = (
+                    "ariba.catalog.admin.server.DownloadContainerTransformer",
+                    "ariba.catalog.admin.server.TypeBagValidatorTransformer",
+                    "ariba.catalog.admin.server.SupplierValidatorTransformer",
+                    "ariba.catalog.admin.server.IndexTransformer",
+                    "ariba.catalog.admin.server.LoadStagedContainerTransformer",
+                    "ariba.catalog.admin.server.transform.MemoryLoadStagedContainerTransformer",
+                    "ariba.catalog.admin.server.PublishTransformer",
+                    "ariba.catalog.admin.server.BuyerValidationTransformer",
+                    "ariba.catalog.admin.server.PreApprovedTransformer",
+                    "ariba.catalog.admin.server.ApprovalTransformer",
+                    "ariba.catalog.admin.server.ApprovedTransformer",
+                    "ariba.catalog.admin.server.ActivateTransformer",
+                    "ariba.catalog.admin.server.ActivateTypeTransformer",
+                    "ariba.catalog.admin.server.RetireTransformer",
+                    "ariba.catalog.admin.server.RetireTypeTransformer",
+                    "ariba.catalog.admin.server.ContainerContainerTransformer",
+                    "ariba.catalog.admin.server.DefaultContainerTransformer",
+                    "ariba.itemmaster.server.CatalogBuyerItemMasterTransformer"
+                );
+                DownloadDirectory = downloads;
+                EquivalentWordsSimpleTable = true;
+                IndexPromoteThreadCount = 4;
+                Loaders = "ariba.catalog.admin.server.transform.FileStagedBagLoader";
+                PromoteCommitBatchSize = 25;
+                PromoteQueueLength = 10;
+                SendEmailOnFailedImport = true;
+                SendEmailOnStopReceive = true;
+                TransformerAPIImplementation = (
+                    "ariba.altavista.base.SupplierNameTransformer",
+                    ariba.altavista.base.MoneyTransformer,
+                    "ariba.catalog.admin.server.DUNSTransformer",
+                    "ariba.catalog.admin.server.NodeIdTransformer",
+                    "ariba.altavista.base.PartitionTransformer",
+                    "ariba.altavista.base.LinguisticTransformer",
+                    "ariba.catalog.admin.server.TypeNameTransformer",
+                    "ariba.catalog.admin.server.CCCTransformer",
+                    ariba.altavista.base.LanguageTransformer,
+                    "ariba.catalog.admin.server.PunchoutTransformer",
+                    "ariba.contract.core.category.CategoryIndexTransformer",
+                    "ariba.catalog.admin.server.MAIdTransformer",
+                    "ariba.catalog.admin.server.DefaultRelevanceTransformer",
+                    ariba.kitting.core.KitIndexTransformer,
+                    "ariba.catalog.admin.server.SupplierIDTransformer",
+                    ariba.altavista.base.KeywordsTransformer,
+                    ariba.altavista.base.PunchoutTransformer,
+                    "ariba.altavista.base.CatalogNameTransformer"
+                );
+            };
+        };
+        Caterpillar = {
+            Inspector = {
+                AuthUserCupid = (
+                    0814565918,
+                    5819748148,
+                    8899468205,
+                    1097064196,
+                    5505272767
+                );
+                FilterDebug = false;
+                UpdateSecured = true;
+            };
+        };
+        Charge = {
+            PaymentRequestSendMethods = {
+                MessagingQueue = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    SendRank = 1;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+                PSoftMessagingQueue = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = "ariba.peoplesoft.common.AribaPSoftERPPaymentMethod";
+                    SendRank = 1;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+                SAPMessagingQueue = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPInvoiceFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    SendRank = 1;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+            };
+        };
+        ClassificationCodes = {
+            ASMSharedDomainList = ( unspsc );
+            CommodityCodeUIDomainImpl = "ariba.basic.core.DefaultCommodityCodeUIDomainImpl";
+            SystemAllNodeUniqueName = All;
+            SystemCommodityCodeDomainName = unspsc;
+            UnspscAuditFile = "config/standards/unspscaudit135.csv";
+        };
+        Contract = {
+            MasterAgreement = {
+                ASNBPOForPrivateSupplier = true;
+                AdditionalFormulaFunctions = ( );
+                SendMethods = {
+                    Email = {
+                        ACSNSendMethod = false;
+                        ERPSendMethod = false;
+                        Formatter = ariba.contract.DummyContractFormatter;
+                        RoutingSupported = false;
+                        Sender = ariba.contract.AribaContractSilentSender;
+                    };
+                    Fax = {
+                        ACSNSendMethod = false;
+                        ERPSendMethod = false;
+                        Formatter = ariba.contract.DummyContractFormatter;
+                        RoutingSupported = false;
+                        Sender = ariba.contract.AribaContractSilentSender;
+                    };
+                    Manual = {
+                        ACSNSendMethod = false;
+                        ERPSendMethod = false;
+                        Formatter = ariba.contract.DummyContractFormatter;
+                        RoutingSupported = true;
+                        Sender = ariba.contract.AribaContractSilentSender;
+                    };
+                    Print = {
+                        ACSNSendMethod = false;
+                        ERPSendMethod = false;
+                        Formatter = ariba.contract.DummyContractFormatter;
+                        RoutingSupported = false;
+                        Sender = ariba.contract.AribaContractSilentSender;
+                    };
+                    Silent = {
+                        ACSNSendMethod = false;
+                        ERPSendMethod = false;
+                        Formatter = ariba.contract.DummyContractFormatter;
+                        RoutingSupported = false;
+                        Sender = ariba.contract.AribaContractSilentSender;
+                    };
+                    URL = {
+                        ACSNSendMethod = true;
+                        ContactName = UserSender;
+                        ERPSendMethod = false;
+                        Formatter = "ariba.contract.DummyAribaNetworkContractFormatter";
+                        RoutingSupported = true;
+                        Sender = "ariba.contract.cxml.AribaNetworkCXMLContractSender";
+                    };
+                };
+            };
+        };
+        Customization = {
+            Packager = {
+                Application = { PackageKindClassNames = ( ); PackageKinds = ( );};
+                Platform = {
+                    PackageKindClassNames = (
+                        "ariba.app.core.packager.parameters.ParametersPackageKind",
+                        "ariba.app.core.packager.aml.AMLExtensionPackageKind",
+                        "ariba.app.core.packager.aml.AMLStringResourcePackageKind",
+                        "ariba.app.core.packager.aml.AMLEnumerationPackageKind",
+                        "ariba.app.core.packager.rule.ApprovalRulePackageKind",
+                        "ariba.app.core.packager.rule.ApprovalRuleCSVPackageKind",
+                        "ariba.app.core.packager.data.ImportExportPackageKind"
+                    );
+                    PackageKinds = (
+                        Parameters,
+                        AMLExtension,
+                        AMLStringResource,
+                        AMLEnumeration,
+                        ApprovalRule,
+                        ApprovalRuleCSV,
+                        ImportExport
+                    );
+                };
+            };
+        };
+        Database = {
+            OraclePerformanceMetrics = "12,13,50,54,62,244,245,266,341,342,343";
+            StatementMonitor = { BucketInterval = 10; MaxDiagnosticsPerBucket = 2;};
+        };
+        DatabaseSchemas = {
+            Default = {
+                AutoCommit = false;
+                DatabaseConnections = 40;
+                LargeIndexDataFile = TBS_LRG_IDX;
+                LargeTableDataFile = TBS_LRG_32K;
+                LobDataFile = TBS_LNG_32K;
+                MediumIndexDataFile = TBS_MDM_IDX;
+                MediumTableDataFile = TBS_MDM_16K;
+                OpenStatements = 5;
+                ReadUncommitted = false;
+                SQLStatementTimeoutInSeconds = 0;
+                SmallIndexDataFile = TBS_SML_IDX;
+                SmallTableDataFile = TBS_SML_8K;
+                SupportIndexDataFile = TBS_SUP_IDX;
+                SupportTableDataFile = TBS_SUP_8K;
+            };
+            DefaultDatabaseSchema = Transaction.Schema1;
+            Transaction = {
+                Schema1 = {
+                    AribaDBCharset = UTF8;
+                    AribaDBHostname = z1p18udb.corp.cat.com;
+                    AribaDBJDBCDriverType = DB2Type2;
+                    AribaDBPassword = "{DESede}ceHE2jIyetPFa8cXa0Wz9A==";
+                    AribaDBPort = 50020;
+                    AribaDBServer = ARBA9R1P;
+                    AribaDBType = db2;
+                    AribaDBUsername = ARBDBUSR;
+                };
+            };
+        };
+        Debug = {
+            AppendSemanticKeyMapping = false;
+            AuditJGroupsIncomingMessages = true;
+            Debug = false;
+            FieldProperties = "FieldName,Type,Label,Rank,Group,Controller";
+            Fields = false;
+            GroupProperties = All;
+            Groups = false;
+            I18N = false;
+            IgnoreConfigJava = false;
+            IgnoreNameTables = false;
+            IgnoreValidation = false;
+            MetaLoadFromFile = false;
+            NamePrefix = false;
+            PagePerfLoggingEnabled = false;
+            Performance = false;
+            PerformanceThresholds = {
+                Default = {
+                    "AQL Queries" = { Error = 20; Warning = 5;};
+                    "AQL Rows Fetched" = { Error = 30000; Warning = 1000;};
+                    "ClusterRoot Reconstitutions" = { Error = 50; Warning = 25;};
+                    Commits = { Error = 10; Warning = 3;};
+                    "Page Generation" = { Error = 200000; Warning = 100000;};
+                    "Working Set" = {};
+                };
+            };
+            QueryExecutionThresholdMilliseconds = 2000;
+            QueryGenerationThresholdSQLBytes = 5000;
+            ReReadFile = false;
+            SMTPAddressBCC = "";
+            SMTPAddressRedirect = "";
+            ShowMultiServerMode = true;
+            SingleUser = false;
+            TesterRunOnly = false;
+            Timing = false;
+            TranslationLoadDisabled = false;
+            UseBrowserLocale = false;
+            WorkflowMonitor = false;
+        };
+        Expense = {
+            ExpenseSendMethods = {
+                MessagingQueue = {
+                    ACSNSendMethod = false;
+                    ERPSendMethod = false;
+                    PushEventName = ExpenseReportPush;
+                    Sender = "ariba.expense.core.AribaExpenseRequestReplySender";
+                };
+            };
+        };
+        Inspector = {
+            AdminPassword = "{DESede}ZIzvKeRcOeKk3/nlVz3wMA==";
+            AdminUserName = admin;
+            Authenticate = true;
+            BaseVectorDisplaySize = 5000;
+            DebugPassword = "{DESede}ZIzvKeRcOeKk3/nlVz3wMA==";
+            DebugUserName = debug;
+            Enabled = true;
+            ReadOnlyPassword = "{DESede}nWFbSNogwLHFa8cXa0Wz9A==";
+            ReadOnlyUserName = inspector;
+        };
+        Invoicing = {
+            "ANMaxInvoiceDownloadRequestsPerInvocation" = 100;
+            ANMaxInvoicesDownloadPerRequest = 10;
+            AllowDuplicateInvoices = false;
+            CXMLInvoicePartitionResolver = "ariba.invoicing.AribaCXMLInvoicePartitionResolver";
+            PaymentSendMethods = {
+                MessagingQueue = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = ariba.payment.DummyPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+                OraclePaymentERP = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = "ariba.oracle.server.OracleInvoiceFormatter";
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = true;
+                    UsesDirectIntegration = false;
+                };
+                PSPaymentERP = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = "ariba.peoplesoft.server.PsoftInvoiceFormatter";
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = true;
+                    UsesDirectIntegration = false;
+                };
+                SAPPaymentERP = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPInvoiceFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = true;
+                    UsesDirectIntegration = false;
+                };
+                SAPPaymentERPDirect = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPInvoiceFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = true;
+                };
+                Silent = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = "";
+                    ERPSendMethod = false;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = ariba.payment.DummyPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentSilentSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+            };
+            PermanentWorkFailureRetryPeriodInMinutes = 600;
+            ResetApprovalsOnReconcile = true;
+            SendInvoiceReconciliationToNetwork = false;
+        };
+        J2EEServer = {
+            InUse = tomcat;
+            JNDI = {
+                Enabled = false;
+                MulticastAddress = 228.5.6.17;
+                MulticastPort = 6789;
+            };
+            WebSphere = {
+                AdminHost = arlmscp01.lrd.cat.com;
+                AdminPort = 8879;
+                Cluster = BuyerCluster;
+                NameURL = "iiop://arlmscp01.lrd.cat.com:9809";
+                Root = "/websphere_6/appserver";
+            };
+        };
+        Logging = {
+            AribaAuditing = {
+                Categories = ( aribaAudit );
+                ClassName = ariba.app.server.AuditAppender;
+                Disable = false;
+                SynchronousLogging = true;
+            };
+            AribaCommitNowAuditing = {
+                Categories = ( aribaAuditCommitNow );
+                ClassName = ariba.app.server.AuditCommitNowAppender;
+                Disable = false;
+                SynchronousLogging = true;
+            };
+            Categories = (
+                "util:INFO",
+                "aprof:INFO",
+                "general:INFO",
+                "startup:INFO",
+                "internodes:INFO",
+                "perfLog.trace:INFO",
+                "integrationMaster.amfBaseMaster.integrationObjectAdapter:INFO",
+                "integrationMaster.alert:INFO",
+                "scheduler:INFO",
+                "inspectorAudit:INFO",
+                "aribaAudit:INFO",
+                "aribaAuditCommitNow:INFO",
+                "integrationMaster.httpChannelMaster:INFO",
+                "integrationMaster.fileChannelMaster:INFO",
+                "integrationMaster.cds:INFO",
+                "customCATLog:INFO",
+                "aribawebexec.elementId:INFO",
+                "configserver:INFO"
+            );
+            Console = {
+                Categories = (
+                    util,
+                    aprof,
+                    general,
+                    internodes,
+                    scheduler,
+                    integrationMaster.alert,
+                    integrationMaster.httpChannelMaster,
+                    integrationMaster.fileChannelMaster,
+                    integrationMaster.cds,
+                    configserver
+                );
+                Disable = false;
+                WarningLogHandler = true;
+            };
+            DatabaseLog = {
+                Categories = ( audit );
+                ClassName = ariba.base.server.DatabaseAppender;
+                Disable = true;
+                EventsPerTransaction = 1;
+            };
+            Encoding = UTF-8;
+            InspectorAuditFile = {
+                Categories = ( inspectorAudit, inspector );
+                ClassName = ariba.util.log.ArchivingAppender;
+                Disable = false;
+                File = InspectorAuditLog.txt;
+            };
+            J2EELogger = {
+                Categories = ( util, general );
+                ClassName = ariba.server.util.J2EELogAppender;
+                Disable = false;
+                LogName = Buyer;
+                WarningLogHandler = true;
+            };
+            LocaleForLogMessages = en_US;
+            MainLogFile = {
+                Categories = (
+                    util,
+                    aprof,
+                    startup,
+                    general,
+                    internodes,
+                    "integrationMaster.amfBaseMaster.integrationObjectAdapter",
+                    scheduler,
+                    integrationMaster.alert,
+                    integrationMaster.httpChannelMaster,
+                    integrationMaster.fileChannelMaster,
+                    transaction,
+                    integrationMaster.cds,
+                    customCATLog,
+                    fixme,
+                    configserver
+                );
+                Disable = false;
+                WarningLogHandler = true;
+            };
+            MappingLog = {
+                Categories = ( aribaMappingException );
+                ClassName = "ariba.server.ormsserver.NotificationAppender";
+                Disable = true;
+                PermissionGroup = CatalogManager;
+                TitleStringKey = ImportMappingFailureTitle;
+                TitleStringTable = ariba.common.core.validator;
+            };
+            NTServiceLogging = {
+                Categories = ( startup, util );
+                ClassName = "ariba.server.ntloggingserver.client.NTLogAppender";
+                Disable = true;
+                NTLogListenerHost = localhost;
+                NTLogListenerPort = 8093;
+            };
+            SupplierDMLog = {
+                Categories = ( supplierdm );
+                ClassName = ariba.util.log.ArchivingAppender;
+                Disable = true;
+                File = SupplierDMLog.txt;
+                LogFileName = SupplierDMLog;
+            };
+        };
+        Messaging = {
+            ChangeNotificationsEnabled = true;
+            Channels = {
+                CXML = {
+                    AttachmentService = { ClassName = ariba.cxml.service.FileAttachmentService;};
+                    DecodeService = {
+                        BaseDecodeTemplate = CXMLBaseDecodeTemplate;
+                        PackageName = ariba.channel.cxml;
+                        ResourceDirectory = (
+                            "config/cXML",
+                            "config/cXML/template",
+                            "ariba/cXML/template",
+                            "ariba/resource/global"
+                        );
+                        TextDeclarationReaders = ( ariba.cxml.UTF8DeclarationReader );
+                        Validation = true;
+                    };
+                    Decoders = {
+                        CXMLChannelDecoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.util.DecoderImpl;
+                            };
+                            factoryClass = "ariba.integration.util.DecoderFactoryImpl";
+                        };
+                    };
+                    DirectoryService = {
+                        ClassName = "ariba.cxml.base.client.DirectoryServiceImpl";
+                        ProfileEntryClassName = ariba.cxml.client.ProfileEntry;
+                        ProfileFile = "ariba/cXML/ProfileMap.xml";
+                    };
+                    DocumentService = {
+                        DeploymentMode = test;
+                        Encoding = UTF-8;
+                        XMLLang = en-US;
+                        XMLVersion = 1.0;
+                    };
+                    EncodeService = {
+                        BaseEncodeTemplate = CXMLBaseEncodeTemplate;
+                        PackageName = ariba.channel.cxml;
+                        ResourceDirectory = (
+                            "config/cXML",
+                            "config/cXML/template",
+                            "ariba/cXML/template",
+                            "ariba/resource/global"
+                        );
+                    };
+                    PersistenceService = {
+                        ClassName = "ariba.cxml.base.client.PersistenceServiceImpl";
+                    };
+                    ProfileCacheService = { ExpirationInDays = 1;};
+                    PunchOutService = {
+                        SessionStore = "ariba.cxml.base.core.BasePunchOutSessionStore";
+                    };
+                    ReliableDeliveryService = {
+                        DaysAgoForQueueRebuild = 5;
+                        LatestMinutesAgoForQueueRebuild = 20;
+                        MaxDeliveryAttempts = 1;
+                        ReQueueElapseTime = 20;
+                        TimeBetweenDeliveryAttempts = 1;
+                    };
+                    StartupClass = ariba.cxml.base.Channel;
+                    TransportService = {
+                        ProtocolImplementation = ariba.channel.http.HTTPTransport;
+                        TransportName = CXMLChannel;
+                    };
+                };
+                File = {
+                    Decoders = {
+                        FileChannelDecoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.util.DecoderImpl;
+                            };
+                            factoryClass = "ariba.integration.util.DecoderFactoryImpl";
+                        };
+                        SimpleDecoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.util.SimpleDecoder;
+                            };
+                            factoryClass = "ariba.integration.util.DecoderFactoryImpl";
+                        };
+                    };
+                    EnableFileUpload = true;
+                    Encoders = {
+                        FileChannelEncoder = {
+                            Parameters = { ClassName = ariba.channel.file.FileEncoder;};
+                            factoryClass = "ariba.integration.util.EncoderFactoryImpl";
+                        };
+                    };
+                    FileReaders = {
+                        CSV = ariba.channel.io.CSVFileReader;
+                        SUPPLIER = ariba.channel.io.SupplierFileReader;
+                        XLS = ariba.channel.io.ExcelFileReader;
+                    };
+                    FileUploadLimitInMB = 100;
+                    FileWriters = {
+                        CSV = ariba.channel.io.CSVFileWriter;
+                        SOAP = ariba.channel.ws.DocumentWriter;
+                        XLS = ariba.channel.file.io.ExcelFileWriter;
+                    };
+                    Formatters = {
+                        AbsoluteAmountFormatter = "ariba.integration.util.formatter.AbsoluteAmountFormatter";
+                        AmountFormatter = "ariba.integration.util.formatter.AmountFormatter";
+                        BigDecimalFormatter = ariba.util.formatter.BigDecimalFormatter;
+                        CommaSeparatedStringFormatter = "ariba.integration.util.CommaSeparatedStringFormatter";
+                        ConcatFormatter = "ariba.integration.util.formatter.ConcatFormatter";
+                        ContractHierarchicalTypeFormatter = "ariba.contract.core.ContractHierarchicalTypeFormatter";
+                        ContractLimitTypeFormatter = "ariba.contract.core.ContractLimitTypeFormatter";
+                        ContractReleaseTypeFormatter = "ariba.contract.core.ContractReleaseTypeFormatter";
+                        ContractTermTypeFormatter = "ariba.contract.core.ContractTermTypeFormatter";
+                        IntegrationDateFormatter = "ariba.integration.util.formatter.FormatterDateLenient";
+                        LowerCaseStringFormatter = "ariba.util.formatter.LowerCaseStringFormatter";
+                        ParameterizedDateFormatter = "ariba.integration.util.formatter.ParameterizedDateFormatter";
+                        ParameterizedDateFormatterLenient = "ariba.contract.core.ParameterizedDateFormatterLenient";
+                        ReceivingTypeFormatter = "ariba.receiving.core.ReceivingTypeFormatter";
+                        RegexpReplaceFormatter = "ariba.integration.util.formatter.RegexpReplaceFormatter";
+                        RoundFormatter = "ariba.integration.util.formatter.RoundFormatter";
+                        SubstringFormatter = "ariba.integration.util.formatter.SubstringFormatter";
+                        SupplierIdDomainFormatter = "ariba.sap.common.SupplierIdDomainFormatter";
+                        TranslateFormatter = "ariba.integration.util.formatter.TranslateFormatter";
+                    };
+                    RowBatchSize = 10000;
+                    StartupClass = ariba.channel.file.FileChannel;
+                    UseDefaultFileLocation = true;
+                };
+                HTTP = {
+                    Authentication = { AuthType = None;};
+                    Decoders = {
+                        HTTPChannelDecoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.util.DecoderImpl;
+                            };
+                            factoryClass = "ariba.integration.util.DecoderFactoryImpl";
+                        };
+                        SPCDecoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.remote.SPCDecoder;
+                            };
+                            factoryClass = "ariba.integration.util.DecoderFactoryImpl";
+                        };
+                    };
+                    Encoders = {
+                        HTTPChannelEncoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.util.EncoderImpl;
+                            };
+                            factoryClass = "ariba.integration.util.EncoderFactoryImpl";
+                        };
+                        SPCEncoder = {
+                            Parameters = {
+                                ClassName = ariba.integration.remote.SPCEncoder;
+                            };
+                            factoryClass = "ariba.integration.util.EncoderFactoryImpl";
+                        };
+                    };
+                    Formatters = {
+                        CommaSeparatedStringFormatter = "ariba.integration.util.CommaSeparatedStringFormatter";
+                    };
+                    Readers = { Default = ariba.channel.io.TableStreamReader;};
+                    StartupClass = ariba.channel.http.HTTPChannel;
+                    Writers = { Default = ariba.channel.io.TableStreamWriter;};
+                };
+                WS = {
+                    Decoders = {
+                        WSChannelDecoder = {
+                            Parameters = {
+                                ClassName = ariba.channel.ws.WSChannelDecoder;
+                            };
+                            factoryClass = "ariba.integration.util.DecoderFactoryImpl";
+                        };
+                    };
+                    EnableFileUpload = true;
+                    Encoders = {
+                        WSChannelEncoder = {
+                            Parameters = {
+                                ClassName = ariba.channel.ws.WSChannelEncoder;
+                            };
+                            factoryClass = "ariba.integration.util.EncoderFactoryImpl";
+                        };
+                    };
+                    FileWriters = { SOAP = ariba.channel.ws.DocumentWriter;};
+                    Formatters = {
+                        AbsoluteAmountFormatter = "ariba.integration.util.formatter.AbsoluteAmountFormatter";
+                        AmountFormatter = "ariba.integration.util.formatter.AmountFormatter";
+                        BigDecimalFormatter = ariba.util.formatter.BigDecimalFormatter;
+                        CommaSeparatedStringFormatter = "ariba.integration.util.CommaSeparatedStringFormatter";
+                        IntegrationDateFormatter = "ariba.integration.util.formatter.FormatterDateISO";
+                        LowerCaseStringFormatter = "ariba.util.formatter.LowerCaseStringFormatter";
+                        ParameterizedDateFormatter = "ariba.integration.util.formatter.ParameterizedDateFormatter";
+                        PaymentLineTypeFormatter = "ariba.payment.core.PaymentLineTypeFormatter";
+                        ReceivingTypeFormatter = "ariba.receiving.core.ReceivingTypeFormatter";
+                        RegexpReplaceFormatter = "ariba.integration.util.formatter.RegexpReplaceFormatter";
+                        RoundFormatter = "ariba.integration.util.formatter.RoundFormatter";
+                        SubstringFormatter = "ariba.integration.util.formatter.SubstringFormatter";
+                        TranslateFormatter = "ariba.integration.util.formatter.TranslateFormatter";
+                    };
+                    NamespaceIdentifier = Ariba;
+                    StartupClass = ariba.channel.ws.WSChannel;
+                };
+            };
+            ClientEventMapFileName = "ariba/variants/Plain/messages/ClientEventNameMap.table";
+            HonourManuallyMaintainedAdapterSource = true;
+            SPCObjectCreateOrder = (
+                ariba.basic.core.Country,
+                ariba.basic.core.Address,
+                ariba.basic.core.UnitOfMeasure,
+                ariba.basic.core.Currency,
+                ariba.basic.core.CurrencyConversionRate,
+                "ariba.basic.core.ClassificationCodeDomainMeta",
+                ariba.basic.core.CommodityCode,
+                ariba.basic.core.ClassificationCodeMap,
+                ariba.user.core.Permission,
+                ariba.user.core.Role,
+                ariba.user.core.Organization,
+                ariba.user.core.User,
+                ariba.user.core.Group
+            );
+        };
+        Metrics = {
+            Class = { Enabled = false; UpdateInterval = 900;};
+            RPC = { Enabled = false; UpdateInterval = 900;};
+            System = { Enabled = true; UpdateInterval = 120;};
+        };
+        Migration = { SchemeRuleMigrationSupport = false;};
+        NodeManagers = {
+            Cluster = {
+                DisableMultiNode = false;
+                JGroups = {
+                    FD = {
+                        down_thread = false;
+                        max_tries = 2;
+                        shun = true;
+                        timeout = 45000;
+                        up_thread = false;
+                    };
+                    FD_SOCK = { down_thread = false; up_thread = false;};
+                    FRAG = {
+                        down_thread = false;
+                        frag_size = 8192;
+                        up_thread = false;
+                    };
+                    MERGE2 = {
+                        down_thread = false;
+                        max_interval = 10000;
+                        min_interval = 5000;
+                        up_thread = false;
+                    };
+                    PING = {
+                        down_thread = false;
+                        timeout = 2000;
+                        up_thread = false;
+                    };
+                    Protocols = (
+                        UDP,
+                        ariba.util.nodemanager.UniqueID,
+                        PING,
+                        MERGE2,
+                        FD_SOCK,
+                        FD,
+                        VERIFY_SUSPECT,
+                        pbcast.NAKACK,
+                        UNICAST,
+                        pbcast.STABLE,
+                        FRAG,
+                        "ariba.util.nodemanager.AddressNodeMapping",
+                        pbcast.GMS
+                    );
+                    UDP = {
+                        discard_incompatible_packets = true;
+                        down_thread = false;
+                        enable_bundling = false;
+                        enable_diagnostics = false;
+                        ip_mcast = true;
+                        ip_ttl = 1;
+                        loopback = false;
+                        mcast_addr = 228.5.6.17;
+                        mcast_port = 6999;
+                        mcast_recv_buf_size = 1000000;
+                        mcast_send_buf_size = 640000;
+                        receive_on_all_interfaces = true;
+                        tos = 16;
+                        ucast_recv_buf_size = 1000000;
+                        ucast_send_buf_size = 640000;
+                        up_thread = false;
+                        use_incoming_packet_handler = true;
+                        use_outgoing_packet_handler = true;
+                    };
+                    UNICAST = {
+                        down_thread = false;
+                        timeout = "300,600,1200,2400,3600";
+                        up_thread = false;
+                    };
+                    VERIFY_SUSPECT = {
+                        down_thread = false;
+                        timeout = 1500;
+                        up_thread = false;
+                    };
+                    "ariba.util.nodemanager.AddressNodeMapping" = { down_thread = false; up_thread = false;};
+                    ariba.util.nodemanager.UniqueID = { down_thread = false; up_thread = false;};
+                    pbcast.GMS = {
+                        down_thread = false;
+                        join_retry_timeout = 2000;
+                        join_timeout = 15000;
+                        leave_timeout = 15000;
+                        print_local_addr = false;
+                        shun = true;
+                        up_thread = false;
+                        view_ack_collection_timeout = 5000;
+                    };
+                    pbcast.NAKACK = {
+                        discard_delivered_msgs = true;
+                        down_thread = false;
+                        gc_lag = 10;
+                        max_xmit_size = 8192;
+                        retransmit_timeout = "100,200,300,600,1200,2400,4800";
+                        up_thread = false;
+                        use_mcast_xmit = false;
+                    };
+                    pbcast.STABLE = {
+                        desired_avg_gossip = 50000;
+                        down_thread = false;
+                        max_bytes = 512000;
+                        stability_delay = 1000;
+                        up_thread = false;
+                    };
+                };
+            };
+        };
+        Nodes = {
+            NodeAuth = {
+                Host = localhost;
+                InterNodePort = 8091;
+                Port = 8090;
+                SSLKeyStoreFile = "etc/ntauthkeystore.p12";
+                SSLKeyStorePassword = ntauthkeystore;
+                ServerRole = ( );
+            };
+            NodeLog = {
+                Host = localhost;
+                InterNodePort = 8093;
+                Port = 8092;
+                ServerRole = ( );
+            };
+            NodesDefault = {
+                AdditionalCaches = {
+                    CommodityCodeCache = {
+                        CacheableClasses = ( ariba.basic.core.CommodityCode );
+                        ObjectCacheMaxLoad = 0.75;
+                        ObjectCachePurgeBy = 0.25;
+                        ObjectCacheSegments = 13;
+                        ObjectCacheSize = 4096;
+                    };
+                };
+                Host = localhost;
+                InterNodePort = 8095;
+                LocalSMTPServerPort = 25;
+                ObjectCacheMaxLoad = 0.75;
+                ObjectCachePurgeBy = 0.25;
+                ObjectCacheSegments = 13;
+                ObjectCacheSize = 1024;
+                Port = 8094;
+                ServerRole = ( AribaTaskRunner );
+                WorkerQueues = {
+                    BackgroundQueue = 6;
+                    CXMLObjectCreateQueue = 2;
+                    ForegroundQueue = 6;
+                    WorkflowQueue = 6;
+                };
+            };
+            buyerserver1 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp01.lrd.cat.com;
+                InterNodePort = 8053;
+                Port = 8052;
+                ServerRole = ( );
+            };
+            buyerserver2 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp02.lrd.cat.com;
+                InterNodePort = 8057;
+                ObjectCacheMaxLoad = 0.65;
+                ObjectCachePurgeBy = 0.25;
+                ObjectCacheSegments = 4;
+                ObjectCacheSize = 1024;
+                Port = 8056;
+                ServerRole = ( AribaTaskRunner );
+                WorkerQueues = {
+                    BackgroundQueue = 10;
+                    CXMLObjectCreateQueue = 5;
+                    ForegroundQueue = 6;
+                    WorkflowQueue = 10;
+                };
+            };
+            buyerserver3 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp01.lrd.cat.com;
+                InterNodePort = 8061;
+                Port = 8060;
+                ServerRole = ( AribaEmailSender, SMTPServer, CatalogSearch, CatalogAdmin );
+            };
+            buyerserver4 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp02.lrd.cat.com;
+                InterNodePort = 8065;
+                Port = 8064;
+                ServerRole = ( CatalogSearch );
+            };
+            buyerserver5 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp01.lrd.cat.com;
+                InterNodePort = 8069;
+                Port = 8068;
+                ServerRole = ( AribaTaskRunner );
+            };
+            buyerserver6 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp02.lrd.cat.com;
+                InterNodePort = 8073;
+                Port = 8072;
+                ServerRole = ( );
+            };
+            buyerserver7 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp01.lrd.cat.com;
+                InterNodePort = 8077;
+                Port = 8076;
+                ServerRole = ( );
+            };
+            buyerserver8 = {
+                ClassName = ariba.server.ormsserver.ORMSNode;
+                Host = arlmscp02.lrd.cat.com;
+                InterNodePort = 8049;
+                Port = 8048;
+                ServerRole = ( );
+            };
+        };
+        Password = {
+            NewPasswordTokenLifeSpan = 720;
+            PasswordExpireLimit = -1;
+            PasswordExpireWarning = 14;
+            PasswordResetTokenLifeSpan = 720;
+            RestrictLastXPasswordsUsed = 3;
+        };
+        PasswordAdapters = {
+            AdminPasswordAdapter = {
+                AllowNoPasswordExpirationPermission = true;
+                ClassName = "ariba.auth.password.CryptDBPasswordAdapter";
+                DisplayName = EnterpriseUsers;
+                Enabled = true;
+                LockoutPeriodInMinutes = 120;
+                MatchPasswordPatternEnabled = true;
+                MaxAnswerAttemptAllowed = 5;
+                MaxLoginAttemptAllowed = 3;
+                MaxPasswordLength = 16;
+                MinAnswerLength = 5;
+                MinPasswordLength = 4;
+                MinQuestionLength = 5;
+                OrganicPasswordGrowth = true;
+                PasswordExpireLimit = 0;
+                PasswordFile = passwd.txt;
+            };
+            PasswordAdapter1 = {
+                AllowCorporateAuthenticator = true;
+                AllowNoPasswordExpirationPermission = true;
+                ClassName = "ariba.auth.password.CryptDBPasswordAdapter";
+                DisplayName = EnterpriseUsers;
+                Enabled = true;
+                LockoutPeriodInMinutes = 120;
+                MatchPasswordPatternEnabled = true;
+                MaxAnswerAttemptAllowed = 5;
+                MaxLoginAttemptAllowed = 3;
+                MaxPasswordLength = 16;
+                MinAnswerLength = 5;
+                MinPasswordLength = 4;
+                MinQuestionLength = 5;
+                OrganicPasswordGrowth = true;
+                PasswordExpireLimit = 0;
+                PasswordFile = passwd.txt;
+                PasswordTokenExpirationPeriodInHours = 24;
+                PrivateKeyFilePath = "/msc/arb9r1/downstream/Server/etc/sso/private.der";
+                ShowLoginHelp = true;
+            };
+            PasswordAdapter2 = {
+                ClassName = ariba.sap.server.SAPPasswordAdapter;
+                Enabled = false;
+            };
+            PasswordAdapter3 = {
+                ClassName = "ariba.auth.external.client.ExternalAuthPasswordAdapter";
+                Enabled = false;
+                ExternalPasswordAdapterHost = localhost;
+                ExternalPasswordAdapterPort = 8090;
+            };
+            PasswordAdapter4 = {
+                ClassName = ariba.auth.password.NTDomainLoginAdapter;
+                Enabled = false;
+            };
+            PasswordAdapter5 = {
+                ClassName = "ariba.auth.core.NoAuthenticationPasswordAdapter";
+                Enabled = false;
+            };
+            PasswordAdapter6 = {
+                ClassName = "ariba.auth.core.NoAuthenticationPasswordAdapter";
+                Enabled = false;
+            };
+        };
+        Performance = {
+            AccessThresholdToCompile = 50;
+            BlockedConnectionTimeout = 0;
+            CatalogSearchLimit = 500;
+            CheckForBlockedConnections = 0;
+            ConcurrentUserLimit = 0;
+            CurrencyRateCacheSize = 2048;
+            EditLockTimeout = 1800;
+            HTTPSocketTimeout = 120;
+            HibernationDepth = 5;
+            LazySessionUpdate = false;
+            MaxCompiledAccessorCount = 1000;
+            MaxSubordinates = 1000;
+            MoneyUpdateHours = 6;
+            NamedObjectChooserLimit = 500;
+            PageCacheSize = 10;
+            QueryCacheSize = 70;
+            QueryFolderLimit = 2000;
+            RPCIdleConnectionTimeout = 3600;
+            ReaderThreadPool = 4;
+            RefreshRegion = true;
+            SSLKeyStoreFile = "etc/aribakeystore.p12";
+            SSLKeyStorePassword = aribakeystore;
+            SSLRPC = false;
+            SessionRecentObjectCacheSize = 50;
+            UseSoftReferenceForSessionCache = true;
+            WorkerThreadRunningTimeWarningThreshold = 1200;
+        };
+        Procure = {
+            AddPurchaseOrderToOutBoxOnCreate = false;
+            AddRequisitionToOutBoxOnCreate = true;
+            AllowNegativePricing = false;
+            AribaNetwork = {
+                EmailAddress = "aribaadmin@mycompany.com";
+                EnableCertificateAuthentication = false;
+                Id = "imp-team@cat.com";
+                KeyStoreFileName = "";
+                KeyStorePassword = "";
+                OrderRequestURL = "https://service.ariba.com/service/transaction/cxml.asp";
+                PermanentOrderFailureRetryPeriodInDays = 1;
+                PhoneNumber = 9.999.999.9999;
+                ProfileRequestURL = "https://service.ariba.com/service/transaction/cxml.asp";
+                PunchOutURL = "https://service.ariba.com/service/transaction/cxml.asp";
+                PunchOutUseUNUOMMap = false;
+                RequestTimeoutSeconds = 90;
+            };
+            CustomCatalogImplementation = "";
+            ExcludeSupplierDirectCatalogItems = false;
+            LinguisticAPIImplementation = (
+                "ariba.altavista.base.LinguisticMapInitializerEnglish",
+                "ariba.altavista.base.LinguisticMapInitializerSpanish",
+                "ariba.altavista.base.LinguisticMapInitializerItalian",
+                "ariba.altavista.base.LinguisticMapInitializerPortuguese",
+                "ariba.altavista.base.LinguisticMapInitializerPolish",
+                "ariba.altavista.base.LinguisticMapInitializerHungarian",
+                "ariba.altavista.base.LinguisticMapInitializerGerman",
+                "ariba.altavista.base.LinguisticMapInitializerDutch",
+                "ariba.altavista.base.LinguisticMapInitializerSwedish",
+                "ariba.altavista.base.LinguisticMapInitializerFinnish",
+                "ariba.altavista.base.LinguisticMapInitializerFrench",
+                "ariba.altavista.base.LinguisticMapInitializerNorwegian",
+                "ariba.altavista.base.LinguisticMapInitializerRussian",
+                "ariba.altavista.base.LinguisticMapInitializerDanish",
+                "ariba.altavista.base.LinguisticMapInitializerJapanese",
+                "ariba.altavista.base.LinguisticMapInitializerChinese"
+            );
+            OrderProcessor = {
+                CJKFont = "";
+                CJKFontDir = "";
+                FaxCountryCode = 1;
+                FaxCountryDialCodeFile = "config/variants/Plain/partitions/None/data/FaxDialCountryCodeMap.csv";
+                FaxDigitCount = 10;
+                FaxDomain = xsi;
+                FaxDomesticPrefix = 1;
+                FaxIsoCode = US;
+                FaxNumberOverride = "";
+                FaxOrders = true;
+                FaxPassword = "";
+                FaxRemoteServerDir = "/home/arbuser/faxorderreceive";
+                FaxRemoteServerPwdUK = 61629;
+                FaxRemoteServerPwdUS = 6594724784;
+                FaxRemoteServerUK = cat-igps-uk;
+                FaxRemoteServerUS = igps-usa;
+                FaxServer = faxServerName;
+                FaxUser = "";
+                ISOFaxHome = "";
+                OrdersDirectory = transactionData;
+                PrintOrders = true;
+            };
+            PendingUnknownSupplierOverdueLimitInDays = 14;
+            ReceiptSendMethods = {
+                OracleReceipt = {
+                    ERPSendMethod = true;
+                    Formatter = "ariba.oracle.server.OracleReceiptFormatter";
+                    ReceiptMethod = "ariba.purchasing.receiving.AribaERPReceiptMethod";
+                    Sender = "ariba.receiving.AribaReceiptAdapterSender";
+                };
+                PSReceipt = {
+                    ERPSendMethod = true;
+                    Formatter = "ariba.peoplesoft.server.PSReceiptFormatter";
+                    ReceiptMethod = "ariba.purchasing.receiving.AribaERPReceiptMethod";
+                    Sender = "ariba.receiving.AribaReceiptAdapterSender";
+                };
+                SAPReceipt = {
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPReceiptFormatter;
+                    ReceiptMethod = "ariba.purchasing.receiving.AribaERPReceiptMethod";
+                    Sender = "ariba.receiving.AribaReceiptAdapterSender";
+                };
+                Silent = {
+                    ERPSendMethod = false;
+                    Formatter = ariba.receiving.DummyReceiptFormatter;
+                    ReceiptMethod = ariba.receiving.DummyReceiptMethod;
+                    Sender = ariba.receiving.AribaReceiptSilentSender;
+                };
+            };
+            SendMethods = {
+                AribaEmail = {
+                    ACSNSendMethod = false;
+                    Contact = "PurchaseOrder.SupplierLocation.EmailAddress";
+                    ContactName = PurchaseOrder.SupplierLocation.Name;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.TextOrderFormatter";
+                    Sender = "ariba.purchasing.ordering.AribaEmailSender";
+                    SizeLimit = 4096;
+                };
+                AribaFax = {
+                    ACSNSendMethod = false;
+                    Contact = PurchaseOrder.SupplierLocation.Fax;
+                    ContactName = PurchaseOrder.SupplierLocation.Name;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.HTMLOrderFormatter";
+                    Sender = ariba.purchasing.ordering.AribaFaxSender;
+                    SizeLimit = 4096;
+                };
+                ERP = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = "";
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.DummyOrderFormatter";
+                    Sender = ariba.purchasing.ordering.AribaERPSender;
+                    SizeLimit = 4096;
+                };
+                Email = {
+                    ACSNSendMethod = false;
+                    Contact = "PurchaseOrder.SupplierLocation.EmailAddress";
+                    ContactName = PurchaseOrder.SupplierLocation.Name;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.TextOrderFormatter";
+                    Sender = config.java.ordering.CATAribaEmailSender;
+                    SizeLimit = 4096;
+                };
+                Fax = {
+                    ACSNSendMethod = false;
+                    Contact = PurchaseOrder.SupplierLocation.Fax;
+                    ContactName = "";
+                    ERPSendMethod = false;
+                    Formatter = "config.java.ordering.CatHTMLOrderFormatter";
+                    Sender = config.java.ordering.CatAribaFaxSender;
+                    SizeLimit = 4096;
+                };
+                Manual = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = "";
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.DummyOrderFormatter";
+                    Sender = "ariba.purchasing.ordering.AribaDummySender";
+                    SizeLimit = 4096;
+                };
+                OraclePOERP = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = "";
+                    ERPSendMethod = true;
+                    Formatter = ariba.oracle.server.OraclePOERPFormatter;
+                    Sender = "ariba.purchasing.ordering.AribaPOERPSender";
+                    SizeLimit = 4096;
+                };
+                PSPOERP = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = "";
+                    ERPSendMethod = true;
+                    Formatter = ariba.peoplesoft.server.PSPOERPFormatter;
+                    Sender = "ariba.purchasing.ordering.AribaPOERPSender";
+                    SizeLimit = 4096;
+                };
+                Print = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = PurchaseOrder.SupplierLocation.Name;
+                    ERPSendMethod = false;
+                    Formatter = "config.java.ordering.CatHTMLOrderFormatter";
+                    Sender = "ariba.purchasing.ordering.AribaPrinterSender";
+                    SizeLimit = 4096;
+                };
+                SAPPOERP = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = "";
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPPOERPFormatter;
+                    Sender = "ariba.purchasing.ordering.AribaPOERPSender";
+                    SizeLimit = 4096;
+                };
+                Silent = {
+                    ACSNSendMethod = false;
+                    Contact = "";
+                    ContactName = PurchaseOrder.SupplierLocation.Name;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.DummyOrderFormatter";
+                    Sender = "ariba.purchasing.ordering.AribaSilentSender";
+                    SizeLimit = 4096;
+                };
+                URL = {
+                    ACSNSendMethod = true;
+                    Contact = "PurchaseOrder.SupplierLocation.ElectronicOrderAddress";
+                    ContactName = PurchaseOrder.SupplierLocation.Name;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.purchasing.ordering.DummyOrderFormatter";
+                    Sender = "config.java.ordering.CatSupplierNetworkOrderSender";
+                    SizeLimit = 4096;
+                };
+            };
+            SupplierDefaultLanguage = English;
+            SupplierDirectPartition = supplierdirect;
+            SupplierLocationProblems = 100;
+        };
+        Reports = {
+            AnalysisFolderPath = "/ad/viewFolder/ariba.analytics.folderui.FolderPortletController";
+            AnalysisReportEnabled = false;
+            AnalysisWorkspaceID = "&folderId=SYS0300";
+            ReportsMaxCategories = 9;
+            ReportsMaxRows = 1000;
+        };
+        Security = {
+            CurrentVersion = 1;
+            EncryptionAlgorithms = { 1 = "AES/CBC/PKCS5Padding"; 2 = "AES/CBC/PKCS5Padding";};
+            EncryptionKeys = { 1 = "{DESede}z3LW4MhfKz8="; 2 = "{DESede}z3LW4MhfKz8=";};
+        };
+        Sessions = {
+            CatalogServer = {
+                EditableClasses = (
+                    ariba.procure.core.CatalogEntry,
+                    ariba.approvable.core.Folder,
+                    "ariba.integration.core.IntegrationEventLog",
+                    "ariba.base.server.core.ScheduledTaskStatus",
+                    "ariba.catalog.admin.core.BuyerImportTracker",
+                    ariba.catalog.base.core.Popularity
+                );
+            };
+            DefaultSession = { EditableClasses = ( ariba.base.core.ClusterRoot );};
+            EnterpriseManager = { EditableClasses = ( ariba.base.core.ClusterRoot );};
+            GuestUser = {
+                EditableClasses = (
+                    ariba.user.core.User,
+                    ariba.user.core.Organization,
+                    ariba.auth.password.Password,
+                    ariba.common.core.User
+                );
+            };
+            Instance = { EditableClasses = ( ariba.base.core.ClusterRoot );};
+            ORMSUser = {
+                EditableClasses = (
+                    "ariba.catalog.admin.core.BuyerImportTracker",
+                    ariba.catalog.base.CatalogMenuPreference,
+                    ariba.approvable.core.Approvable,
+                    config.java.invoiceeform.InvoiceEform,
+                    "ariba.common.core.ApprovableNotificationPreferences",
+                    ariba.common.core.CommonSupplier,
+                    ariba.approvable.core.Folder,
+                    ariba.approvable.core.FolderItem,
+                    ariba.common.core.PCard,
+                    ariba.user.core.RecentUserChoice,
+                    ariba.common.core.Supplier,
+                    ariba.common.core.SupplierLocation,
+                    ariba.common.core.User,
+                    ariba.expense.core.ExpenseDetails,
+                    ariba.expense.core.LocationType,
+                    "ariba.integration.core.IntegrationEventLog",
+                    ariba.portlet.core.PortletConfig,
+                    ariba.purchasing.core.OrderRecipient,
+                    ariba.server.workflowserver.Workflow,
+                    "ariba.server.workflowserver.WorkflowEventListener",
+                    ariba.user.core.User,
+                    "ariba.procure.core.SharedGlobalItemProperties",
+                    ariba.kitting.core.Kit,
+                    "ariba.collaboration.core.CollaborationRequest",
+                    ariba.collaboration.core.Proposal,
+                    ariba.collaboration.core.CounterProposal,
+                    ariba.collaboration.core.RequiredViewing,
+                    "ariba.payment.core.PaymentRequestRecipient",
+                    "ariba.payment.core.PaymentTransactionRecipient",
+                    "ariba.collaboration.core.CollaborationThread",
+                    "ariba.common.core.PartitionedCommodityCode",
+                    ariba.approvable.core.MessageBoard,
+                    ariba.core.UKSuppliereForm,
+                    ariba.core.USSuppliereForm,
+                    ariba.core.FreightsPayableEform,
+                    ariba.core.PrefSupplierMaintEform,
+                    ariba.core.SAPSuppliereForm,
+                    ariba.common.core.Address,
+                    ariba.core.CatCUPIDMigrationeForm,
+                    cat.core.CatMigrateApprovable,
+                    "config.java.dataupdateeform.CatDataUpdateEform",
+                    ariba.core.CatReceiptBackOutForm,
+                    ariba.payment.core.PaymentTerms,
+                    "ariba.base.server.core.ScheduledTaskStatus",
+                    ariba.cxml.base.core.CXMLDocument,
+                    ariba.pricing.core.DoubleCell,
+                    ariba.pricing.core.Grid,
+                    "ariba.pricing.core.TermBasedGridPricingTerm",
+                    ariba.pricing.core.PricingTerms,
+                    ariba.reporting.core.SavedReport,
+                    ariba.search.core.SavedSearch,
+                    ariba.search.core.DashboardSavedSearch,
+                    ariba.search.core.SearchExpression,
+                    ariba.dashboard.core.Dashboard,
+                    ariba.dashboard.core.PortletInstance,
+                    "ariba.contract.core.ContractSubscriptionTracker",
+                    "ariba.approvable.core.AttachmentReference",
+                    "ariba.contract.core.ServiceLevelAgreement",
+                    ariba.auth.password.Password,
+                    "ariba.expense.core.audit.RealTimeAuditPolicyType",
+                    "ariba.expense.core.audit.BatchAuditPolicyType",
+                    ariba.expense.core.audit.AuditPolicies,
+                    ariba.workforce.core.Contractor,
+                    "ariba.catalog.base.favorites.FavoriteGroup",
+                    ariba.app.util.PersistedToken,
+                    ariba.procure.core.BiddingType,
+                    "ariba.collaboration.core.CollaborationRoutingInfo",
+                    ariba.l2charge.core.Level2Charge,
+                    ariba.expense.core.ExpensePolicyType,
+                    "ariba.expense.core.ExpenseReportPrintConfig",
+                    ariba.expense.core.TravelAuthPrintConfig,
+                    "ariba.expense.core.ExpenseHeaderCategoryMap",
+                    "ariba.workforce.core.TimeSheetRoutingInfo",
+                    ariba.core.SAPFreightsPayableEform,
+                    ariba.catalog.base.core.Popularity
+                );
+            };
+            PurgeAdministration = { EditableClasses = ( ariba.base.core.ClusterRoot );};
+        };
+        Settlement = {
+            PaymentRequestSendMethods = {
+                AribaNetwork = {
+                    ACSNSendMethod = true;
+                    ContactName = UserSender;
+                    ERPSendMethod = false;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = "ariba.payment.AribaNetworkPaymentRequestMethod";
+                    Sender = "ariba.payment.cxml.AribaNetworkCXMLPaymentProposalSender";
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+                MessagingQueue = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+                OraclePaymentERP = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = "ariba.oracle.server.OracleInvoiceFormatter";
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = true;
+                    UsesDirectIntegration = false;
+                };
+                PSPaymentERP = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = "ariba.peoplesoft.server.PsoftInvoiceFormatter";
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = true;
+                    UsesDirectIntegration = false;
+                };
+                SAPPaymentERP = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPInvoiceFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = true;
+                    UsesDirectIntegration = false;
+                };
+                SAPPaymentERPDirect = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = true;
+                    Formatter = ariba.sap.server.SAPInvoiceFormatter;
+                    PaymentMethod = ariba.payment.AribaERPPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentQueueSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = true;
+                };
+                Silent = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = false;
+                    Formatter = ariba.payment.DummyPaymentFormatter;
+                    PaymentMethod = ariba.payment.DummyPaymentMethod;
+                    Sender = ariba.payment.AribaPaymentSilentSender;
+                    UsesAsynchronousPush = false;
+                    UsesDirectIntegration = false;
+                };
+            };
+            PaymentTransactionSendMethods = {
+                AribaNetwork = {
+                    ACSNSendMethod = true;
+                    ContactName = UserSender;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.payment.DummyPaymentTransactionFormatter";
+                    PaymentMethod = "ariba.payment.AribaNetworkPaymentTransactionMethod";
+                    Sender = "ariba.payment.cxml.AribaNetworkCXMLPaymentRemittanceSender";
+                };
+                Silent = {
+                    ACSNSendMethod = false;
+                    ContactName = UserSender;
+                    ERPSendMethod = false;
+                    Formatter = "ariba.payment.DummyPaymentTransactionFormatter";
+                    PaymentMethod = "ariba.payment.DummyPaymentTransactionMethod";
+                    Sender = "ariba.payment.AribaPaymentTransactionSilentSender";
+                };
+            };
+        };
+        SupplierPunchIn = { OrganicGrowth = true;};
+        ThreadPools = {
+            Default = {
+                Max = 3;
+                Min = 1;
+                QueueSize = 100;
+                ThreadManager = "ariba.base.server.ObjectServerThreadManager";
+                Timeout = 1800000;
+            };
+            NodeManager = {
+                Max = 15;
+                Min = 3;
+                QueueSize = 50;
+                RejectedExecutionHandler = "ariba.util.core.ThreadPoolRejectedExecutionHandler";
+                ThreadManager = "ariba.base.server.ObjectServerThreadManager";
+                Timeout = 1800000;
+            };
+            Scheduler = {
+                Max = 20;
+                Min = 2;
+                QueueSize = 500;
+                RejectedExecutionHandler = "ariba.util.scheduler.ScheduledTaskRejectedExecutionHandler";
+                ThreadManager = "ariba.base.server.ObjectServerThreadManager";
+                Timeout = 1800000;
+            };
+        };
+        UI = {
+            ElementIdCacheMaxSize = 200000;
+            EnableLoginAutoComplete = true;
+            FileUploadDirectory = temp;
+            FileUploadMaxSize = 150000000;
+            LoginHintsFile = "news/loginhints.html";
+            LogoutDestinationURL = "";
+            NumberLinePerPage = 14;
+            NumberOfTOCFlashSet = 6;
+            PreferredTimezones = ( CST );
+            SessionExpirationWarningInterval = 60000;
+        };
+        Users = { InternalSystemUserList = ( aribasystem, aribaguestsystem );};
+    };
+}

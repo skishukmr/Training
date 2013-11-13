@@ -1,0 +1,68 @@
+8859_1,,
+,,
+,, reasons for Caterpillar .rul files
+,,
+,, REQUISITION RULES
+,,
+Hazmat,"HazMat Coordinator must review potential hazardous material items (Facility-Dock: %s).",
+Hazmat_ORIG,"HazMat Coordinator must review potential hazardous material items (Line Item %s).",
+DataMaintainer_NonCatalog,"Data Maintainer must determine approver due to missing data (NonCatalog rule).",
+DataMaintainer_Hazmat,"Data Maintainer must determine approver due to missing data (HazMat rule).",
+DataMaintainer_CategoryThreshold,"Data Maintainer must determine approver due to missing data (Category rule).",
+DataMaintainer_Department,"Data Maintainer must determine approver due to missing data (Department rule).",
+DataMaintainer_Supervisor,"Data Maintainer must determine approver due to missing data (Supervisor rule).",
+Supervisor_Approver,"Requisitioner\''\'s supervisor must approve since total cost exceeds Requisitioner expense approval limit.",
+Supervisor_Watcher,"Requisitioner\''\'s supervisor notified of any purchase.",
+Chain_Supervisor,"Requisitioner\''\'s management chain must approve in accordance with Caterpillar expense approval limits.",
+NonCatalog,"Indirect Purchasing must review if requisition contains non-catalog items.",
+NonCatalog_Data,"Indirect Purchasing must review to provide additional details.",
+OnBehalfOf,"Requisitioner added to confirm purchase.",
+TransactionCenterReview,"Indirect Purchasing must validate prior to ordering.",
+CustomShipTo,"Requisitioner\''\'s supervisor notified since shipping to a non-Caterpillar facility.",
+OtherDepartment,"Approval required because the charged Dept-Div-Section (%s) differs from Requisitioner\''\'s default accounting.",
+CategoryThreshold_Required,"Indirect Purchasing must review if line total cost exceeds category sourcing dollar amount threshold.",
+CategoryThreshold_Watcher,"Indirect Purchasing will be notified since line total cost exceeds category sourcing dollar amount threshold.",
+TaxCustomApprover_Required,"Tax Analyst must review tax assessment prior to purchase (Lines %s).",""
+TaxCustomApprover_Watcher,"Tax Analyst notified for optional review of tax assessment (Lines: %s).",""
+TaxCustomApprover_Problem,"Tax Analyst must review due to issue with automatic tax assessment (invalid input fields).",""
+TaxCustomApprover_Temporary,"Tax Analyst must review automatic tax assessment.",""
+OIOAgreement,"Approval required because requisition may contain items related to IBM OIO Agreement.",""
+DFPAccountReviewReason,"D&FP Reviewer Approval required",""
+BusinessResourceApprover,"Business Resource Manager must approve.",""
+ITApprover,"IT Dept approval required for IT-related purchases.",""
+ITApprover2nd,"IT Dept management chain approval required for IT-related purchases.",""
+ITApprover3rd,"IT Dept management chain approval required for IT-related purchases.",""
+CSCLTeam,"Requisition for non-catalog items for Company Code 'FT00' requires approval by CSCL Customs Team.",""
+,,
+,,
+,, CONTRACT REQUEST RULES
+,,
+OnBehalfOf_Contract,"Requester added to confirm new or modified Contract Request.",
+Supervisor_Contract,"Requester\''\'s supervisor must approve new or modified Contract Request.",
+RevisionByOther_Contract,"Requester added to confirm Contract Request revision by other user.",
+PreApprovalForMAR,"Pre-Approval is required to ensure correctness of the Contract Request when maximum amount is blank or  greater than or equal to $100,000USD,  or when line items contain hazardous materials",
+PreApproval,"Pre-Approval is required to ensure correctness of the Contract Request",
+,,
+,,
+,, RECEIPT RULES
+,,
+RequesterOrReceivingDock,"Requester or Receiving Dock must receive items.",
+BuyerOnZeroPriceOrderLine,"Buyer to approve once Order price is corrected.",
+,,
+,,
+,, USER PROFILE RULES
+DelegateeConfirmDelegation,"Delegate must confirm delegation of Approval Authority",
+CurrentSupervisorConfirmDelegation,"Users supervisor is being added as a watcher for a delegation request",
+,,
+,, SETTLEMENT CODE IR RULE
+SettlementCode_Approver_Preparer,"Partial Progressive Payment (Settlement Code > 30), requires your approval",""
+SettlementCode_Approver_Buyer,"Final Payment on a Partial Progressive (Settlement Code > 30), requires Buyers approval",""
+,,
+,,
+,, IR ERROR HANDLER RULE
+Preparer_Approver,"Preparer of the purchase requisition needs to correct the account distribution on the invoice reconciliation",""
+Contract_Contact_Approver,"Contract Contact needs to correct the account distribution on the invoice reconciliation",""
+CSCLTeamIR,"All Foreign Currency Invoice Reconciliation for non-catalog items for Company Code 'FT00' requires approval by CSCL Customs Team.",""
+,,
+ITPCC,"IT Approval is required.",
+DataMaintainer_IT,"Data Maintainer must determine approver due to missing data (CATIT rule).",

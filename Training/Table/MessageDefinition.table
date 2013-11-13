@@ -1,0 +1,3266 @@
+{
+    ASCCCommodityCodeParentPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeParentPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ASCCCommodityCodeParentPull;
+        Type = Request-Reply;
+    };
+    ASCCCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ASCCCommodityCodePull;
+        Type = Request-Reply;
+    };
+    ASCCToUNSPSCClassificationCodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.ClassificationCodeMap:ClassificationCodeMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ASCCToUNSPSCClassificationCodeMapPull;
+        Type = Request-Reply;
+    };
+    ASMObjectInspectionService = {
+        Signature = {
+            ListenerClass = "ariba.tool.analysis.ProviderRequestServer";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ASMObjectInspectionService;
+        Type = Service;
+    };
+    ASMSingleSignOnService = {
+        Signature = {
+            ListenerClass = "ariba.tool.analysis.ProviderRequestServer";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ASMSingleSignOnService;
+        Type = Service;
+    };
+    AccountTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.common.core.AccountType:AccountTypeLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AccountTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    AccountTypePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.AccountType:AccountTypePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AccountTypePull;
+        Type = Request-Reply;
+    };
+    AdapterSourceMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.AdapterSourceMap:AdapterSourceMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AdapterSourceMapPull;
+        Type = Request-Reply;
+    };
+    AddressAllPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.Address:AddressPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AddressAllPull;
+        Type = Request-Reply;
+    };
+    AddressDelete = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.Address:AddressPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AddressDelete;
+        Type = Request-Reply;
+    };
+    AddressPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.Address:AddressPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AddressPull;
+        Type = Request-Reply;
+    };
+    AdvancedShipNoticePush = {
+        Signature = {
+            Error = {};
+            Reply = {};
+            Request = {
+                AdvancedShipNotice = "ariba.purchasing.core.AdvancedShipNotice:Export";
+            };
+        };
+        TopicName = AdvancedShipNoticePush;
+        Type = Request-Reply;
+    };
+    AirlineIATACodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.charge.core.AirlineIATACode:AirlineIATACodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AirlineIATACodePull;
+        Type = Request-Reply;
+    };
+    AirportIATACodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.charge.core.AirportIATACode:AirportIATACodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = AirportIATACodePull;
+        Type = Request-Reply;
+    };
+    AnalysisProviderSetupRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = AnalysisProviderSetupRequest;
+        Type = Request-Reply;
+    };
+    ApprovableTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.approvable.core.ApprovableType:ApprovableTypePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ApprovableTypePull;
+        Type = Request-Reply;
+    };
+    ApprovableTypeWrapperPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.catalog.base.server.amltypesource.ApprovableTypeWrapper:ApprovableTypeWrapperPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ApprovableTypeWrapperPull;
+        Type = Request-Reply;
+    };
+    AssetDataExport = {
+        Signature = {
+            Schema = "ariba.receiving.core.ReceiptCoreApprovable:ReceiptHeader";
+        };
+        TopicName = AssetDataExport;
+        Type = Publish;
+    };
+    BankAccountIDTypeExport = {
+        Signature = {
+            Schema = "ariba.payment.core.BankAccountIDType:BankAccountIDTypeExport";
+        };
+        TopicName = BankAccountIDTypeExport;
+        Type = Publish;
+    };
+    BankAccountIDTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.BankAccountIDType:BankAccountIDTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BankAccountIDTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    BankAccountIDTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.BankAccountIDType:BankAccountIDTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BankAccountIDTypePull;
+        Type = Request-Reply;
+    };
+    BankAccountTypeExport = {
+        Signature = {
+            Schema = "ariba.payment.core.BankAccountType:BankAccountTypeExport";
+        };
+        TopicName = BankAccountTypeExport;
+        Type = Publish;
+    };
+    BankAccountTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.BankAccountType:BankAccountTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BankAccountTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    BankAccountTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.payment.core.BankAccountType:BankAccountTypePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BankAccountTypePull;
+        Type = Request-Reply;
+    };
+    BankIDTypeExport = {
+        Signature = { Schema = "ariba.payment.core.BankIDType:BankIDTypeExport";};
+        TopicName = BankIDTypeExport;
+        Type = Publish;
+    };
+    BankIDTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.payment.core.BankIDType:BankIDTypeLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BankIDTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    BankIDTypePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.payment.core.BankIDType:BankIDTypePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BankIDTypePull;
+        Type = Request-Reply;
+    };
+    BiddingTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.BiddingType:BiddingTypeLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BiddingTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    BiddingTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.BiddingType:BiddingTypePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BiddingTypePull;
+        Type = Request-Reply;
+    };
+    BuyerItemMasterPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.itemmaster.core.BuyerItemMaster:BuyerItemMasterPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BuyerItemMasterPull;
+        Type = Request-Reply;
+    };
+    BuyerPaymentBankLocationExport = {
+        Signature = {
+            Error = {};
+            Pull = {};
+            Reply = {};
+            Request = {};
+            Schema = "ariba.payment.core.PaymentBankLocation:PaymentBankLocationExport";
+        };
+        TopicName = BuyerPaymentBankLocationExport;
+        Type = Publish;
+    };
+    BuyerPaymentBankLocationPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.PaymentBankLocation:PaymentBankLocationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = BuyerPaymentBankLocationPull;
+        Type = Request-Reply;
+    };
+    BuyerPortalPunchInSignOnService = {
+        Signature = {
+            ListenerClass = "ariba.htmlui.buyer.BuyerPortalPunchInRequestHandler";
+            Request = {};
+            Response = {};
+        };
+        TopicName = BuyerPortalPunchInSignOnService;
+        Type = Service;
+    };
+    CarrierCodePull = {
+		    Signature = {
+			Error = {};
+			Pull = { 
+				Schema = (
+					"cat.core.CarrierCode:CarrierCodePull" 
+					);
+			};
+			Reply = {};
+			Request = {};
+		    };
+		    TopicName = CarrierCodePull;
+		    Type = Request-Reply;
+            }; 
+    CATCarrierCodeSubscribe = {
+        Signature = {
+            ListenerClass = ariba.integration.base.SubscribeListener;
+            Schema = cat.core.CarrierCode;
+        };
+        TopicName = CATCarrierCodeSubscribe;
+        Type = Subscribe;
+    };
+    CATControlObjectPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( cat.core.ControlPullObject );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CATControlObjectPull;
+        Type = Request-Reply;
+    };
+    CATControlObjectPush = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( cat.core.ControlPullObject );};
+            Reply = {};
+            Request = { ControlPullObject = "cat.core.ControlPullObject:Export";};
+        };
+        TopicName = CATControlObjectPush;
+        Type = Request-Reply;
+    };
+    CATMSCAccessTypePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "cat.core.MSCAccessType:CATMSCAccessTypePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CATMSCAccessTypePull;
+        Type = Request-Reply;
+    };
+    CATTrafficCityStateCodeSubscribe = {
+        Signature = {
+            ListenerClass = ariba.integration.base.SubscribeListener;
+            Schema = cat.core.TrafficCityStateCode;
+        };
+        TopicName = CATTrafficCityStateCodeSubscribe;
+        Type = Subscribe;
+    };
+    CRPaymentExport = {
+        Signature = { Schema = "ariba.payment.core.Payment:CRPaymentHeaderExport";};
+        TopicName = CRPaymentExport;
+        Type = Publish;
+    };
+    CatFacilityPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "cat.core.CatFacility:CatFacilityPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CatFacilityPull;
+        Type = Request-Reply;
+    };
+    CatalogQueryRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = CatalogQueryRequest;
+        Type = Request-Reply;
+    };
+    CategoryDefinitionExcelPrePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryDefinitionRequest:CategoryDefinitionExcelPrePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CategoryDefinitionExcelPrePull;
+        Type = Request-Reply;
+    };
+    CategoryDefinitionExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryDefinitionRequest:CategoryDefinitionExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CategoryDefinitionExcelPull;
+        Type = Request-Reply;
+    };
+    CategoryDriverExport = {
+        Signature = { Schema = "ariba.procure.core.CategoryDriver:CategoryDriverPull";};
+        TopicName = CategoryDriverExport;
+        Type = Publish;
+    };
+    CategoryDriverPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.CategoryDriver:CategoryDriverPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CategoryDriverPull;
+        Type = Request-Reply;
+    };
+    ClassificationCodeDomainMetaExport = {
+        Signature = {
+            Schema = "ariba.basic.core.ClassificationCodeDomainMeta:ClassificationCodeDomainMetaExport";
+        };
+        TopicName = ClassificationCodeDomainMetaExport;
+        Type = Publish;
+    };
+    ClassificationCodeDomainMetaPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.ClassificationCodeDomainMeta:ClassificationCodeDomainMetaPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ClassificationCodeDomainMetaPull;
+        Type = Request-Reply;
+    };
+    ClassificationCodeExport = {
+        Signature = {
+            Schema = "ariba.basic.core.ClassificationCodeMap:ClassificationCodeMapExport";
+        };
+        TopicName = ClassificationCodeMapExport;
+        Type = Publish;
+    };
+    ClassificationCodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.ClassificationCodeMap:ClassificationCodeMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ClassificationCodeMapPull;
+        Type = Request-Reply;
+    };
+    CollaborationPunchInService = {
+        Signature = {
+            ListenerClass = "ariba.htmlui.collaboration.network.CollaborationPunchInRequestHandler";
+            Request = {};
+            Response = {};
+        };
+        TopicName = CollaborationPunchInService;
+        Type = Service;
+    };
+    CollaborationReasonLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.collaboration.core.Reason:CollaborationReasonLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CollaborationReasonLanguagePull;
+        Type = Request-Reply;
+    };
+    CollaborationReasonPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.collaboration.core.Reason:CollaborationReasonPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CollaborationReasonPull;
+        Type = Request-Reply;
+    };
+    CollaborationTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CollaborationType:CollaborationTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CollaborationTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    CollaborationTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CollaborationType:CollaborationTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CollaborationTypePull;
+        Type = Request-Reply;
+    };
+    CommodityCodeExport = {
+        Signature = { Schema = "ariba.basic.core.CommodityCode:CommodityCodeExport";};
+        TopicName = CommodityCodeExport;
+        Type = Publish;
+    };
+    CommodityCodeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.CommodityCode:CommodityCodeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommodityCodeLanguagePull;
+        Type = Request-Reply;
+    };
+    CommodityCodeParentPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeParentPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommodityCodeParentPull;
+        Type = Request-Reply;
+    };
+    CommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommodityCodePull;
+        Type = Request-Reply;
+    };
+    CommodityExportMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.CommodityExportMapEntry:CommodityExportMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommodityExportMapPull;
+        Type = Request-Reply;
+    };
+    CommonSupplierDataMapExport = {
+        Signature = {
+            Schema = "ariba.base.core.SimpleMapEntry:CommonSupplierDataMapExport";
+        };
+        TopicName = CommonSupplierDataMapExport;
+        Type = Publish;
+    };
+    CommonSupplierDataMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.base.core.SimpleMapEntry:CommonSupplierDataMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommonSupplierDataMapPull;
+        Type = Request-Reply;
+    };
+    CommonSupplierIDMapExport = {
+        Signature = {
+            Schema = "ariba.common.core.CommonSupplier:CommonSupplierIDMapExport";
+        };
+        TopicName = CommonSupplierIDMapExport;
+        Type = Publish;
+    };
+    CommonSupplierIDMapHeaderExport = {
+        Signature = {
+            Schema = "ariba.common.core.CommonSupplier:CommonSupplierIDMapHeaderExport";
+        };
+        TopicName = CommonSupplierIDMapHeaderExport;
+        Type = Publish;
+    };
+    CommonSupplierIDMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.CommonSupplier:CommonSupplierIDMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommonSupplierIDMapPull;
+        Type = Request-Reply;
+    };
+    ConfirmationSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.purchasing.core.CXMLToOrderConfirmationCallBackHandler";
+            Schema = none;
+        };
+        TopicName = ConfirmationSubscriber;
+        Type = Subscribe;
+    };
+    "ConsultingCategoryDefinitionItemExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItem:ConsultingCategoryDefinitionItemExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "ConsultingCategoryDefinitionItemExcelPull";
+        Type = Request-Reply;
+    };
+    ConsultingCategoryDefinitionMapExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:ConsultingCategoryDefinitionMapExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ConsultingCategoryDefinitionMapExcelPull;
+        Type = Request-Reply;
+    };
+    "ConsultingCategoryDefinitionMapTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:ConsultingCategoryDefinitionMapTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "ConsultingCategoryDefinitionMapTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    "ConsultingCategoryDefinitionTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryTemplateItem:ConsultingCategoryDefinitionTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "ConsultingCategoryDefinitionTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    ContractExport = {
+        Signature = { Schema = "ariba.contract.core.Contract:ContractExport";};
+        TopicName = ContractExport;
+        Type = Publish;
+    };
+    ContractProviderSetupRequest = {
+        Signature = {
+            ListenerClass = "ariba.contract.cxml.ContractProviderSetupRequestListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ContractProviderSetupRequest;
+        Type = Service;
+    };
+    "ContractProviderSetupRequestActivateContractTerms" = {
+        Signature = {
+            ListenerClass = "ariba.contract.cxml.ContractProviderSetupRequestListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = "ContractProviderSetupRequestActivateContractTerms";
+        Type = Service;
+    };
+    "ContractProviderSetupRequestImportContractTerms" = {
+        Signature = {
+            ListenerClass = "ariba.contract.cxml.ContractProviderSetupRequestListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = "ContractProviderSetupRequestImportContractTerms";
+        Type = Service;
+    };
+    "ContractProviderSetupRequestViewContractTerms" = {
+        Signature = {
+            ListenerClass = "ariba.contract.cxml.ContractProviderSetupRequestListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = "ContractProviderSetupRequestViewContractTerms";
+        Type = Service;
+    };
+    ContractProviderSetupRequestViewObject = {
+        Signature = {
+            ListenerClass = "ariba.contract.cxml.ContractProviderSetupRequestListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ContractProviderSetupRequestViewObject;
+        Type = Service;
+    };
+    ContractRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = ContractRequest;
+        Type = Request-Reply;
+    };
+    ContractRequestExport = {
+        Signature = {
+            Schema = "ariba.contract.core.ContractRequest:ContractRequestExport";
+        };
+        TopicName = ContractRequestExport;
+        Type = Publish;
+    };
+    ContractRequestPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.contract.core.ContractRequest:ContractRequestPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ContractRequestPull;
+        Type = Request-Reply;
+    };
+    ContractStatusUpdateRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = ContractStatusUpdateRequest;
+        Type = Request-Reply;
+    };
+    ContractStatusUpdateService = {
+        Signature = {
+            ListenerClass = "ariba.contract.cxml.ContractStatusUpdateListener";
+            Schema = none;
+        };
+        TopicName = ContractStatusUpdateService;
+        Type = Subscribe;
+    };
+    ContractorExpenseTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.ContractorExpenseType:ContractorExpenseTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ContractorExpenseTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    ContractorExpenseTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.ContractorExpenseType:ContractorExpenseTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ContractorExpenseTypePull;
+        Type = Request-Reply;
+    };
+    "ContractorPerformanceTenPointValueLanguagePull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.ContractorPerformanceTenPointValue:ContractorPerformanceTenPointValueLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "ContractorPerformanceTenPointValueLanguagePull";
+        Type = Request-Reply;
+    };
+    ContractorPerformanceTenPointValuePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.ContractorPerformanceTenPointValue:ContractorPerformanceTenPointValuePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ContractorPerformanceTenPointValuePull;
+        Type = Request-Reply;
+    };
+    "ContractorPerformanceThreePointValueLanguagePull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.ContractorPerformanceThreePointValue:ContractorPerformanceThreePointValueLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "ContractorPerformanceThreePointValueLanguagePull";
+        Type = Request-Reply;
+    };
+    ContractorPerformanceThreePointValuePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.ContractorPerformanceThreePointValue:ContractorPerformanceThreePointValuePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ContractorPerformanceThreePointValuePull;
+        Type = Request-Reply;
+    };
+    ControlObjectPush = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( cat.core.ControlPullObject );};
+            Reply = {};
+            Request = { ControlPullObject = "cat.core.ControlPullObject:Export";};
+        };
+        TopicName = ControlObjectPush;
+        Type = Request-Reply;
+    };
+    ControlPullObjectSubscribe = {
+        Signature = {
+            ListenerClass = ariba.integration.base.SubscribeListener;
+            Schema = cat.core.ControlPullObject;
+        };
+        TopicName = ControlPullObjectSubscribe;
+        Type = Subscribe;
+    };
+    CopyRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = CopyRequest;
+        Type = Request-Reply;
+    };
+    CopySubscriber = {
+        Signature = { ListenerClass = ariba.channel.cxml.MimeHandler; Schema = none;};
+        TopicName = CopySubscriber;
+        Type = Subscribe;
+    };
+    CountryDialingCodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.base.core.SimpleMapEntry:CountryDialingCodeMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CountryDialingCodeMapPull;
+        Type = Request-Reply;
+    };
+    CountryFaxNumberMapExport = {
+        Signature = {
+            Schema = "ariba.expense.core.CountryFaxNumberMap:CountryFaxNumberMapExport";
+        };
+        TopicName = CountryFaxNumberMapExport;
+        Type = Publish;
+    };
+    CountryFaxNumberMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.expense.core.CountryFaxNumberMap:CountryFaxNumberMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CountryFaxNumberMapPull;
+        Type = Request-Reply;
+    };
+    CountryLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.basic.core.Country:CountryLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CountryLanguagePull;
+        Type = Request-Reply;
+    };
+    CountryMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.base.core.SimpleMapEntry:CountryMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CountryMapPull;
+        Type = Request-Reply;
+    };
+    "CountryPerDiemServiceProviderClassMapExport" = {
+        Signature = {
+            Schema = "ariba.expense.core.CountryPerDiemServiceProviderClassMap:CountryPerDiemServiceProviderClassMapExport";
+        };
+        TopicName = "CountryPerDiemServiceProviderClassMapExport";
+        Type = Publish;
+    };
+    "CountryPerDiemServiceProviderClassMapPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.expense.core.CountryPerDiemServiceProviderClassMap:CountryPerDiemServiceProviderClassMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "CountryPerDiemServiceProviderClassMapPull";
+        Type = Request-Reply;
+    };
+    CountryPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.basic.core.Country:CountryPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CountryPull;
+        Type = Request-Reply;
+    };
+    CurrencyConversionRatePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.CurrencyConversionRate:CurrencyConversionRatePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CurrencyConversionRatePull;
+        Type = Request-Reply;
+    };
+    CurrencyConversionSubscribe = {
+        Signature = {
+            ListenerClass = ariba.integration.base.SubscribeListener;
+            Schema = ariba.basic.core.CurrencyConversionRate;
+        };
+        TopicName = CurrencyConversionSubscribe;
+        Type = Subscribe;
+    };
+    CurrencyGroupPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.basic.core.CurrencyGroup );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CurrencyGroupPull;
+        Type = Request-Reply;
+    };
+    CurrencyLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.Currency:CurrencyLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CurrencyLanguagePull;
+        Type = Request-Reply;
+    };
+    CurrencyMapExport = {
+        Signature = { Schema = "ariba.base.core.SimpleMapEntry:CurrencyMapExport";};
+        TopicName = CurrencyMapExport;
+        Type = Publish;
+    };
+    CurrencyMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.SimpleMapEntry:CurrencyMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CurrencyMapPull;
+        Type = Request-Reply;
+    };
+    CurrencyPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.basic.core.Currency:CurrencyPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CurrencyPull;
+        Type = Request-Reply;
+    };
+    CustomGroupLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CustomGroupLanguagePull;
+        Type = Request-Reply;
+    };
+    CustomGroupPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CustomGroupPull;
+        Type = Request-Reply;
+    };
+    DataAvailableSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.channel.cxml.DataAvailableMessageSubscriber";
+            Request = {};
+            Schema = none;
+        };
+        TopicName = DataAvailableSubscriber;
+        Type = Subscribe;
+    };
+    DataRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = DataRequest;
+        Type = Request-Reply;
+    };
+    DeactivatePermissionPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.user.core.Permission );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = DeactivatePermissionPull;
+        Type = Request-Reply;
+    };
+    DeactivateSourcingRulesPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.approvable.rules.RuleSet:DeactivateSourcingRulesPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = DeactivateSourcingRulesPull;
+        Type = Request-Reply;
+    };
+    EClassCommodityCodeParentPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeParentPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = EClassCommodityCodeParentPull;
+        Type = Request-Reply;
+    };
+    EClassCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:EClassCommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = EClassCommodityCodePull;
+        Type = Request-Reply;
+    };
+    EditPermissionPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.EditPermission:EditPermissionPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = EditPermissionPull;
+        Type = Request-Reply;
+    };
+    ElectronicOrderStatusPush = {
+        Signature = {
+            Error = {};
+            Reply = {};
+            Request = {
+                ElectronicOrder = "ariba.electronicorder.core.ElectronicOrder:Export";
+            };
+        };
+        TopicName = ElectronicOrderStatusPush;
+        Type = Request-Reply;
+    };
+    EquivalentWordsPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.catalog.base.core.EquivalentWords:EquivalentWordsPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = EquivalentWordsPull;
+        Type = Request-Reply;
+    };
+    EuroConversionRatePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.basic.core.CurrencyConversionRate );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = EuroConversionRatePull;
+        Type = Request-Reply;
+    };
+    ExecutePermissionPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.ExecutePermission:ExecutePermissionPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ExecutePermissionPull;
+        Type = Request-Reply;
+    };
+    FeatureLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Feature:FeatureLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = FeatureLanguagePull;
+        Type = Request-Reply;
+    };
+    FeaturePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Feature:FeaturePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = FeaturePull;
+        Type = Request-Reply;
+    };
+    FeeCategoryDefinitionItemExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItem:FeeCategoryDefinitionItemExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = FeeCategoryDefinitionItemExcelPull;
+        Type = Request-Reply;
+    };
+    FeeCategoryDefinitionMapExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:FeeCategoryDefinitionMapExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = FeeCategoryDefinitionMapExcelPull;
+        Type = Request-Reply;
+    };
+    FormEntryPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.procure.core.FormEntry:FormEntryPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = FormEntryPull;
+        Type = Request-Reply;
+    };
+    GenericCategoryDefinitionItemExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItem:GenericCategoryDefinitionItemExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GenericCategoryDefinitionItemExcelPull;
+        Type = Request-Reply;
+    };
+    GenericCategoryDefinitionMapExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:GenericCategoryDefinitionMapExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GenericCategoryDefinitionMapExcelPull;
+        Type = Request-Reply;
+    };
+    "GenericCategoryDefinitionMapTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:GenericCategoryDefinitionMapTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "GenericCategoryDefinitionMapTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    "GenericCategoryDefinitionTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryTemplateItem:GenericCategoryDefinitionTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "GenericCategoryDefinitionTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    GenericRelationEntryExport = {
+        Signature = {
+            Schema = "ariba.base.core.GenericRelationEntry:GenericRelationEntryExport";
+        };
+        TopicName = GenericRelationEntryExport;
+        Type = Publish;
+    };
+    GenericRelationEntryPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.base.core.GenericRelationEntry:GenericRelationEntryPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GenericRelationEntryPull;
+        Type = Request-Reply;
+    };
+    GenericRelationTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.base.core.GenericRelationType:GenericRelationTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GenericRelationTypePull;
+        Type = Request-Reply;
+    };
+    GetPendingRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = GetPendingRequest;
+        Type = Request-Reply;
+    };
+    GroupChildGroupMapExport = {
+        Signature = { Schema = "ariba.user.core.Group:GroupChildGroupMapExport";};
+        TopicName = GroupChildGroupMapExport;
+        Type = Publish;
+    };
+    GroupChildGroupMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupChildGroupMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GroupChildGroupMapPull;
+        Type = Request-Reply;
+    };
+    GroupExport = {
+        Signature = { Schema = "ariba.user.core.Group:GroupExport";};
+        TopicName = GroupExport;
+        Type = Publish;
+    };
+    GroupLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GroupLanguagePull;
+        Type = Request-Reply;
+    };
+    GroupPermissionMapExport = {
+        Signature = { Schema = "ariba.user.core.Group:GroupPermissionMapExport";};
+        TopicName = GroupPermissionMapExport;
+        Type = Publish;
+    };
+    GroupPermissionMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupPermissionMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GroupPermissionMapPull;
+        Type = Request-Reply;
+    };
+    GroupPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GroupPull;
+        Type = Request-Reply;
+    };
+    GroupRoleMapExport = {
+        Signature = { Schema = "ariba.user.core.Group:GroupRoleMapExport";};
+        TopicName = GroupRoleMapExport;
+        Type = Publish;
+    };
+    GroupRoleMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupRoleMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GroupRoleMapPull;
+        Type = Request-Reply;
+    };
+    GroupSharedUserMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Group:GroupSharedUserMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = GroupSharedUserMapPull;
+        Type = Request-Reply;
+    };
+    ISIC3ToNaics2002CodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.ClassificationCodeMap:ClassificationCodeMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ISIC3ToNaics2002CodeMapPull;
+        Type = Request-Reply;
+    };
+    ISICCommodityCodeParentPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeParentPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ISICCommodityCodeParentPull;
+        Type = Request-Reply;
+    };
+    ISICCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:ISCCCommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ISICCommodityCodePull;
+        Type = Request-Reply;
+    };
+    InvoiceDetailRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = InvoiceDetailRequest;
+        Type = Request-Reply;
+    };
+    InvoiceDetailSOAPSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.invoicing.AribaNetworkCXMLInvoiceSubscriber";
+            Schema = none;
+        };
+        TopicName = InvoiceDetailSOAPSubscriber;
+        Type = Subscribe;
+    };
+    InvoiceDetailSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.invoicing.AribaNetworkCXMLInvoiceSubscriber";
+            Schema = none;
+        };
+        TopicName = InvoiceDetailSubscriber;
+        Type = Subscribe;
+    };
+    InvoiceERPErrorPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.payment.core.PayablePushError:InvoiceERPErrorPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = InvoiceERPErrorPull;
+        Type = Request-Reply;
+    };
+    InvoiceERPInfoPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.payment.core.Payment:InvoiceERPInfoPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = InvoiceERPInfoPull;
+        Type = Request-Reply;
+    };
+    InvoiceERPStatusPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.integration.core.PayablePushStatus:InvoiceERPStatusPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = InvoiceERPStatusPull;
+        Type = Request-Reply;
+    };
+    InvoiceExceptionTypeExport = {
+        Signature = {
+            Schema = "ariba.invoicing.core.InvoiceExceptionType:InvoiceExceptionTypeExport";
+        };
+        TopicName = InvoiceExceptionTypeExport;
+        Type = Publish;
+    };
+    InvoiceExceptionTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.invoicing.core.InvoiceExceptionType:InvoiceExceptionTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = InvoiceExceptionTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    InvoiceExceptionTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.invoicing.core.InvoiceExceptionType:InvoiceExceptionTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = InvoiceExceptionTypePull;
+        Type = Request-Reply;
+    };
+    InvoiceExceptionTypeValidationExport = {
+        Signature = {
+            Schema = "ariba.invoicing.core.InvoiceExceptionType:InvoiceExceptionTypeValidationExport";
+        };
+        TopicName = InvoiceExceptionTypeValidationExport;
+        Type = Publish;
+    };
+    InvoiceExceptionTypeValidationPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.invoicing.core.InvoiceExceptionType:InvoiceExceptionTypeValidationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = InvoiceExceptionTypeValidationPull;
+        Type = Request-Reply;
+    };
+    ItemMasterPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.basic.core.ItemMaster:ItemMasterPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ItemMasterPull;
+        Type = Request-Reply;
+    };
+    LaborCategoryDefinitionItemExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItem:LaborCategoryDefinitionItemExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LaborCategoryDefinitionItemExcelPull;
+        Type = Request-Reply;
+    };
+    LaborCategoryDefinitionMapExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:LaborCategoryDefinitionMapExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LaborCategoryDefinitionMapExcelPull;
+        Type = Request-Reply;
+    };
+    "LaborCategoryDefinitionMapTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:LaborCategoryDefinitionMapTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "LaborCategoryDefinitionMapTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    LaborCategoryDefinitionTemplateExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryTemplateItem:LaborCategoryDefinitionTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LaborCategoryDefinitionTemplateExcelPull;
+        Type = Request-Reply;
+    };
+    LaborPayCodeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.workforce.core.LaborPayCode:LaborPayCodeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LaborPayCodeLanguagePull;
+        Type = Request-Reply;
+    };
+    LaborPayCodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.SimpleMapEntry:LaborPayCodeMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LaborPayCodeMapPull;
+        Type = Request-Reply;
+    };
+    LaborPayCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.workforce.core.LaborPayCode:LaborPayCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LaborPayCodePull;
+        Type = Request-Reply;
+    };
+    LanguageLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.base.core.Language:LanguageLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LanguageLanguagePull;
+        Type = Request-Reply;
+    };
+    LanguageMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.SimpleMapEntry:LanguageMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LanguageMapPull;
+        Type = Request-Reply;
+    };
+    LanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.base.core.Language );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LanguagePull;
+        Type = Request-Reply;
+    };
+    LocaleIDLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.LocaleID:LocaleIDLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LocaleIDLanguagePull;
+        Type = Request-Reply;
+    };
+    LocaleIDPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.basic.core.LocaleID );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LocaleIDPull;
+        Type = Request-Reply;
+    };
+    LocaleMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.base.core.SimpleMapEntry:LocaleMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = LocaleMapPull;
+        Type = Request-Reply;
+    };
+    "MarketResearchCategoryDefinitionItemExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItem:MarketResearchCategoryDefinitionItemExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "MarketResearchCategoryDefinitionItemExcelPull";
+        Type = Request-Reply;
+    };
+    "MarketResearchCategoryDefinitionMapExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:MarketResearchCategoryDefinitionMapExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "MarketResearchCategoryDefinitionMapExcelPull";
+        Type = Request-Reply;
+    };
+    "MarketResearchCategoryDefinitionMapTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:MarketResearchCategoryDefinitionMapTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "MarketResearchCategoryDefinitionMapTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    "MarketResearchCategoryDefinitionTemplateExcelPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryTemplateItem:MarketResearchCategoryDefinitionTemplateExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "MarketResearchCategoryDefinitionTemplateExcelPull";
+        Type = Request-Reply;
+    };
+    NAICSCommodityCodeParentPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeParentPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = NAICSCommodityCodeParentPull;
+        Type = Request-Reply;
+    };
+    NAICSCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:NAICSCommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = NAICSCommodityCodePull;
+        Type = Request-Reply;
+    };
+    NAICSToUNSPSCCodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.ClassificationCodeMap:ClassificationCodeMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = NAICSToUNSPSCCodeMapPull;
+        Type = Request-Reply;
+    };
+    Naics97ToNaics2002CodeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.ClassificationCodeMap:ClassificationCodeMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = Naics97ToNaics2002CodeMapPull;
+        Type = Request-Reply;
+    };
+    ObjectPermissionExport = {
+        Signature = {
+            Schema = "ariba.user.core.ObjectPermission:ObjectPermissionExport";
+        };
+        TopicName = ObjectPermissionExport;
+        Type = Publish;
+    };
+    ObjectPermissionPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.ObjectPermission:ObjectPermissionPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ObjectPermissionPull;
+        Type = Request-Reply;
+    };
+    OrderConfirmationPush = {
+        Signature = {
+            Error = {};
+            Reply = {};
+            Request = {
+                OrderConfirmation = "ariba.purchasing.core.OrderConfirmation:Export";
+            };
+        };
+        TopicName = OrderConfirmationPush;
+        Type = Request-Reply;
+    };
+    OrganizationContactMapExport = {
+        Signature = {
+            Schema = "ariba.user.core.Organization:OrganizationContactMapExport";
+        };
+        TopicName = OrganizationContactMapExport;
+        Type = Publish;
+    };
+    OrganizationContactMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.Organization:OrganizationContactMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = OrganizationContactMapPull;
+        Type = Request-Reply;
+    };
+    OrganizationDataRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = OrganizationDataRequest;
+        Type = Request-Reply;
+    };
+    OrganizationDataRequestSubscribe = {
+        Signature = {
+            ListenerClass = "ariba.common.core.NetworkSupplierDataSubscriber";
+            Schema = none;
+        };
+        TopicName = OrganizationDataRequestSubscribe;
+        Type = Subscribe;
+    };
+    OrganizationExport = {
+        Signature = { Schema = "ariba.user.core.Organization:OrganizationExport";};
+        TopicName = OrganizationExport;
+        Type = Publish;
+    };
+    OrganizationPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Organization:OrganizationPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = OrganizationPull;
+        Type = Request-Reply;
+    };
+    OrganizationRelationshipRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = OrganizationRelationshipRequest;
+        Type = Request-Reply;
+    };
+    PCardExport = {
+        Signature = { Schema = "ariba.common.core.PCard:PCardExport";};
+        TopicName = PCardExport;
+        Type = Publish;
+    };
+    PCardMapExport = {
+        Signature = { Schema = "ariba.common.core.User:UserPCardExport";};
+        TopicName = PCardMapExport;
+        Type = Publish;
+    };
+    PCardPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.PCard:PCardPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PCardPull;
+        Type = Request-Reply;
+    };
+    PartitionedCommodityCodeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.PartitionedCommodityCode:PartitionedCommodityCodeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PartitionedCommodityCodeLanguagePull;
+        Type = Request-Reply;
+    };
+    PartitionedCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.PartitionedCommodityCode:PartitionedCommodityCodePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PartitionedCommodityCodePull;
+        Type = Request-Reply;
+    };
+    PaymentChangeStagingTablePush = {
+        Signature = {
+            Error = {};
+            Reply = {};
+            Request = {
+                PaymentChangeStagingTablePush = "ariba.payment.core.Payment:Export";
+            };
+        };
+        TopicName = PaymentChangeStagingTablePush;
+        Type = Request-Reply;
+    };
+    PaymentMethodTypeExport = {
+        Signature = {
+            Schema = "ariba.payment.core.PaymentMethodType:PaymentMethodTypeExport";
+        };
+        TopicName = PaymentMethodTypeExport;
+        Type = Publish;
+    };
+    PaymentMethodTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.PaymentMethodType:PaymentMethodTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PaymentMethodTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    PaymentMethodTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.PaymentMethodType:PaymentMethodTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PaymentMethodTypePull;
+        Type = Request-Reply;
+    };
+    PaymentProposalRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = PaymentProposalRequest;
+        Type = Request-Reply;
+    };
+    PaymentProposalSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.settlement.server.PaymentProposalSubscriber";
+            Schema = none;
+        };
+        TopicName = PaymentProposalSubscriber;
+        Type = Subscribe;
+    };
+    PaymentRemittanceRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = PaymentRemittanceRequest;
+        Type = Request-Reply;
+    };
+    PaymentRemittanceStatusSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.settlement.server.PaymentRemittanceStatusUpdateSubscriber";
+            Schema = none;
+        };
+        TopicName = PaymentRemittanceStatusUpdateSubscriber;
+        Type = Subscribe;
+    };
+    PaymentRemittanceStatusUpdateRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = PaymentRemittanceStatusUpdateRequest;
+        Type = Request-Reply;
+    };
+    PaymentRemittanceSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.settlement.server.PaymentRemittanceSubscriber";
+            Schema = none;
+        };
+        TopicName = PaymentRemittanceSubscriber;
+        Type = Subscribe;
+    };
+    PermissionExport = {
+        Signature = { Schema = "ariba.user.core.Permission:PermissionExport";};
+        TopicName = PermissionExport;
+        Type = Publish;
+    };
+    PermissionLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.Permission:PermissionLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PermissionLanguagePull;
+        Type = Request-Reply;
+    };
+    PermissionMapExport = {
+        Signature = { Schema = "ariba.user.core.Group:PermissionMapExport";};
+        TopicName = PermissionMapExport;
+        Type = Publish;
+    };
+    PermissionMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Role:PermissionMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PermissionMapPull;
+        Type = Request-Reply;
+    };
+    PermissionPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.user.core.Permission );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PermissionPull;
+        Type = Request-Reply;
+    };
+    PrintCategoryDefinitionItemExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItem:PrintCategoryDefinitionItemExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PrintCategoryDefinitionItemExcelPull;
+        Type = Request-Reply;
+    };
+    PrintCategoryDefinitionMapExcelPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.CategoryItemMapCell:PrintCategoryDefinitionMapExcelPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PrintCategoryDefinitionMapExcelPull;
+        Type = Request-Reply;
+    };
+    ProcureLineTypeExport = {
+        Signature = {
+            Schema = "ariba.procure.core.ProcureLineType:ProcureLineTypeExport";
+        };
+        TopicName = ProcureLineTypeExport;
+        Type = Publish;
+    };
+    ProcureLineTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.ProcureLineType:ProcureLineTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ProcureLineTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    ProcureLineTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.ProcureLineType:ProcureLineTypePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ProcureLineTypePull;
+        Type = Request-Reply;
+    };
+    ProfileRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = ProfileRequest;
+        Type = Request-Reply;
+    };
+    ProfileRequestSOAP = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = ProfileRequestSOAP;
+        Type = Request-Reply;
+    };
+    ProfileService = {
+        Signature = {
+            ListenerClass = "ariba.cxml.transaction.ProfileTransaction";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ProfileResponse;
+        Type = Service;
+    };
+    ProfileServiceSOAP = {
+        Signature = {
+            ListenerClass = "ariba.cxml.transaction.ProfileTransaction";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ProfileServiceSOAP;
+        Type = Service;
+    };
+    ProviderDataRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = ProviderDataRequest;
+        Type = Request-Reply;
+    };
+    ProviderDataRequestService = {
+        Signature = {
+            ListenerClass = "ariba.common.core.SupplierProviderDataRequest";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ProviderDataRequestService;
+        Type = Service;
+    };
+    ProviderDoneService = {
+        Signature = {
+            ListenerClass = "ariba.cxml.punchout.ProviderDoneMessageListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = ProviderDoneService;
+        Type = Service;
+    };
+    ProviderSetupRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = ProviderSetupRequest;
+        Type = Request-Reply;
+    };
+    PurchaseOrderCancelPush = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.purchasing.core.ERPOrder );};
+            Reply = {};
+            Request = { ERPOrder = "ariba.purchasing.core.ERPOrder:Export";};
+        };
+        TopicName = PurchaseOrderCancelPush;
+        Type = Request-Reply;
+    };
+    PurchaseOrderChangePush = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.purchasing.core.ERPOrder );};
+            Reply = {};
+            Request = { ERPOrder = "ariba.purchasing.core.ERPOrder:Export";};
+        };
+        TopicName = PurchaseOrderChangePush;
+        Type = Request-Reply;
+    };
+    PurchaseOrderConditionsExport = {
+        Signature = {
+            Schema = "ariba.purchasing.core.PurchaseOrderConditions:PurchaseOrderConditionsExport";
+        };
+        TopicName = PurchaseOrderConditionsExport;
+        Type = Publish;
+    };
+    PurchaseOrderConditionsPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.purchasing.core.PurchaseOrderConditions:PurchaseOrderConditionsPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = PurchaseOrderConditionsPull;
+        Type = Request-Reply;
+    };
+    PurchaseOrderManagementPunchIn = {
+        Signature = {
+            ListenerClass = "ariba.htmlui.procure.POManagePunchInRequestHandler";
+            Request = {};
+            Response = {};
+        };
+        TopicName = PurchaseOrderManagementPunchIn;
+        Type = Service;
+    };
+    PurchaseOrderPush = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.purchasing.core.ERPOrder );};
+            Reply = {};
+            Request = { ERPOrder = "ariba.purchasing.core.ERPOrder:Export";};
+        };
+        TopicName = PurchaseOrderPush;
+        Type = Request-Reply;
+    };
+    ReceiptPush = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.receiving.core.Receipt );};
+            Reply = {};
+            Request = { Receipt = "ariba.receiving.core.Receipt:Export";};
+        };
+        TopicName = ReceiptPush;
+        Type = Request-Reply;
+    };
+    RelationshipRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = RelationshipRequest;
+        Type = Request-Reply;
+    };
+    ReliableCopyRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = ReliableCopyRequest;
+        Type = Request-Reply;
+    };
+    RemittanceLocationPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.RemittanceLocation:RemittanceLocationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RemittanceLocationPull;
+        Type = Request-Reply;
+    };
+    ReportMetaPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.reporting.core.ReportMeta:ReportMetaPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ReportMetaPull;
+        Type = Request-Reply;
+    };
+    ReportQueryPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.reporting.core.ReportQuery:ReportQueryPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ReportQueryPull;
+        Type = Request-Reply;
+    };
+    RequisitionDataLoad = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.base.core.SimpleMapEntry );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RequisitionDataLoad;
+        Type = Request-Reply;
+    };
+    RequisitionExcelExport = {
+        Signature = {
+            Schema = "ariba.purchasing.core.Requisition:RequisitionExcelExport";
+        };
+        TopicName = RequisitionExcelExport;
+        Type = Publish;
+    };
+    RequisitionExcelImport = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.purchasing.core.Requisition:RequisitionExcelImport"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RequisitionExcelImport;
+        Type = Request-Reply;
+    };
+    RequisitionImportPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.purchasing.core.Requisition:RequisitionImportPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RequisitionImportPull;
+        Type = Request-Reply;
+    };
+    "RequisitionProviderSetupRequestViewRequisition" = {
+        Signature = {
+            ListenerClass = "ariba.purchasing.cxml.RequisitionProviderSetupRequestListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = "RequisitionProviderSetupRequestViewRequisition";
+        Type = Service;
+    };
+    ResponsibleUserExport = {
+        Signature = { Schema = "ariba.common.core.User:ResponsibleUserExport";};
+        TopicName = ResponsibleUserExport;
+        Type = Publish;
+    };
+    ResponsibleUserPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.User:ResponsibleUserPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ResponsibleUserPull;
+        Type = Request-Reply;
+    };
+    RoleChildRoleMapExport = {
+        Signature = { Schema = "ariba.user.core.Role:RoleChildRoleMapExport";};
+        TopicName = RoleChildRoleMapExport;
+        Type = Publish;
+    };
+    RoleChildRoleMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Role:RoleChildRoleMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RoleChildRoleMapPull;
+        Type = Request-Reply;
+    };
+    RoleExport = {
+        Signature = { Schema = "ariba.user.core.Role:RoleExport";};
+        TopicName = RoleExport;
+        Type = Publish;
+    };
+    RoleLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Role:RoleLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RoleLanguagePull;
+        Type = Request-Reply;
+    };
+    RolePermissionMapExport = {
+        Signature = { Schema = "ariba.user.core.Role:RolePermissionMapExport";};
+        TopicName = RolePermissionMapExport;
+        Type = Publish;
+    };
+    RolePermissionMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Role:RolePermissionMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RolePermissionMapPull;
+        Type = Request-Reply;
+    };
+    RolePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.Role:RolePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RolePull;
+        Type = Request-Reply;
+    };
+    RuleTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.approvable.rules.RuleType:RuleTypeLanguagePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RuleTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    RuleTypePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.approvable.rules.RuleType );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = RuleTypePull;
+        Type = Request-Reply;
+    };
+    SelfRegisterProviderDoneService = {
+        Signature = {
+            ListenerClass = "ariba.user.messaging.SelfRegisterProviderDoneMessageListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = SelfRegisterProviderDoneService;
+        Type = Service;
+    };
+    SelfRegisterProviderSetupRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = SelfRegisterProviderSetupRequest;
+        Type = Request-Reply;
+    };
+    SharedUserDeletePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.User:SharedUserPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SharedUserDeletePull;
+        Type = Request-Reply;
+    };
+    SharedUserExport = {
+        Signature = { Schema = "ariba.user.core.User:SharedUserExport";};
+        TopicName = SharedUserExport;
+        Type = Publish;
+    };
+    SharedUserPermissionMapExport = {
+        Signature = { Schema = "ariba.user.core.User:SharedUserPermissionMapExport";};
+        TopicName = SharedUserPermissionMapExport;
+        Type = Publish;
+    };
+    SharedUserPermissionMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.User:SharedUserPermissionMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SharedUserPermissionMapPull;
+        Type = Request-Reply;
+    };
+    SharedUserPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.User:SharedUserPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SharedUserPull;
+        Type = Request-Reply;
+    };
+    SharedUserRoleMapExport = {
+        Signature = { Schema = "ariba.user.core.User:SharedUserRoleMapExport";};
+        TopicName = SharedUserRoleMapExport;
+        Type = Publish;
+    };
+    SharedUserRoleMapPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.User:SharedUserRoleMapPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SharedUserRoleMapPull;
+        Type = Request-Reply;
+    };
+    SharedUserShipToAddressMapExport = {
+        Signature = { Schema = "ariba.user.core.User:SharedUserShipToAddressMapExport";};
+        TopicName = SharedUserShipToAddressMapExport;
+        Type = Publish;
+    };
+    SharedUserShipToAddressMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.user.core.User:SharedUserShipToAddressMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SharedUserShipToAddressMapPull;
+        Type = Request-Reply;
+    };
+    SharedUserSupervisorPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.user.core.User:SharedUserSupervisorPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SharedUserSupervisorPull;
+        Type = Request-Reply;
+    };
+    ShipNoticeSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.purchasing.core.CXMLToAdvancedShipNoticeCallBackHandler";
+            Schema = none;
+        };
+        TopicName = ShipNoticeSubscriber;
+        Type = Subscribe;
+    };
+    SimpleMapTypePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.base.core.SimpleMapType );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SimpleMapTypePull;
+        Type = Request-Reply;
+    };
+    SourcingDestinationExport = {
+        Signature = {
+            Schema = "ariba.common.core.SourcingDestination:SourcingDestinationExport";
+        };
+        TopicName = SourcingDestinationExport;
+        Type = Publish;
+    };
+    SourcingDestinationIdExport = {
+        Signature = {
+            Schema = "ariba.common.core.SourcingDestination:SourcingDestinationIdExport";
+        };
+        TopicName = SourcingDestinationIdExport;
+        Type = Publish;
+    };
+    SourcingDestinationPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.SourcingDestination:SourcingDestinationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SourcingDestinationPull;
+        Type = Request-Reply;
+    };
+    SourcingUpdateRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = SourcingUpdateRequest;
+        Type = Request-Reply;
+    };
+    SourcingUpdateService = {
+        Signature = {
+            ListenerClass = "ariba.purchasing.cxml.SourcingUpdateRequestCallProcessor";
+            Request = {};
+            Response = {};
+        };
+        TopicName = SourcingUpdateService;
+        Type = Service;
+    };
+    SplitAccountingTypeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.SplitAccountingType:SplitAccountingTypeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SplitAccountingTypeLanguagePull;
+        Type = Request-Reply;
+    };
+    SplitAccountingTypePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.SplitAccountingType:SplitAccountingTypePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SplitAccountingTypePull;
+        Type = Request-Reply;
+    };
+    StableOrderPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.app.util.StableOrder:StableOrderPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = StableOrderPull;
+        Type = Request-Reply;
+    };
+    StateLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.basic.core.State:StateLanguagePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = StateLanguagePull;
+        Type = Request-Reply;
+    };
+    StatePull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.basic.core.State:StatePull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = StatePull;
+        Type = Request-Reply;
+    };
+    StatusUpdateRequest = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = StatusUpdateRequest;
+        Type = Request-Reply;
+    };
+    StatusUpdateSubscriber = {
+        Signature = {
+            ListenerClass = "ariba.purchasing.ordering.SupplierNetworkOrderStatusSubscriber";
+            Schema = none;
+        };
+        TopicName = StatusUpdateSubscriber;
+        Type = Subscribe;
+    };
+    SupplierDiscoveryProviderDoneService = {
+        Signature = {
+            ListenerClass = "ariba.user.messaging.SupplierDiscoveryProviderDoneMessageListener";
+            Request = {};
+            Response = {};
+        };
+        TopicName = SupplierDiscoveryProviderDoneService;
+        Type = Service;
+    };
+    SupplierDiscoveryProviderSetupRequest = {
+        Signature = { Request = {}; Response = {};};
+        TopicName = SupplierDiscoveryProviderSetupRequest;
+        Type = Request-Reply;
+    };
+    "SupplierLocationRemittanceInformationPull" = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.SupplierLocation:SupplierLocationRemittanceInformationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = "SupplierLocationRemittanceInformationPull";
+        Type = Request-Reply;
+    };
+    SupplierLocationSupplementExport = {
+        Signature = {
+            Schema = "ariba.common.core.SupplierLocation:SupplierLocationSupplementExport";
+        };
+        TopicName = SupplierLocationSupplementExport;
+        Type = Publish;
+    };
+    SupplierLocationSupplementPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.SupplierLocation:SupplierLocationSupplementPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierLocationSupplementPull;
+        Type = Request-Reply;
+    };
+    SupplierMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.SimpleMapEntry:SupplierMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierMapPull;
+        Type = Request-Reply;
+    };
+    SupplierNetworkCollaborationRequestPush = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = SupplierNetworkCollaborationRequestPush;
+        Type = Request-Reply;
+    };
+    SupplierNetworkExpenseSheetPush = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = SupplierNetworkExpenseSheetPush;
+        Type = Request-Reply;
+    };
+    SupplierNetworkPurchaseOrderPush = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = SupplierNetworkPurchaseOrderPush;
+        Type = Request-Reply;
+    };
+    "SupplierNetworkPurchaseOrderPushWithoutAttachments" = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = "SupplierNetworkPurchaseOrderPushWithoutAttachments";
+        Type = Request-Reply;
+    };
+    SupplierNetworkSOAPPurchaseOrderPush = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = SupplierNetworkSOAPPurchaseOrderPush;
+        Type = Request-Reply;
+    };
+    "SupplierNetworkSOAPPurchaseOrderPushWithoutAttachments" = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = "SupplierNetworkSOAPPurchaseOrderPushWithoutAttachments";
+        Type = Request-Reply;
+    };
+    SupplierNetworkTimeCardPush = {
+        Signature = { Error = {}; Reply = {}; Request = {};};
+        TopicName = SupplierNetworkTimeCardPush;
+        Type = Request-Reply;
+    };
+    SupplierOrganizationCategoryMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.user.core.Organization:OrganizationCategoryMapPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierOrganizationCategoryMapPull;
+        Type = Request-Reply;
+    };
+    SupplierOrganizationExport = {
+        Signature = {
+            Schema = "ariba.common.core.CommonSupplier:SupplierOrganizationExport";
+        };
+        TopicName = SupplierOrganizationExport;
+        Type = Publish;
+    };
+    SupplierOrganizationPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.common.core.CommonSupplier:SupplierOrganizationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierOrganizationPull;
+        Type = Request-Reply;
+    };
+    SupplierPaymentBankLocationExport = {
+        Signature = {
+            Error = {};
+            Pull = {};
+            Reply = {};
+            Request = {};
+            Schema = "ariba.payment.core.PaymentBankLocation:PaymentBankLocationExport";
+        };
+        TopicName = SupplierPaymentBankLocationExport;
+        Type = Publish;
+    };
+    SupplierPaymentBankLocationPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.payment.core.PaymentBankLocation:PaymentBankLocationPull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierPaymentBankLocationPull;
+        Type = Request-Reply;
+    };
+    SupplierPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.Supplier:SupplierPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierPull;
+        Type = Request-Reply;
+    };
+    SupplierRankingLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.SupplierRanking:SupplierRankingLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierRankingLanguagePull;
+        Type = Request-Reply;
+    };
+    SupplierRankingPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.SupplierRanking:SupplierRankingPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierRankingPull;
+        Type = Request-Reply;
+    };
+    SupplierSupplementExport = {
+        Signature = { Schema = "ariba.common.core.Supplier:SupplierSupplementExport";};
+        TopicName = SupplierSupplementExport;
+        Type = Publish;
+    };
+    SupplierSupplementPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.common.core.Supplier:SupplierSupplementPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierSupplementPull;
+        Type = Request-Reply;
+    };
+    SupplierXMLPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.Supplier:SupplierXMLPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SupplierXMLPull;
+        Type = Request-Reply;
+    };
+    SystemCommodityCodeLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.CommodityCode:SystemCommodityCodeLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SystemCommodityCodeLanguagePull;
+        Type = Request-Reply;
+    };
+    SystemCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:SystemCommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = SystemCommodityCodePull;
+        Type = Request-Reply;
+    };
+    TaxCodeLookupPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.core.TaxCodeLookup:TaxCodeLookupPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = TaxCodeLookupPull;
+        Type = Request-Reply;
+    };
+    TaxRateLookupByTaxCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.core.TaxRateLookup_TaxCode:TaxRateLookupByTaxCodePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = TaxRateLookupByTaxCodePull;
+        Type = Request-Reply;
+    };
+    TaxRateLookupPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.core.TaxRateLookup:TaxRateLookupPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = TaxRateLookupPull;
+        Type = Request-Reply;
+    };
+    TaxTypeMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.TaxTypeMapEntry:TaxTypeMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = TaxTypeMapPull;
+        Type = Request-Reply;
+    };
+    
+     Traffic_City_State_Code_Pull = {
+                Signature = {
+                    Error = {};
+                    Pull = { Schema = ( "cat.core.TrafficCityStateCode:Traffic_City_State_Code_Pull" );};
+                    Reply = {};
+                    Request = {};
+                };
+                TopicName = Traffic_City_State_Code_Pull;
+                Type = Request-Reply;
+        };
+    
+    
+    TransformMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.catalog.base.core.TransformMap:TransformMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = TransformMapPull;
+        Type = Request-Reply;
+    };
+    UNSPSCCommodityCodeParentPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeParentPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UNSPSCCommodityCodeParentPull;
+        Type = Request-Reply;
+    };
+    UNSPSCCommodityCodePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:UNSPSCCommodityCodePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UNSPSCCommodityCodePull;
+        Type = Request-Reply;
+    };
+    UOMInfoPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( ariba.base.core.SimpleMapEntry );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UOMInfoPull;
+        Type = Request-Reply;
+    };
+    UnitOfMeasureCIFMapExport = {
+        Signature = {
+            Schema = "ariba.base.core.SimpleMapEntry:UnitOfMeasureCIFMapExport";
+        };
+        TopicName = UnitOfMeasureCIFMapExport;
+        Type = Publish;
+    };
+    UnitOfMeasureCIFMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.SimpleMapEntry:UnitOfMeasureCIFMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UnitOfMeasureCIFMapPull;
+        Type = Request-Reply;
+    };
+    UnitOfMeasureLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.basic.core.UnitOfMeasure:UnitOfMeasureLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UnitOfMeasureLanguagePull;
+        Type = Request-Reply;
+    };
+    UnitOfMeasureMapExport = {
+        Signature = { Schema = "ariba.base.core.SimpleMapEntry:UnitOfMeasureMapExport";};
+        TopicName = UnitOfMeasureMapExport;
+        Type = Publish;
+    };
+    UnitOfMeasureMapPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.base.core.SimpleMapEntry:UnitOfMeasureMapPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UnitOfMeasureMapPull;
+        Type = Request-Reply;
+    };
+    UnitOfMeasurePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.UnitOfMeasure:UnitOfMeasurePull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UnitOfMeasurePull;
+        Type = Request-Reply;
+    };
+    UserExport = {
+        Signature = { Schema = "ariba.common.core.User:UserExport";};
+        TopicName = UserExport;
+        Type = Publish;
+    };
+    UserGlobalSubscribe = {
+        Signature = {
+            ListenerClass = ariba.integration.base.SubscribeListener;
+            Schema = ariba.user.core.User;
+        };
+        TopicName = UserGlobalSubscribe;
+        Type = Subscribe;
+    };
+    UserPull = {
+        Signature = {
+            Error = {};
+            Pull = { Schema = ( "ariba.common.core.User:UserPull" );};
+            Reply = {};
+            Request = {};
+        };
+        TopicName = UserPull;
+        Type = Request-Reply;
+    };
+    ValueQualifierLanguagePull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = (
+                    "ariba.procure.core.ValueQualifier:ValueQualifierLanguagePull"
+                );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ValueQualifierLanguagePull;
+        Type = Request-Reply;
+    };
+    ValueQualifierPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.procure.core.ValueQualifier:ValueQualifierPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = ValueQualifierPull;
+        Type = Request-Reply;
+    };
+    VendorMasterFileExport = {
+        Signature = {
+            Schema = "ariba.common.core.SupplierLocation:VendorMasterFileExport";
+        };
+        TopicName = VendorMasterFileExport;
+        Type = Publish;
+    };
+    CommodityCodeExtPull = {
+        Signature = {
+            Error = {};
+            Pull = {
+                Schema = ( "ariba.basic.core.CommodityCode:CommodityCodeExtPull" );
+            };
+            Reply = {};
+            Request = {};
+        };
+        TopicName = CommodityCodeExtPull;
+        Type = Request-Reply;
+    };
+
+}

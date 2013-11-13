@@ -1,0 +1,609 @@
+"UTF-8"
+UniqueName,Name
+"General Exception Handler3","General Exception Handler3"
+"General Exception Handler4","General Exception Handler4"
+"General Exception Handler5","General Exception Handler5"
+"General Exception Handler8","General Exception Handler8"
+"General Exception Handler7","General Exception Handler7"
+"General Exception Handler9","General Exception Handler9"
+"General Exception Handler10","General Exception Handler10"
+"General Exception Handler12","General Exception Handler12"
+"General Exception Handler13","General Exception Handler13"
+"General Exception Handler14","General Exception Handler14"
+"General Exception Handler15","General Exception Handler15"
+"Supplier Entry","Supplier Entry"
+"Goods Inward (UK_MX)","Goods Inward (MX)"
+"Goods Inward (UK_MY)","Goods Inward (MY)"
+"Category Approver (mfg1-IT-MX)","IT Approver (MX)"
+"Category Approver (mfg1-IT-DX)","IT Approver (DX)"
+"Category Approver (mfg1-IT-MY)","IT Approver (MY)"
+"Category Approver (mfg1-HR-DX)","HR Approver (DX)"
+"Category Approver (mfg1-HR-NA)","HR Approver (NA)"
+"Category Approver (mfg1-HR-MX)","HR Approver (MX)"
+"Category Approver (mfg1-HR-MY)","HR Approver (MY)"
+"Category Approver (mfg1-ACS-DX)","Audit & Consult. Srvs Approver (DX)"
+"Category Approver (mfg1-ACS-MX)","Audit & Consult. Srvs Approver (MX)"
+"Capital Reviewer","Capital Reviewer"
+"Capital Approver","Capital Approver"
+"Capital Reviewer (mfg1-NA)","Capital Reviewer (NA)"
+"Capital Reviewer (mfg1-MY)","Capital Reviewer (MY)"
+"Capital Reviewer (mfg1-GW)","Capital Reviewer (GW)"
+"Capital Approver (mfg1-DX)","Capital Approver (DX)"
+"Capital Approver (mfg1-GW)","Capital Approver (GW)"
+"Capital Approver (mfg1-NA)","Capital Approver (NA)"
+"Capital Approver (mfg1-MX)","Capital Approver (MX)"
+"Capital Approver (mfg1-MY)","Capital Approver (MY)"
+"Category Approver","Category Approver"
+"Lognet Processor","Lognet Processor"
+"MSC Administrator","MSC Administrator"
+"MSC Core Team","MSC Core Team"
+"Tax Audit","Tax Audit"
+"Indirect (TBU)","Indirect Purchasing Contact - TBU"
+"Indirect (TSD)","Indirect Purchasing Contact - TSD"
+"Indirect (TTTD)","Indirect Purchasing Contact - TTTD"
+"Indirect (GP)","Indirect Purchasing Contact - GP"
+"Category Approver (12)","Category Approver (12)"
+"Category Approver (23)","Category Approver (23)"
+"Category Approver (14)","Category Approver (14)"
+"Category Approver (27)","Category Approver (27)"
+"Category Approver (24)","Category Approver (24)"
+"Category Approver (31)","Category Approver (31)"
+"Category Approver (32)","Category Approver (32)"
+"Category Approver (39)","Category Approver (39)"
+"Category Approver (40)","Category Approver (40)"
+"Category Approver (42)","Category Approver (42)"
+"Category Approver (43)","Category Approver (43)"
+"Category Approver (4321)","Category Approver (4321)"
+"Category Approver (4322)","Category Approver (4322)"
+"Category Approver (4320)","Category Approver (4320)"
+"Category Approver (4323)","Category Approver (4323)"
+"Category Approver (46)","Category Approver (46)"
+"Category Approver (45)","Category Approver (45)"
+"Category Approver (47)","Category Approver (47)"
+"Category Approver (52)","Category Approver (52)"
+"Category Approver (49)","Category Approver (49)"
+"Category Approver (54)","Category Approver (54)"
+"Category Approver (72)","Category Approver (72)"
+"Category Approver (56)","Category Approver (56)"
+"Category Approver (60)","Category Approver (60)"
+"Category Approver (73)","Category Approver (73)"
+"Category Approver (78)","Category Approver (78)"
+"Category Approver (80)","Category Approver (80)"
+"Category Approver (81)","Category Approver (81)"
+"Category Approver (82)","Category Approver (82)"
+"Category Approver (90)","Category Approver (90)"
+"Category Approver (91)","Category Approver (91)"
+"Category Approver (86)","Category Approver (86)"
+"Category Approver (92)","Category Approver (92)"
+"Requisitioner","Requisitioner"
+"Requester Exception Handler","Requester Exception Handler"
+"Verifier Exception Handler","Verifier Exception Handler"
+"CatEditReceipts","CatEditReceipts"
+"General Exception Handler1","General Exception Handler1"
+"General Exception Handler2","General Exception Handler2"
+"General Exception Handler6","General Exception Handler6"
+"General Exception Handler11","General Exception Handler11"
+"Category Approver (mfg1-IT-NA)","IT Approver (NA)"
+"Category Approver (mfg1-ACS-NA)","Audit & Consult. Srvs Approver (NA)"
+"Capital Reviewer (mfg1-MX)","Capital Reviewer (MX)"
+"Accounts Payable","Accounts Payable"
+"Category Approver (10)","Category Approver (10)"
+"Category Approver (30)","Category Approver (30)"
+"Category Approver (4319)","Category Approver (4319)"
+"Category Approver (44)","Category Approver (44)"
+"Category Approver (55)","Category Approver (55)"
+"Category Approver (76)","Category Approver (76)"
+"Category Approver (83)","Category Approver (83)"
+"Category Approver (mfg1-ACS-MY)","Audit & Consult. Srvs Approver (MY)"
+"Indirect Buyer","Indirect Buyer"
+"Transaction Center","Transaction Center"
+"Category Approver (15)","Category Approver (15)"
+"Category Approver (41)","Category Approver (41)"
+"Category Approver (48)","Category Approver (48)"
+"Category Approver (53)","Category Approver (53)"
+"Category Approver (85)","Category Approver (85)"
+"General Exception Handler","General Exception Handler"
+"Voucher Inquirer","Voucher Inquirer"
+"D&FP Accounting Review Group","D&FP Accounting Review Group"
+"FreightExceptionHandler","Freight Exception Handler"
+"Category Approver (11)","Category Approver (11)"
+"Category Approver (13)","Category Approver (13)"
+"Category Approver (20)","Category Approver (20)"
+"Category Approver (22)","Category Approver (22)"
+"Category Approver (21)","Category Approver (21)"
+"Category Approver (25)","Category Approver (25)"
+"Category Approver (26)","Category Approver (26)"
+"Category Approver (50)","Category Approver (50)"
+"Category Approver (51)","Category Approver (51)"
+"Category Approver (70)","Category Approver (70)"
+"Category Approver (71)","Category Approver (71)"
+"Category Approver (77)","Category Approver (77)"
+"Category Approver (84)","Category Approver (84)"
+"Travel Agent","Travel Agent"
+"CFO","CFO"
+"Kit Manager","Kit Manager"
+"HR Manager","HR Manager"
+"IS Manager","IS Manager"
+"Tax Administrator","Tax Administrator"
+"TravelProfileManager","TravelProfileManager"
+"Facilities Manager","Facilities Manager"
+"Malaga Reviewer","Malaga Reviewer"
+"IT Approver (EU)","IT Approver (EU)"
+"Capital Approver (ezopen-36)","Capital Approver (36)"
+"Capital Approver (ezopen-NG)","Capital Approver (NG)"
+"Capital Approver (ezopen-NF)","Capital Approver (NF)"
+"Paving Transaction Team","Paving Transaction Team"
+"S&PD Business Resources Group","S&PD Business Resources Group"
+"Business Resource Approver","Business Resource Approver"
+"Change Coordinator","Change Coordinator"
+"EditApprovable","EditApprovable"
+"Hazmat Coordinator","Hazmat Coordinator"
+"Goods Inward (UK_DX)","Goods Inward (DX)"
+"Category Approver (94)","Category Approver (94)"
+"Contract Admin","Contract Admin"
+"Contract Preparer","Contract Preparer"
+"IT_MACH1","IT Approver (MACH1)"
+"TM_MACH1_US_1885","Tax Manager (MACH1)"
+"PA_MACH1_US_1885","PreApprovers"
+"HM_MACH1_US_1885","Hazmat Approver (MACH1)"
+"Master Reconcile","Master Reconcile"
+"CatCrossCompanyBuying","CatCrossCompanyBuying"
+"Tax Manager (SAP)","Tax Manager (SAP)"
+"Catalog Admin","Catalog Admin"
+"IP_MACH1_US_1885","Indirect Purchasing (MACH1)"
+"SupplierAdmin","SupplierAdmin"
+"Category Approver (93)","Category Approver (93)"
+"Goods Inward (UK_NA)","Goods Inward (NA)"
+"Capital Reviewer (mfg1-DX)","Capital Reviewer (DX)"
+"Preparer Exception Handler","Preparer Exception Handler"
+"IP_CBS_SG","Professional Buyer"
+"TM_CBS_SG","Tax Manager (Singapore)"
+"CI_CBS_SG","Capital Approver (Singapore)"
+"HM_CBS_SG_AK00","Hazmat Approver (Singapore)"
+"TM_MACH1_US_1000","TM_MACH1_US_1000"
+"PA_MACH1_US_1000_UJ00","PA_MACH1_US_1000_UJ00"
+"PA_MACH1_US_1000_UJ01","PA_MACH1_US_1000_UJ01"
+"PA_MACH1_US_1000_UJ02","PA_MACH1_US_1000_UJ02"
+"HM_MACH1_US_1000_UJ02","HM_MACH1_US_1000_UJ02"
+"HM_MACH1_US_1000_UJ01","HM_MACH1_US_1000_UJ01"
+"HM_MACH1_US_1000_UJ00","HM_MACH1_US_1000_UJ00"
+"IP_CBS_MX","Indirect Purchasing(Mexico)"
+"IT_CBS_MX","IT Approver"
+"E_CBS_MX_MC00","Expense Approver"
+"E_CBS_MX_8900","Expense Approver"
+"C_CBS_MX_8900","Capital Approver"
+"E_CBS_MX_ME00","Expense Approver"
+"E_CBS_MX_XY00","Expense Approver"
+"C_CBS_MX_ME00","Capital Approver"
+"HM_CBS_MX_ME00","Hazmat Approver"
+"C_CBS_MX_XY00","Capital Approver"
+"C_CBS_MX_MC00","Capital Approver"
+"HM_CBS_MX_8900","Hazmat Approver"
+"HM_CBS_MX_XY00","Hazmat Approver"
+"HM_CBS_MX_MC00","Hazmat Approver"
+"TM_CBS_MX","Tax Manager(Mexico)"
+"PA_CBS_MX_8900","PreApprover"
+"PA_CBS_MX_MC00","PreApprover"
+"PA_CBS_MX_XY00","PreApprover"
+"PA_CBS_MX_ME00","PreApprover"
+"FS_CBS_MX_8900","Accounts Payable Approver"
+"FS_CBS_MX_MC00","Accounts Payable Approver"
+"FS_CBS_MX_ME00","Accounts Payable Approver"
+"FS_CBS_MX_XY00","Accounts Payable Approver"
+"BA_CBS","Block Admin CBS"
+"BA_CBS_SG_FT00_0","BA_CBS_SG_FT00_0"
+"Voucher Manager","Voucher Manager"
+"BA_CBS_CN","Block Admin China"
+"TM_CBS_CN_FT00","Tax Manager FT00"
+"FS_CBS_CN_FT00","Foreign Shipment Approver FT00"
+"HM_CBS_CN_FT00","Hazmat Approver FT00"
+"IA_CBS_CN_FT00","e-Invoicing Approver FT00"
+"IP_CBS_CN","Indirect Purchasing China"
+"AP_CBS_MX","Accounts Payable Approver"
+"FI_CBS_FT00_FT00","FI_CBS_FT00_FT00"
+"PA_CBS_CN_FT00_0","PA_CBS_CN_FT00_0"
+"TM_CBS_CN_NN00","Tax Manager NN00"
+"TM_CBS_CN_HB00","Tax Manager HB00"
+"HM_CBS_CN_NN00","Hazmat Approver NN00"
+"FS_CBS_CN_NN00","Foreign Shipment Approver NN00"
+"IA_CBS_CN_NN00","e-Invoicing Approver NN00"
+"IA_CBS_CN_HB00","e-Invoicing Approver HB00"
+"FS_CBS_CN_HB00","Foreign Shipment Approver HB00"
+"HM_CBS_CN_HB00","Hazmat Approver HB00"
+"IP_MACH1_US_1000","IP_MACH1_US_1000"
+"TM_CBS_CN_JJ00","Tax Manager JJ00"
+"TM_CBS_CN_XJ00","Tax Manager XJ00"
+"IA_CBS_CN_JJ00","e-Invoicing Approver JJ00"
+"FS_CBS_CN_JJ00","Foreign Shipment Approver JJ00"
+"HM_CBS_CN_XJ00","Hazmat Approver XJ00"
+"IA_CBS_CN_XJ00","e-Invoicing Approver XJ00"
+"FS_CBS_CN_XJ00","Foreign Shipment Approver XJ00"
+"HM_CBS_CN_JJ00","Hazmat Approver JJ00"
+"TM_CBS_CN_WJ00","Tax Manager CCMC"
+"TM_CBS_CN_S200","Tax Manager PPST"
+"TM_CBS_CN_S700","Tax Manager PSEW"
+"TM_CBS_CN_S400","Tax Manager CRDC"
+"CI_CBS_CN_S200","Capital Approver S200"
+"CI_CBS_CN_FT00","Capital Approver FT00"
+"CI_CBS_CN_S700","Capital Approver S700"
+"IA_CBS_CN_WJ00","e-Invoicing Approver CCMC"
+"HM_CBS_CN_WJ00","Hazmat Approver CCMC"
+"FS_CBS_CN_WJ00","Foreign Shipment Approver CCMC"
+"HM_CBS_CN_S200","Hazmat Approver PPST"
+"IA_CBS_CN_S200","e-Invoicing Approver PPST"
+"FS_CBS_CN_S200","Foreign Shipment Approver PPST"
+"HM_CBS_CN_S700","Hazmat Approver PSEW"
+"IA_CBS_CN_S700","e-Invoicing Approver PSEW"
+"HM_CBS_CN_S400","Hazmat Approver CRDC"
+"FS_CBS_CN_S400","Foreign Shipment Approver CRDC"
+"IA_CBS_CN_S400","e-Invoicing Approver CRDC"
+"FS_CBS_CN_S700","Foreign Shipment Approver PSEW"
+"CI_CBS_CN_S400","Capital Approver S400"
+"Category Template Manager","Category Template Manager"
+"Accounts Payable (mfg1-DX)","Accounts Payable (DX)"
+"Accounts Payable (mfg1-NA)","Accounts Payable (NA)"
+"IR Error Handler (UK)","IR Error Handler (UK)"
+"Report All","Report All"
+"Surrogate Bidder","Surrogate Bidder"
+"Internal","Internal"
+"Analysis Administrator","Analysis Administrator"
+"Supplier Manager","Supplier Manager"
+"ClassifiedAccess","Classified Access"
+"ACW Sales Contract Authorized","ACW Sales Contract Authorized"
+"ACW Authorized","ACW Authorized"
+"TeamMemberPassive","Team Member with Limited Access"
+"Event Administrator","Event Administrator"
+"Contract Authorized","Contract Authorized"
+"Senior Analyst","Senior Analyst"
+"Sourcing Manager","Sourcing Manager"
+"Access Participants Messages","Access Participants Messages"
+"SPM Authorized","SPM Authorized"
+"Legal","Legal"
+"SV Data File Manager","SV Data File Manager"
+"SV Supplier Diversity Analyst","SV Supplier Diversity Analyst"
+"CustomerDashboardAdmin","Customer Dashboard Admin"
+"Sales Contract Agent","Sales Contract Agent"
+"SV Senior Analyst","SV Senior Analyst"
+"Buyer","Buyer"
+"Sales Contract Request Agent","Sales Contract Request Agent"
+"Category Management","Category Management"
+"TeamMemberObserver","Observer Team Member"
+"Reporting","Reporting"
+"ACM Administrator","ACM Administrator"
+"Administrator","Administrator"
+"Document Signer","Document Signer"
+"Sales Contract Administrator","Sales Contract Administrator"
+"SV CCR Reviewer","SV CCR Reviewer"
+"AML Editor","AML Editor"
+"Sourcing Authorized","Sourcing Authorized"
+"View Audit Logs","View Audit Logs"
+"Junior SPM Manager","Junior SPM Manager"
+"Sales Contract Manager","Sales Contract Manager"
+"Currency Manager","Currency Manager"
+"Analyst","Analyst"
+"aribasystem","aribasystem"
+"SV Project Manager","SV Project Manager"
+"BatchDataPost","Batch Data Post"
+"ProjectManager","Project Owner"
+"TeamMemberActive","Active Team Member"
+"DeletedDocumentsAccess","Deleted Documents Access"
+"SV Validator","SV Validator"
+"Commodity Code Manager","Commodity Code Manager"
+"SPM Manager","SPM Manager"
+"External","External"
+"Translator","Translator"
+"Finance","Finance"
+"Sales Contract Authorized","Sales Contract Authorized"
+"Create Scenarios","Create Scenarios"
+"Management Reports","Management Reports"
+"SV Opportunity Analyst","SV Opportunity Analyst"
+"BatchDataNotify","Batch Data Notifications"
+"Expense Receipt Manager","Expense Receipt Manager"
+"PCard Manager","PCard Manager"
+"CR_CBS_CN_S200","Central Receiving PPST"
+"Cross-Dock Receiving","Cross-Dock Receiving"
+"CR_CBS_CN_WJ00_WJ04","Central Receiving - CCMC Pump Plant"
+"CR_CBS_CN_NN00","Central Receiving NN00"
+"BR_CBS_MX_XY00","Broker Approver"
+"BR_CBS_MX_ME00","Broker Approver"
+"BR_CBS_MX_8900","Broker Approver"
+"CR_CBS_CN_S700","Central Receiving PSEW"
+"CR_MACH1_US_1885","CPPI Receiving"
+"CR_CBS_CN_JJ00","Central Receiving JJ00"
+"CR_CBS_CN_XJ00","Central Receiving XJ00"
+"CR_CBS_CN_WJ00_WJ03","Central Receiving - CCMC Cab Plant"
+"CR_CBS_CN_HB00","Central Receiving HB00"
+"CR_CBS_CN_WJ00_WJ02","Central Receiving - CCMC Valve Plant"
+"CR_CBS_CN_WJ00_WJ05","Central Receiving - CCMC Cylinder Plant"
+"CR_CBS_CN_WJ00_WJ01","Central Receiving - CCMC Hose Plant"
+"BR_CBS_MX_MC00","Broker Approver"
+"SR_MACH1_US_1000_UJ01","SR_MACH1_US_1000_UJ01"
+"SR_MACH1_US_1000_UJ00","SR_MACH1_US_1000_UJ00"
+"SR_MACH1_US_1000_UJ02","SR_MACH1_US_1000_UJ02"
+"Expense Violation Manager","Expense Violation Manager"
+"Invoice Administrator","Invoice Administrator"
+"Invoice Agent","Invoice Agent"
+"Payment Administrator","Payment Administrator"
+"Payment Manager","Payment Manager"
+"Buyer Administrator","Buyer Administrator"
+"Tax Manager","Tax Manager"
+"Purchasing Manager","Purchasing Manager"
+"Purchasing Administrator","Purchasing Administrator"
+"PCard Administrator","PCard Administrator"
+"Catalog Manager","Catalog Manager"
+"Contract Agent","Contract Agent"
+"CustomerUserAdmin","Customer User Admin"
+"Category Manager","Category Manager"
+"Expense Manager","Expense Manager"
+"Contract Manager","Contract Manager"
+"Contract Administrator","Contract Administrator"
+"CR_CBS_MX_MC00","Site Receiver"
+"CR_CBS_MX_XY00","Site Receiver"
+"CR_CBS_MX_8900","Site Receiver"
+"CR_CBS_MX_ME00","Site Receiver"
+"Lagrange Receiving","Lagrange Receiving"
+"Danville Receiving","Danville Receiving"
+"Franklin Receiving","Franklin Receiving"
+"AD Receiving","AD Receiving"
+"Dyersburg Receiving","Dyersburg Receiving"
+"Boonville Receiving","Boonville Receiving"
+"BCP Receiving","BCP Receiving"
+"AB Receiving","AB Receiving"
+"Lafayette Receiving","Lafayette Receiving"
+"Aurora Receiving","Aurora Receiving"
+"Houston Receiving","Houston Receiving"
+"Central Receiving","Central Receiving"
+"Greenville Receiving","Greenville Receiving"
+"CAO Joliet Receiving","CAO Joliet Receiving"
+"Mapleton Receiving","Mapleton Receiving"
+"CDI Receiving","CDI Receiving"
+"Morton Receiving","Morton Receiving"
+"LC Receiving","LC Receiving"
+"Miami Receiving","Miami Receiving"
+"CR_CBS_CN_FT00","Central Receiving FT00"
+"Joliet Receiving","Joliet Receiving"
+"Morganton Receiving","Morganton Receiving"
+"Elkader Receiving","Elkader Receiving"
+"Griffin Receiving","Griffin Receiving"
+"Corinth Receiving","Corinth Receiving"
+"Decatur Receiving","Decatur Receiving"
+"TTT Receiving","TTT Receiving"
+"Receiving Administrator","Receiving Administrator"
+"TBU Receiving","TBU Receiving"
+"Receiving Manager","Receiving Manager"
+"Mossville H Receiving","Mossville H Receiving"
+"Prentiss Receiving","Prentiss Receiving"
+"Panama Receiving","Panama Receiving"
+"Sumter HCG Receiving","Sumter HCG Receiving"
+"Mossville VV Receiving","Mossville VV Receiving"
+"Sumter PPPG Receiving","Sumter PPPG Receiving"
+"Toccoa Receiving","Toccoa Receiving"
+"West Plains Receiving","West Plains Receiving"
+"Oxford Receiving","Oxford Receiving"
+"RPF Receiving","RPF Receiving"
+"T&SD Receiving","T&SD Receiving"
+"Pontiac Receiving","Pontiac Receiving"
+"Tucson Receiving","Tucson Receiving"
+"Invoice Manager","Invoice Manager"
+"CAT Invoice Entry","CAT Invoice Entry"
+"Indirect Buyer (mfg1)","Indirect Buyer"
+"Buyer Exception Handler","Buyer Exception Handler"
+"Invoice Inquirer","Invoice Inquirer"
+"Data Maintainer","Data Maintainer"
+"CAT Invoice Data Entry","CAT Invoice Data Entry"
+"Accounts Payable (ezopen)","Accounts Payable (Geneva)"
+"General Purchasing(SAP)","General Purchasing(SAP)"
+"Purchasing Mgr (mfg1-Europe)","Purchasing Manager (Europe)"
+"Purchasing Mgr (ezopen-EU)","Purchasing Manager (EU)"
+"Transaction Center (mfg1)","Transaction Center (Perkins-UK)"
+"MSC Purchasing","MSC Purchasing"
+"Purchasing Mgr (ezopen-Europe)","Purchasing Manager (Europe)"
+"Professional Buyer","Professional Buyer"
+"Transaction Center (US)","Indirect Purchasing (US)"
+"Purchasing Mgr (mfg1-UK)","Purchasing Manager (Perkins-UK)"
+"Transaction Center (EU)","Indirect Purchasing (EU)"
+"Analysis Users","Analysis Users"
+"CR_MACH1_US_1000_1060_UJ00","Site Receiver NAMG UJ00"
+"CR_MACH1_US_1000_1060_UJ01","Site Receiver NAMG UJ01"
+"CR_MACH1_US_1000_1060_UJ02","Site Receiver NAMG UJ02"
+"CR_MACH1_US_1885_1010_R800","Site Receiver CPPI R800"
+"CR_MACH1_US_1885_1010_R801","Site Receiver CPPI R801"
+"CR_MACH1_US_1885_1010_R802","Site Receiver CPPI R802"
+"HM_MACH1_US_1000_1060_UJ00","HM_MACH1_US_1000_1060_UJ00"
+"HM_MACH1_US_1000_1060_UJ01","HM_MACH1_US_1000_1060_UJ01"
+"HM_MACH1_US_1000_1060_UJ02","HM_MACH1_US_1000_1060_UJ02"
+"HM_MACH1_US_1885_1010_R800","HazMat Approver CPPI R800"
+"HM_MACH1_US_1885_1010_R801","HazMat Approver CPPI R801"
+"HM_MACH1_US_1885_1010_R802","HazMat Approver CPPI R802"
+"IP_MACH1_US_1000","Indirect Purchasing US (1000)"
+"IT_MACH1_US_1885_1010","IT Approver CPPI"
+"PA_MACH1_US_1000","Pre-Approver US (1000)"
+"TM_MACH1_US_1000","Tax Manager US (1000)"
+HM_MACH1_CA_4555,Hazmat Approver 4555
+IP_MACH1_CA_4555,Indirect Purchasing 4555
+TM_MACH1_CA_4555,Tax Manager (4555)
+CR_MACH1_CA_4555,Central Receiver 4555
+PA_MACH1_CA_4555,Pre-Approver US (4555)
+PA_MACH1_US_3815,Pre-Approver US (3815)
+HM_MACH1_US_3815_1540_FJ00,HazMat Approver 3815_1540_FJ00
+HM_MACH1_US_3815_1540_FJ01,HazMat Approver 3815_1540_FJ01
+HM_MACH1_US_3815_1540_FJ02,HazMat Approver 3815_1540_FJ02
+IP_MACH1_US_3815,Indirect Purchasing US (3815)
+TM_MACH1_US_3815,Tax Manager (3815)
+CR_MACH1_US_3815_1540_FJ00,Central Receiver 3815_1540_FJ00
+CR_MACH1_US_3815_1540_FJ01,Central Receiver 3815_1540_FJ01
+CR_MACH1_US_3815_1540_FJ02,Central Receiver 3815_1540_FJ02
+HM_MACH1_US_3815_1550_XO00,HazMat Approver 3815_1550_XO00
+CR_MACH1_US_3815_1550_XO00,Central Receiver 3815_1550_XO00
+HM_MACH1_US_3815_1560_FK00,HazMat Approver 3815_1560_FK00
+CR_MACH1_US_3815_1560_FK00,Central Receiver 3815_1560_FK00
+HM_MACH1_US_3815_1570_VQ00,HazMat Approver 3815_1570_VQ00
+CR_MACH1_US_3815_1570_VQ00,Central Receiver 3815_1570_VQ00
+PA_MACH1_GB_4535,Pre-Approver UK (4535)
+HM_MACH1_GB_4535,Hazmat Approver 4535
+IP_MACH1_GB_4535,Indirect Purchasing 4535
+TM_MACH1_GB_4535,Tax Manager (4535)
+CR_MACH1_GB_4535,Central Receiver 4535
+CR_MACH1_US_1000_1060_UJ00,Site Receiver 1060_UJ00
+CR_MACH1_US_1000_1060_UJ01,Site Receiver 1060_UJ01
+CR_MACH1_US_1000_1060_UJ02,Site Receiver 1060_UJ02
+
+CR_MACH1_US_1885_1010_R800,Site Receiver 1010_R800
+CR_MACH1_US_1885_1010_R801,Site Receiver 1010_R801
+CR_MACH1_US_1885_1010_R802,Site Receiver 1010_R802
+HM_MACH1_US_1000_1060_UJ00,HM_MACH1_US_1000_1060_UJ00
+HM_MACH1_US_1000_1060_UJ01,HM_MACH1_US_1000_1060_UJ01
+HM_MACH1_US_1000_1060_UJ02,HM_MACH1_US_1000_1060_UJ02
+HM_MACH1_US_1885_1010_R800,Hazmat Approver 1885_1010_R800
+HM_MACH1_US_1885_1010_R801,Hazmat Approver 1885_1010_R801
+HM_MACH1_US_1885_1010_R802,Hazmat Approver 1885_1010_R802
+IT_MACH1_US_1885_1010,IT Approver 1885_1010(CPPI)
+PA_MACH1_US_1000,Pre-Approver US (1000)
+VertexManager,Vertex Intergration Manager
+"CR_MACH1_US_1000_1220","Central Receiving [1220]"
+"HM_MACH1_US_1000_1220","HazMat Approver [1220]"
+"CR_MACH1_US_1000_1210","Central Receiving [1210]"
+"HM_MACH1_US_1000_1210","HazMat Approver [1210]"
+"CR_MACH1_US_1000_1230","Central Receiving [1230]"
+"HM_MACH1_US_1000_1230","HazMat Approver [1230]"
+"HM_MACH1_US_1000_1770","HazMat Approver [1770]"
+"HM_MACH1_US_1000_1770_JQ02","HazMat Approver [1770_JQ02]"
+MACH1_Cutover_Approver,MACH1_Cutover_Approver
+CR_MACH1_US_1000_1300,Central Receiving CGM 1000_1300
+HM_MACH1_US_1000_1300,Hazmat Approver 1300
+"CR_MACH1_US_1000_1170","Central Receiving [1170]"
+"HM_MACH1_US_1000_1170","HazMat Approver [1170]"
+"CR_MACH1_US_1000_1190","Central Receiving [1190]"
+"HM_MACH1_US_1000_1190","HazMat Approver [1190]"
+"CR_MACH1_US_1000_1200","Central Receiving [1200]"
+"HM_MACH1_US_1000_1200","HazMat Approver [1200]"
+IM_CBS_CN_HB00,IM_CBS_CN_HB00
+IM_CBS_CN_FT00,IM_CBS_CN_FT00
+IM_CBS_CN_JJ00,IM_CBS_CN_JJ00
+IM_CBS_CN_NN00,IM_CBS_CN_NN00
+IM_CBS_CN_S200,IM_CBS_CN_S200
+IM_CBS_CN_S400,IM_CBS_CN_S400
+IM_CBS_CN_S700,IM_CBS_CN_S700
+IM_CBS_CN_WJ00,IM_CBS_CN_WJ00
+IM_CBS_CN_XJ00,IM_CBS_CN_XJ00
+CR_MACH1_US_1000_1310,Central Receiving CGM 1000_1310
+HM_MACH1_US_1000_1310,Hazmat Approver 1310
+CR_MACH1_US_1000_1120,Central Receiving CGM 1000_1120
+HM_MACH1_US_1000_1120,Hazmat Approver 1120
+CR_MACH1_US_1000_1130,Central Receiving CGM 1000_1130
+HM_MACH1_US_1000_1130,Hazmat Approver 1130
+CR_MACH1_US_1000_1140,Central Receiving CGM 1000_1140
+HM_MACH1_US_1000_1140,Hazmat Approver 1140
+CR_MACH1_US_1000_1110,Central Receiving CGM 1000_1110
+HM_MACH1_US_1000_1110,Hazmat Approver 1110
+CR_CGM_US_1000_5000_QR01,Central Receiving CGM 1000_5000
+CR_CGM_US_1000_5400_QR02,Central Receiving CGM 1000_5400
+CR_CGM_US_1000_5700_QR03,Central Receiving CGM 1000_5700
+CR_CGM_US_1000_5800_QR04,Central Receiving CGM 1000_5800
+CR_CGM_US_1010,Central Receiving CGM 1010
+CR_CGM_US_1100,Central Receiving CGM 1100
+CR_CGM_US_1200_1210_QU00,Central Receiving CGM 1200_QU00
+CR_CGM_US_1200_1210_QU01,Central Receiving CGM 1210_QU01
+CR_CGM_US_1400_1400_UD00,Central Receiving CGM 1400_UD00
+CR_CGM_US_1400_1400_UD01,Central Receiving CGM 1400_UD01
+HM_CGM_US_1000,HazMat Approver (1000)
+HM_CGM_US_1010,HazMat Approver (1010)
+HM_CGM_US_1100,HazMat Approver (1100)
+HM_CGM_US_1200,HazMat Approver (1200)
+HM_CGM_US_1400,HazMat Approver (1400)
+IM_CGM_US_1100,Invoice Manager (1100)
+IM_CGM_US_1000,Invoice Manager (1000)
+IM_CGM_US_1200,Invoice Manager (1200)
+IM_CGM_US_1400,Invoice Manager (1400)
+IM_CGM_US_1010,Invoice Manager (1010)
+AP_CGM_US_1100,Accounts Payable Approver (1100)
+AP_CGM_US_1200,Accounts Payable Approver (1200)
+AP_CGM_US_1000,Accounts Payable Approver (1000)
+AP_CGM_US_1400,Accounts Payable Approver (1400)
+AP_CGM_US_1010,Accounts Payable Approver (1010)
+IP_CGM_US,Indirect Purchasing (CGM-US)
+PA_CGM_US,PreApprover (CGM-US)
+CR_CBS_CN_WJ00_WJ07,Central Receiving-CCMC Powertrain
+HM_MACH1_US_1000_1150,Hazmat Approver 1150
+CR_MACH1_US_1000_1150,Central Receiver 1150
+TM_MACH1_US_1000_1150,Tax Manager (1150)
+IP_MACH1_US_1445,IP_MACH1_US_1445
+HM_MACH1_PA_1935,HazMat Approver 1935
+IP_MACH1_PA_1935,IP_MACH1_PA_1935
+HM_MACH1_PA_1765,HazMat Approver 1765
+IP_MACH1_PA_1765,IP_MACH1_PA_1765
+IP_MACH1_PA_1895,IP_MACH1_PA_1895
+HM_MACH1_US_1445,HazMat Approver 1445
+HM_MACH1_US_1895,HazMat Approver 1895
+PA_MACH1_US_1445,PreApprovers_1445
+PA_MACH1_PA_1765,PreApprovers_1765
+PA_MACH1_US_1895,PreApprovers_1895
+PA_MACH1_PA_1935,PreApprovers_1935
+TM_CGM_US_1000,CGM US Tax Manager 1000
+TM_CGM_US_1010,CGM US Tax Manager 1010
+TM_CGM_US_1100,CGM US Tax Manager 1100
+TM_CGM_US_1200,CGM US Tax Manager 1200
+TM_CGM_US_1400,CGM US Tax Manager 1400
+"IP_MACH1_US_1000_UJ00","IP_MACH1_US_1000_UJ00"
+"IP_MACH1_US_1000_UJ01","IP_MACH1_US_1000_UJ01"
+"IP_MACH1_US_1000_UJ02","IP_MACH1_US_1000_UJ02"
+"Transaction Center (mfg1)","Transaction Center (Perkins-UK)"
+IA_MACH1_PL_1065,e-Invoicing Approver 1065
+CP_MACH1_PL_1065,Contract Preparer (1065)
+TM_MACH1_PL_1065,Tax Manager (1065)
+CR_MACH1_PL_1065_1520,Central Receiver 1065_1520
+HM_MACH1_PL_1065_1520,HazMat Approver 1065_1520
+PA_MACH1_PL_1065,PreApprovers 1065
+IP_MACH1_PL_1065,Indirect Purchasing (1065)
+IT_MACH1_PL_1065_1530,IT Manager (1065_1530)
+IT_MACH1_PL_1065_1520,IT Manager (1065_1520)
+IT_MACH1_PL_1065_1930,IT Manager (1065_1930)
+CR_MACH1_PL_1065_1530,Central Receiver 1065_1530
+HM_MACH1_PL_1065_1530,HazMat Approver 1065_1530
+Site_Buyer,Site Buyer
+CR_MACH1_PL_1065_1930,Central Receiver 1065_1930
+HM_MACH1_PL_1065_1930,HazMat Approver 1065_1930
+C_MACH1_PL_1065,Capital Approver (1065)
+TM_MACH1_HU_2005,Tax Manager (2005)
+CR_MACH1_HU_2005,Central Receiver 2005
+HM_MACH1_HU_2005,HazMat Approver 2005
+PA_MACH1_HU_2005,PreApprovers
+IP_MACH1_HU_2005,IP_MACH1_HU_2005
+TM_MACH1_IT_1285,Tax Manager (1285)
+CR_MACH1_IT_1285_1970,Central Receiver 1285_1970
+HM_MACH1_IT_1285,HazMat Approver 1285
+IT_MACH1_IT_1285,IT Manager (1285)
+IP_MACH1_IT_1285,IP_MACH1_IT_1285
+C_MACH1_IT_1285,Capital Approver 1285
+CR_MACH1_IT_1285_1980,Central Receiver 1285_1980
+PA_MACH1_IT_1285,PreApprovers 1285
+CR_MACH1_US_1000_1950,Central Receiver 1000_1950
+HM_MACH1_US_1000_1950,HazMat Approver 1000_1950
+CR_MACH1_US_1000_1960,Central Receiver 1000_1960
+HM_MACH1_US_1000_1960,HazMat Approver 1000_1960
+GP-I IT Services,GP-I IT Services
+TM_MACH1_ES_2935,Tax Manager (2935)
+CR_MACH1_ES_2935,Central Receiver (2935)
+HM_MACH1_ES_2935,HazMat Approver (2935)
+IP_MACH1_ES_2935,Indirect Purchasing (2935)
+IT_MACH1_ES_2935,IT Manager (2935)
+PA_MACH1_ES_2935,PreApprovers (2935)
+EZO_Cutover_Approver,EZO_Cutover_Approver
+TM_MACH1_IT_1645,Tax Manager (1645)
+CR_MACH1_IT_1645,Central Receiver (1645)
+HM_MACH1_IT_1645,HazMat Approver (1645)
+IP_MACH1_IT_1645,Indirect Purchasing (1645)
+IT_MACH1_IT_1645,IT Manager (1645)
+C_MACH1_IT_1645,Capital Approver (1645)
+PA_MACH1_IT_1645,PreApprovers (1645)
+TM_MACH1_IT_3135,Tax Manager (3135)
+CR_MACH1_IT_3135_1360,Central Receiver (3135-1360)
+CR_MACH1_IT_3135_1750,Central Receiver (3135-1750)
+HM_MACH1_IT_3135,HazMat Approver (3135)
+IP_MACH1_IT_3135,Indirect Purchasing (3135)
+IT_MACH1_IT_3135,IT Manager (3135)
+C_MACH1_IT_3135,Capital Approver (3135)
+PA_MACH1_IT_3135,PreApprovers (3135)
+CR_CGM_US_1000_5000_QR06,Central Receiving CGM 1000_5000
+CR_CGM_US_1000_5700_QR05,Central Receiving CGM 1000_5700
+CSCL_CBS_CN_FT00,CSCL Customs Team FT00

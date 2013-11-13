@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE extension SYSTEM "../../../../ariba/base/meta/core/extensions.dtd">
+<extension name="config.variants.SAP.extensions.CatSAPTaxCalculation">
+
+<!-- *****************************************************************************************
+Change History
+Change#     Change By           ChangeDate        Description
+==========================================================================================
+WI 303      IBM_AMS_MANOJ.R     07/04/2012        Set Tax Code on MaxAmount and MaxQuantity change.
+
+RSD 114     IBM Nandini Bheemaiah	25/09/2013  Q4 2013-RSD114-FDD5.0/TDD1.0  Adding the Action class to update PaymenTerm on Copy of the Requisition.
+											The reason for adding the PaymentTerm trigger in this aml file is because of timing issues of the trigger.
+											Hence on Field Change of ShipTo, PaymentTerms get copied, there by handling payment Terms on Copied PRs.
+********************************************************************************************** -->
+
+	<import extension="config.variants.Plain.extensions.CatCoreExt"/>
+	<import extension="config.variants.Plain.extensions.CatInvoicingExt"/>
+	<import extension="config.variants.SAP.extensions.CatSAPCoreExt"/>
+	<import extension="ariba.variants.SAP.extensions.SAPRequisitionExt"/>
+	<import extension="config.variants.SAP.extensions.CatSAPProcureExt"/>
+	<import extension="config.variants.SAP.extensions.CatSAPRequisitionExt"/>
+	<import extension="config.variants.SAP.extensions.CatSAPInvoicingExt"/>
+	
+	<inModule name="ariba.common.meta.Requisition">
+                <inClass name="ariba.purchasing.core.ReqLineItem">
+                	<inClassVariant name="SAP">
+                		<deleteTrigger name="SetTaxCodeOnShipToChange"/>
+                		<deleteTrigger name="SetTaxCodeOnSupplierChange"/>
+	               	</inClassVariant>
+                </inClass>
+                <inClass name="ariba.contract.core.ContractRequestLineItem">
+                	<inClassVariant name="SAP">
+                		<deleteTrigger name="SetTaxCodeOnShipToChange"/>
+                		<deleteTrigger name="SetTaxCodeOnSupplierChange"/>
+                            <!-- ========WI-303 Starts ========== -->
+                                <trigger event="Create" name="CalculateTaxOnLineOnCreate">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+                		</trigger>
+                		<trigger event="FieldChange" field="MaxQuantity" name="CalculateTaxOnQtyChange">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+				</trigger>
+                		<trigger event="Copy" name="CalculateTaxOnLineOnCopy">
+				        <action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+                		</trigger>
+                		<trigger event="FieldChange" field="MaxAmount" name="CalculateTaxOnMaxAmtChange">
+			                <action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+                		</trigger>
+                                <trigger event="FieldChange" field="IncoTerms1" name="CalculateTaxOnIncoChange">
+                                        <action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+                                </trigger>
+                            <!-- ========WI-303 Ends ========== -->
+                	</inClassVariant>
+                </inClass>
+                <inClass name="ariba.procure.core.ProcureLineItem">
+                	<inClassVariant name="SAP">
+                		<trigger event="Create" name="CatSetTaxCodeCreateLine" respectUserData="true">
+                        		<action implementation="config.java.action.sap.CatSetTaxCodeFromCatalog"/>
+				</trigger>               
+                		<trigger event="FieldChange" field="Description" name="CATSetTaxCodeChangeDescOnLine" respectUserData="true">
+					<action implementation="config.java.action.sap.CatSetTaxCodeFromCatalog"/>
+				</trigger>
+                		<trigger event="FieldChangeByUser" field="LineItemType" name="CATSetTaxCodeChangeDescOnLineItemType" respectUserData="true">
+					<action implementation="config.java.action.sap.CatSetTaxCodeFromCatalog"/>
+				</trigger>
+                		<trigger event="Create" name="CalculateTaxOnLineOnCreate">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+                		</trigger>
+                		<trigger event="Copy" name="CalculateTaxOnLineOnCopy">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+					<!-- Start Q4 2013-RSD114-FDD5.0/TDD1.0 -->
+					<action implementation="config.java.action.sap.CatSAPSetReqLIPaymentTerms"/>
+					<!--END Q4 2013-RSD114-FDD5.0/TDD1.0 -->
+
+                		</trigger>
+                		<trigger event="FieldChange" field="Quantity" name="CalculateTaxOnQtyChange">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+				</trigger>                		
+				<inField name="Quantity">	
+				   <properties forceRefresh="true"/>
+                		</inField>
+                		<trigger event="FieldChange" field="TaxCode" name="CalculateTaxOnTaxCodeChange">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+				</trigger>
+				<inField name="TaxCode">	
+				   <properties forceRefresh="true"/>
+                		</inField>
+                		<trigger event="FieldChange" field="ShipTo" name="CalculateTaxOnShipToChange">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+					<!-- Start Q4 2013-RSD114-FDD5.0/TDD1.0 -->
+					<action implementation="config.java.action.sap.CatSAPSetReqLIPaymentTerms"/>
+					<!--END Q4 2013-RSD114-FDD5.0/TDD1.0 -->
+				</trigger>
+                	</inClassVariant>
+                </inClass>
+                <inClass name="ariba.procure.core.LineItemProductDescription">
+                	<inClassVariant name="SAP">
+                		<trigger event="FieldChange" field="Price" name="CalculateTaxOnLineDesc">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+                		</trigger>
+                		<trigger event="FieldChange" field="Price" name="CalculateInvoiceTaxOnLineDesc">
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+                		</trigger>
+                		<inField name="Price">	
+				   <properties forceRefresh="true"/>
+                		</inField>
+                	</inClassVariant>
+                </inClass>
+                <inClass name="ariba.purchasing.core.Requisition">
+                	<inClassVariant name="SAP">
+                		<trigger event="FieldChange" field="LineItems" name="CalculateTaxOnHeader">
+					<action implementation="config.java.action.sap.CatSetTaxAmountLine"/>
+				</trigger>
+				<!--<trigger event="Create" name="CATSetTaxCodeforCreate">
+				           <action implementation="config.java.custom.CATSetTaxCode"/>
+				</trigger>-->
+                	</inClassVariant>
+                </inClass>
+		<!--
+		<inGroup name="ObjectDuplicate">
+                        <groupClass name="ariba.procure.core.ProductDescription">
+                                <groupField name="Taxrate"/>
+                        </groupClass>
+                </inGroup>
+                <inGroup name="UpdateCatalogItems">
+                        <groupClass name="ariba.procure.core.CatalogReportingEntry">
+                                <groupField name="Description.Taxrate"/>
+                        </groupClass>
+                </inGroup>
+                <inGroup name="CatalogItemBriefDetails">
+                        <groupSearchType name="System:CatalogItem">
+                                <groupField name="Taxrate">
+                                        <properties rank="70"/>
+                                </groupField>
+                        </groupSearchType>
+                </inGroup>
+                <inGroup name="CatalogDetails">
+                        <groupSearchType name="System:CatalogItem">
+                                <groupField name="Taxrate">
+                                        <properties rank="70"/>
+                                </groupField>
+                        </groupSearchType>
+                </inGroup>
+		 <group name="PunchOutSetupExtrinsics">
+			<groupClass name="ariba.purchasing.core.ReqLineItem">
+				<groupField name="Description.Taxrate">
+					<properties punchoutkey="Taxrate"/>
+				</groupField>
+			</groupClass>
+		</group>-->
+      	     </inModule>	
+      <inModule name="ariba.approvable.core.Approvable">
+		<!--<group name="LineItemPrint">
+		 	<groupClass name="ariba.purchasing.core.ReqLineItem">
+		 		<groupClassVariant name="SAP">
+		 			<groupField name="TaxCode.TaxRate">
+		 				<visibility>
+		 					<condition implementation="config.java.custom.CATAATaxVisibilityCondition" testField="this"/>
+		 				</visibility>
+			 			<properties rank="6" label="Tax rate"/>		 				
+		 			</groupField>
+		 		</groupClassVariant>
+		 	</groupClass>
+		 	<groupClass name="ariba.purchasing.core.POLineItem">
+				<groupClassVariant name="SAP">
+					<groupField name="TaxCode.TaxRate">
+		 				<visibility>
+		 					<condition implementation="config.java.custom.CATAATaxVisibilityCondition" testField="this"/>
+		 				</visibility>					
+			 			<properties rank="6" label="Tax rate"/>		 				
+					</groupField>
+				</groupClassVariant>
+		 	</groupClass>
+		 </group>-->
+		 <group name="ObjectDuplicate">
+		 	<groupClass name="ariba.procure.core.ProcureLineItem">
+		 		<groupClassVariant name="SAP">
+		 			<groupField name="TaxCode"/>
+		 			<groupField name="TaxAmount"/>
+		 		</groupClassVariant>
+		 	</groupClass>
+		 	<groupClass name="ariba.purchasing.core.Requisition">
+		 		<groupClassVariant name="SAP">
+		 			<groupField name="TaxAmount"/>
+		 		</groupClassVariant>
+		 	</groupClass>
+		 	<groupClass name="ariba.purchasing.core.DirectOrder">
+				<groupClassVariant name="SAP">
+					<groupField name="TaxAmount"/>
+				</groupClassVariant>
+		 	</groupClass>
+		</group>
+        </inModule>
+	<inModule name="ariba.invoicing.core.Invoicing">
+		<inClass name="ariba.invoicing.core.Invoice">
+			<inClassVariant name="SAP">
+				<trigger event="FieldChange" field="TotalCost" name="UpdateINVTaxOnTotalCostChange">				
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+				<trigger event="FieldChange" field="TotalInvoicedLessTax" name="UpdateINVTaxOnTotalInvoicedChange">				
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>				
+			</inClassVariant>
+		</inClass>
+		
+		<inClass name="ariba.invoicing.core.InvoiceLineItem">
+			<inClassVariant name="SAP">
+				<trigger event="FieldChange" field="TaxCode" name="UpdateINVLineTaxOnCodeChange">				
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+				<trigger event="FieldChange" field="Amount" name="SetTaxAmountOnLineAmountChange">
+					<condition implementation="ariba.base.fields.condition.NotEqualTo" testField="LineType.Category">
+						<parameter name="TargetValue" value="2"/>
+					</condition>
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+				<trigger event="FieldChange" field="Quantity" name="SetTaxAmountOnQuantityChange">
+					<condition implementation="ariba.base.fields.condition.NotEqualTo" testField="LineType.Category">
+						<parameter name="TargetValue" value="2"/>
+					</condition>
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+			</inClassVariant>
+		</inClass>
+		<inClass name="ariba.invoicing.core.InvoiceReconciliationLineItem">
+			<inClassVariant name="SAP">
+				<trigger event="FieldChange" field="TaxCode" name="UpdateIRLineTaxOnCodeChange">				
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+				<trigger event="FieldChange" field="Amount" name="SetTaxAmountOnLineAmountChange">
+					<!-- Santanu : Commented as per new process Tax Manager will change the  amount of tax line -->
+					<!--<condition implementation="ariba.base.fields.condition.NotEqualTo"
+							   testField="LineType.Category">
+						<parameter name="TargetValue" value="2"/>
+					</condition>-->
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+				<trigger event="FieldChange" field="Quantity" name="SetTaxAmountOnQuantityChange">
+					<!-- Santanu : Commented as per new process Tax Manager will change the  amount of tax line -->					
+					<!--<condition implementation="ariba.base.fields.condition.NotEqualTo"
+							   testField="LineType.Category">
+						<parameter name="TargetValue" value="2"/>
+					</condition>-->
+					<action implementation="config.java.invoiceeform.sap.CatSAPUpdateLineTaxAmount"/>
+				</trigger>
+			</inClassVariant>			
+		</inClass>
+	</inModule>
+</extension>

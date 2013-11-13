@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Date                       Name of the Programmer	Ref to the Frd section/technical doc.		 Description of the code change
+ 8/5/2013                    Rupesh Bhayana          RSD # 116						 added field to CommodityCode
+ 8/5/2013                    Rupesh Bhayana          RSD # 116						 added new nametable to hide certain commodityocde in chooser
+ 8/5/2013                    Rupesh Bhayana          RSD # 116						 added integration event to load data for newly added field to CommodityCode
+
+-->
+
+<!DOCTYPE extension SYSTEM "../../../../ariba/base/meta/core/extensions.dtd">
+<extension name="config.variants.Plain.extensions.CatCCExt">
+	<inModule name="ariba.basic.core.Basic">
+		<inClass name="ariba.basic.core.CommodityCode">
+			<field name="visibleOnUI">
+				<type class="boolean"/>
+				<properties metaDataIntegration="Reference"/>
+			</field>
+		</inClass>
+	</inModule>
+	<inModule name="ariba.common.meta.Requisition">
+		<group name="RequisitionUnorderedNonCatalogDetails">
+			<groupClass name="ariba.procure.core.ProcureLineItem">
+
+				<groupField name="Description.CommonCommodityCode">
+					<properties
+						nameTableClass="config.java.nametable.CCNameTable"
+						controller="ariba.htmlui.approvableui.fields.ARFNamedObject"/>
+				</groupField>
+			</groupClass>
+		</group>
+              <inGroup name="LineItemGeneralFields">
+			<inGroupClass name="ariba.procure.core.ProcureLineItem">
+				<groupField name="Description.CommonCommodityCode">
+					<properties
+						nameTableClass="config.java.nametable.CCNameTable"
+						controller="ariba.htmlui.approvableui.fields.ARFNamedObject"/>
+				</groupField>
+			</inGroupClass>
+		</inGroup>
+	</inModule>
+	<inModule name="ariba.common.meta.Core">
+		<group name="CommodityCodeExtPull">
+			<groupClass name="ariba.basic.core.CommodityCode">
+				<groupField name="UniqueName">
+					<properties>
+						<property name="integration">
+							<table>
+								<entry key="mapField" value="UniqueName"/>
+							</table>
+						</property>
+					</properties>
+				</groupField>
+				<groupField name="Domain">
+					<properties>
+						<property name="integration">
+							<table>
+								<entry key="mapField" value="Domain"/>
+								<entry key="formatterType"
+									value="LowerCaseStringFormatter"/>
+							</table>
+						</property>
+					</properties>
+				</groupField>
+				<groupField name="visibleOnUI">
+					<properties>
+						<property name="integration">
+							<table>
+								<entry key="mapField" value="visibleOnUI"/>
+							</table>
+						</property>
+					</properties>
+				</groupField>
+			</groupClass>
+		</group>
+	</inModule>
+</extension>

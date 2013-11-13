@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE extension SYSTEM "../../../../ariba/base/meta/core/extensions.dtd">
+<extension name="config.variants.SAP.extensions.CatSAPInvoiceEntryExt">
+<!--
+******************************************************************************************************************************************************************
+Change History
+Change#  Change By       Change Date   Description
+=================================================================================================================================================================
+
+1. IBM Abhishek Kumar    08/14/2013    Q4 2013 - RSD102 - FDD 1/TDD 1 - Added 4 field in invoices line for invoice against contract for Ariba Network Enhancement 
+
+******************************************************************************************************************************************************************
+-->
+<import extension="config.variants.Plain.extensions.CatInvoicingExt"/>
+<import extension="config.variants.SAP.extensions.CatSAPInvoiceEformExt"/>
+<import extension="config.variants.SAP.extensions.CatSAPInvoicingExt"/>
+
+<inModule name="ariba.common.meta.Requisition">
+
+<!--group name="InvoiceSummary">
+	<groupClass name="ariba.invoicing.core.Invoice">
+		<groupClassVariant name="SAP">
+			<groupField name="TotalTax">
+				<properties hidden="true"/>
+			</groupField>
+		</groupClassVariant>
+	</groupClass>
+</group-->
+
+<group name="HeaderDetailsEditable">
+	<!-- Adding here as otherwise the validity won't work against the InvoiceDate -->
+	<groupClass name="ariba.invoicing.core.Invoice">
+		<groupClassVariant name="SAP">
+			<groupField name="BlockStampDate">
+			<properties label="@aml.cat.sap.invoice/LabelBlockStampDate" noWrap="true" rank="31" required="true"/>
+			<validity>
+			<andCondition>
+			<condition implementation="ariba.base.core.condition.NonEmptyField">
+			<parameter name="Message" value="@aml.cat.sap.invoice/MessageRequiredBlockDate"/>
+			</condition>
+			<condition implementation="ariba.base.fields.condition.BoundedDate">
+			<parameter name="NotFutureDate" nullValue="true"/>
+			<parameter inputField="InvoiceDate" name="GreaterThanOrEqual"/>
+			<parameter name="AllowNullDate" value="false"/>
+			<parameter name="IgnoreTime" value="false"/>
+			<parameter name="CalendarDateFuzzyLogic" value="false"/>
+			<parameter name="Message" value="@aml.cat.sap.invoice/MessageInvalidBlockDate"/>
+			</condition>
+			</andCondition>
+			</validity>
+			</groupField>
+			<groupField name="InvoiceDate">
+			<validity>
+			<andCondition>
+				<condition implementation="ariba.base.core.condition.NonEmptyField">
+					<parameter name="Message" value="@aml.InvoiceEform/RequiredInvoiceDate"/>
+				</condition>
+				<condition implementation="ariba.base.fields.condition.BoundedDate">
+					<parameter name="NotFutureDate" nullValue="true"/>
+					<parameter name="AllowNullDate" value="false"/>
+					<parameter name="CalendarDateFuzzyLogic" value="false"/>
+					<parameter name="Message" value="@aml.InvoiceEform/InvalidInvoiceDate"/>
+				</condition>
+			</andCondition>
+			</validity>
+			</groupField>
+		<groupField name="RelatedCatInvoice">
+		<!-- validity clusterType="ariba.invoicing.core.Invoice">
+			<orCondition>
+				<condition implementation="ariba.base.fields.condition.NotEqualTo"
+						testField="InvoicePurpose">
+					<parameter name="TargetValue" value="creditMemo"/>
+				</condition>
+				<condition implementation="ariba.base.core.condition.NonEmptyField">
+					<parameter name="Message" value="@aml.cat.invoice3/MessageRelatedCatInvoice"/>
+				</condition>
+			</orCondition>
+		</validity -->
+		<visibility>
+			<condition implementation="ariba.base.fields.condition.EqualTo" testField="InvoicePurpose">
+				<parameter name="TargetValue" value="creditMemo"/>
+			</condition>
+		</visibility>
+		<properties rank="14"/>
+		</groupField>
+		<groupField name="CompanyCode">
+	       	    	<editability>
+			<andCondition>
+			    <notCondition>
+				<condition implementation="ariba.base.fields.condition.NonNullObject" testField="PreviousVersion"/>
+			    </notCondition>
+			    <orCondition>
+				<condition implementation="ariba.base.fields.condition.EqualTo" testField="StatusString">
+				    <parameter name="TargetValue" value="Composing"/>
+				</condition>
+				<condition implementation="ariba.base.fields.condition.EqualTo" testField="StatusString">
+				    <parameter name="TargetValue" value="Submitted"/>
+				</condition>
+			    </orCondition>
+			    <condition implementation="config.java.condition.sap.CatReqHasLineItems">
+				<parameter inputField="this" name="ReqToCheck"/>
+			    </condition>
+			</andCondition>
+	       	    	</editability>
+	       	    	<validity>
+				<condition implementation="ariba.common.core.condition.ObjectMatchingQuery" nullHandling="forceTrue">
+				    <parameter name="AQLCondition" value="SAPSource = :RequesterCompCodeSAPSource"/>
+				    <parameter inputField="Requester.PartitionedUser.CompanyCode.SAPSource" name="RequesterCompCodeSAPSource" nullHandling="forceTrue"/>
+				    <parameter name="Message" value="@aml.CatSAPRequisitionExt/CompanyCodeInvalid"/>
+				</condition>
+	       	    	</validity>
+			<properties forceRefresh="true" nameTableClass="config.java.nametable.sap.CatCompanyCodeNameTable" rank="50"/>
+		</groupField>
+		<groupField name="Supplier">
+			<validity>
+				<condition implementation="config.java.condition.sap.CatSAPSupplierValidity">
+				    <parameter inputField="this" name="LICToCheck"/>
+				</condition>
+			</validity>
+			<properties nameTableClass="config.java.nametable.sap.CatSupplierNameTable"/>
+		</groupField>
+		<groupField name="SupplierLocation">
+		    <properties allowCustomValue="false" chooserField="Name" titleFormat="%s (%s)" titleGroup="ChooserTable"/>
+		</groupField>
+		<groupField name="WithHoldTaxCode">
+			<validity>
+			<condition implementation="config.java.condition.sap.CatSAPWithHoldTaxCodeValidity">
+				<parameter inputField="this" name="InvoiceEform"/>
+			</condition>
+			</validity>
+
+			<visibility>
+			<condition implementation="config.java.condition.sap.CATWithHoldTaxCodeVisibility">
+			<parameter inputField="this" name="CR" typeCast="ariba.base.core.ClusterRoot"/>
+			</condition>
+			</visibility>
+			<editability>
+			<condition implementation="ariba.common.core.condition.UserHasPermission">
+				<parameter name="PermissionName" value="ReconcileWithHoldTax"/>
+			</condition>
+			</editability>
+
+			<properties chooserGroup="TaxCodeChooser" controllerType="RecentUserChoice" forceRefresh="true" label="@aml.cat.sap.invoice/WithHoldTaxCodeLabel" nameTableClass="config.java.nametable.sap.CatSAPWithHoldTaxCodeNameTable" rank="150" skipInitialChooserLoad="true" titleFormat="%s (%s)" titleGroup="TaxCodeChooser"/>
+		</groupField>
+		<!-- coded by Aswini for Vertex -->
+		<groupField name="CurrencyExchangeRate">
+			<properties label="@aml.cat.sap.invoice/CurrencyExchangeRate" rank="40"/>
+		</groupField>
+		<!-- code ended -->
+		</groupClassVariant>
+	</groupClass>
+	</group>
+	<inGroup name="HeaderDetailsNoneditable">
+			<inGroupClass name="ariba.invoicing.core.Invoice">
+			<inGroupClassVariant name="SAP">
+			<groupField name="WithHoldTaxCode">
+			<visibility>
+			<condition implementation="config.java.condition.sap.CATWithHoldTaxCodeVisibility">
+			<parameter inputField="this" name="CR" typeCast="ariba.base.core.ClusterRoot"/>
+			</condition>
+			</visibility>
+			<properties chooserGroup="TaxCodeChooser" controllerType="RecentUserChoice" forceRefresh="true" label="@aml.cat.sap.invoice/WithHoldTaxCodeLabel" nameTableClass="config.java.nametable.sap.CatSAPWithHoldTaxCodeNameTable" noWrap="true" rank="58" skipInitialChooserLoad="true" titleFormat="%s (%s)" titleGroup="TaxCodeChooser" zone="Left"/>
+			</groupField>
+		<!-- coded by Aswini for Vertex -->
+		    <groupField name="CurrencyExchangeRate">
+			<properties label="@aml.cat.sap.invoice/CurrencyExchangeRate" rank="40"/>
+		    </groupField>
+		<!-- code ended -->
+			</inGroupClassVariant>
+		</inGroupClass>
+</inGroup>
+
+	</inModule>
+
+   <inModule name="ariba.invoicing.core.Invoicing">
+	<inClass name="ariba.invoicing.core.Invoice">
+	    <inClassVariant name="SAP">
+	    	<inField name="ClassProperties">
+			<properties submitHook="config.java.hook.sap.CatSAPInvoiceSubmitHook"/>
+		</inField>
+	    </inClassVariant>
+	</inClass>
+	<inClass name="ariba.invoicing.core.InvoiceLineItem">
+    	    <inClassVariant name="SAP">
+		<!-- Start: Q4 2013 - RSD102 - FDD 1/TDD 1 -->
+		<field name="SuppAcctDistGL" nullAllowed="true">
+			<type class="java.lang.String" length="10"/>
+			<properties metaDataIntegration="Reference">
+			</properties>
+		</field>
+		<field name="SuppAcctDistCostCenter" nullAllowed="true">
+			<type class="java.lang.String" length="10"/>
+			<properties metaDataIntegration="Reference">
+			</properties>
+		</field>
+		<field name="SuppAcctDistInternalOrder" nullAllowed="true">
+			<type class="java.lang.String" length="7"/>
+			<properties metaDataIntegration="Reference">
+			</properties>
+		</field>
+		<field name="SuppAcctDistWBS" nullAllowed="true">
+			<type class="java.lang.String" length="50"/>
+			<properties metaDataIntegration="Reference">
+			</properties>
+		</field>
+		<!-- End: Q4 2013 - RSD102 - FDD 1/TDD 1 -->
+        <trigger event="DefaultFromMALineItem" name="setTaxCodeFromContracttoInvoice">
+            <notCondition>
+                <condition implementation="ariba.base.fields.condition.NonNullObject" testField="OrderLineItem"/>
+            </notCondition>
+            <action implementation="ariba.common.core.action.CopyFields">
+                <parameter name="SourceField" value="TaxCode"/>
+                <parameter name="TargetField" value="TaxCode"/>
+                <parameter name="Defaulting" value="true"/>
+            </action>
+        </trigger>
+    </inClassVariant>
+</inClass>
+<!-- Start: Q4 2013 - RSD102 - FDD 1/TDD 1 -->
+<inGroup name="cXMLExtrinsicsInbound">
+    <inGroupClass name="ariba.invoicing.core.InvoiceLineItem">
+	<inGroupClassVariant name="SAP">
+	    <groupField name="SuppAcctDistGL">
+		<properties label="generalLedgerNo"/>
+	    </groupField>
+	    <groupField name="SuppAcctDistCostCenter">
+		<properties label="costCenter"/>
+	    </groupField>
+	    <groupField name="SuppAcctDistInternalOrder">
+		<properties label="customerOrderNo"/>
+	    </groupField>
+	    <groupField name="SuppAcctDistWBS">
+		<properties label="costElement"/>
+	    </groupField>
+	</inGroupClassVariant>
+    </inGroupClass>
+</inGroup>
+<!-- End: Q4 2013 - RSD102 - FDD 1/TDD 1 -->
+    </inModule>
+</extension>

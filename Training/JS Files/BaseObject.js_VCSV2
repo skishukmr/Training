@@ -1,0 +1,236 @@
+/*
+    Copyright (c) 1996-2004 Ariba, Inc.
+    All rights reserved. Patents pending.
+
+    $Id: BaseObject.js#2 $
+
+    Responsible: ariba
+*/
+
+/*
+    Extrinsics used by adapters and rules
+*/
+var Accounting_CostCenter = "CostCenter";
+var User_ManagementLevel = "PartitionedUser.ManagementLevel";
+
+/*
+   Definitions to make the sample rules portable between adapters
+*/
+var Rules_ResponsibleManagersCSVFile = "data/ResponsibleManagers.csv";
+var Rules_ChargedDepartmentAccountingField = Accounting_CostCenter;
+
+/*
+    User->ApprovalLimit - returns the ApprovalLimit (ie cost) a given a User
+*/
+function Rules_User2ApprovalLimit (user)
+{
+    var managementLevel = user.getDottedFieldValue(User_ManagementLevel).toString();
+    var row = Rules_User2ApprovalLimitTable(managementLevel);
+    return makeMoneyBase(parseInt(row.get(1)));
+}
+
+function Rules_User2ExpenseApprovalLimit (user)
+{
+    var managementLevel = user.getDottedFieldValue(User_ManagementLevel).toString();
+    var row = Rules_User2ApprovalLimitTable(managementLevel);
+    return makeMoneyBase(parseInt(row.get(2)));
+}
+
+var Rules_User2ApprovalLimitTable = MakeCSVTable("data/ApprovalLimits.csv",
+                                                 ListUtil.list("0", "0"));
+
+var Rules_Department2ResponsibleManagerTable =
+    MakeCSVTable(Rules_ResponsibleManagersCSVFile, ListUtil.list(" ", " "));
+
+function Rules_ChargedDepartmentAccountingFilter (departmentName)
+{
+    return function (sa) {
+        var o = sa.getFieldValue(Rules_ChargedDepartmentAccountingField);
+        var uniqueName = o.getUniqueName();
+        return departmentName.equals(uniqueName);
+    }
+}
+
+
+/* 
+===============================================================================
+					  		CATERPILLAR ADDITIONS 			
+===============================================================================
+*/
+
+// 21/08/2013  IBM Mounika.k  Q4 2013-RSD 121-FDD1.1/TDD1   Added new method for UK partition user limit
+
+//  DEFINITIONS
+
+var Fmt = ariba.util.core.Fmt;
+var Base = ariba.base.core.Base;
+var ListUtil = ariba.util.core.ListUtil;
+var StringUtil = ariba.util.core.StringUtil;
+var CommonUser = ariba.common.core.User;
+var ArrayList = java.util.ArrayList;
+var Iterator = java.util.Iterator;
+var BigDecimal = java.math.BigDecimal;
+var BooleanFormatter = ariba.util.formatter.BooleanFormatter;
+var BigDecimalFormatter = ariba.util.formatter.BigDecimalFormatter;
+var StringBuffer = java.lang.StringBuffer;
+var Currency = ariba.basic.core.Currency;
+var CatUtil = config.java.common.CatCommonUtil;
+var CatUtil2 = config.java.common.CatCommonUtil2;
+var CatCaptialCondition = config.java.condition.CatPLICContainsCapitalLineItem;
+var CatDirectOrder = config.java.ordering.vcsv2.CatMFGAllDirectOrder;
+
+
+//  VARIABLES 
+
+var ShipToList = new ArrayList();
+var Role_DataMaintainer = Role.getRole("Data Maintainer");
+var Role_TransCenterUK = Role.getRole("Transaction Center (mfg1)"); 
+var Rules_HazmatUOMTable = MakeCSVTable("data/CATHazmatUnitOfMeasure.csv",ListUtil.list(" "));
+var Rules_ApprovalLimitsTable = MakeCSVTable("data/CATApprovalLimitsUK.csv", ListUtil.list("","0",""));
+var Rules_HazmatApproversTable = MakeCSVTable("data/CATHazmatApprovers.csv", ListUtil.list("",""));
+var Rules_SpecialCategoryApprovalsTable = MakeCSVTable("data/CATSpecialCategoryApprovals.csv", ListUtil.list("","",""));
+var Rules_BuyerCodeThresholdTable = MakeCSVTable("data/CATBuyerCodeThresholds.csv", ListUtil.list("","0",""));
+var Rules_BuyerCodeApproversTable = MakeCSVTable("data/CATBuyerCodeApprovers.csv", ListUtil.list("",""));
+var ApprovalLimitsFile = "config/variants/vcsv2/data/CATApprovalLimits.csv";
+
+
+//  FUNCTIONS 
+
+function isEmergency (r)
+{
+	return BooleanFormatter.getBooleanValue(r.getFieldValue("EmergencyBuy"));
+}
+
+function isType (type, name) 
+{
+    return type.startsWith(name);
+}
+
+function isTypeEnding (type, string)
+{
+    return type.endsWith(string);
+}
+
+function IsAdHoc (li) 
+{
+    return li.getIsAdHoc();
+}
+
+function getUserExpenseLimit (approvalcode)
+{
+	var value  = makeMoneyBase(0);
+	var row = Rules_ApprovalLimitsTable(approvalcode);
+	Log.javascript.debug("UserExpenseLimit **** row: " + row);
+	if (!StringUtil.nullOrEmptyOrBlankString(row)) {
+		value = makeMoneyBase(parseInt(row.get(1)));
+	}
+	return value;
+}
+
+function getUserExpenseLimitBD (approvalcode)
+{
+	var result = null;
+	var row = Rules_ApprovalLimitsTable(approvalcode);	
+    if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {	
+		var limitBD = new BigDecimal(row.get(1));
+		var currency = Currency.getCurrencyFromUniqueName(row.get(2));
+		Log.javascript.debug("SUPERCHAIN_HELPER **** limitBD/currency: " + limitBD + currency);
+		if (limitBD != null && currency != null) {
+			var limit = new Money(limitBD, currency);
+			if (limit != null) {
+				result = limit.getApproxAmountInBaseCurrency();
+			}
+		}
+	}
+	return result;
+}
+
+//Start : Q4 2013-RSD 121-FDD1.1/TDD1
+function getUserExpenseLimitGB (approvalcode)
+{
+	var result = null;
+	var row = Rules_ApprovalLimitsTable(approvalcode);	
+    if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {	
+		var limitGB = new BigDecimal(row.get(1));
+		var currency = Currency.getCurrencyFromUniqueName(row.get(2));
+		Log.javascript.debug("SUPERCHAIN_HELPER **** limitGB/currency: " + limitGB + currency);
+		if (limitGB != null && currency != null) {
+			var limit = new Money(limitGB, currency);
+			if (limit != null) {
+				result = limit;
+			}
+		}
+	}
+	return result;
+}
+//End : Q4 2013-RSD 121-FDD1.1/TDD1
+
+function getUserAccounting (user, partition)
+{
+	var acctng = null;
+	var partuser = CommonUser.getPartitionedUser(user, partition);
+	if (partuser != null) {
+		acctng = partuser.getAccounting();
+	}
+	return acctng;
+}
+
+function getCapitalRole(approverKey, facility, partitionName) 
+{
+	var approver = null;
+	var roleUN =  new StringBuffer(approverKey);   // space is intentional
+	Log.javascript.debug("CAPITAL **** roleUN: " + roleUN.toString());
+	roleUN.append(" (").append(partitionName).append("-").append(facility).append(")");
+	Log.javascript.debug("CAPITAL **** roleUN: " + roleUN.toString());
+	var role = Role.getRole(roleUN.toString());
+	if (role != null) {
+		approver = role;
+	}
+	return approver;
+}
+
+function isHazmatUOM (unique)
+{
+	var suspectUOM = false;
+	var row = Rules_HazmatUOMTable(unique);
+	Log.javascript.debug("HAZMAT **** row: " + row);
+	if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+		suspectUOM = true;
+	}
+	return suspectUOM;
+}
+
+
+function getAdHocTotal (lines) 
+{
+	var total = new BigDecimal("0");
+	if (lines != null && !lines.isEmpty()) {
+		var size = lines.size();
+		for (i = 0; i<size; i++) {
+			var line = lines.get(i);
+			if (line.getIsAdHoc()) {
+				total = total.add(line.getAmount().getApproxAmountInBaseCurrency());
+			}                
+		}
+	}
+	return total;
+}
+
+function getBuyerCodeThreshold(key) 
+{
+	var result = null;
+    var row = Rules_BuyerCodeThresholdTable(key);
+    if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+		var thresholdBD = new BigDecimal(row.get(1));
+		var currency = Currency.getCurrencyFromUniqueName(row.get(2));
+		Log.javascript.debug("BUYERCODE_HELPER **** thresholdBD/currency: " + thresholdBD + currency);
+		if (thresholdBD != null && currency != null) {
+			threshold = new Money(thresholdBD, currency);
+			if (threshold != null) {
+				result = threshold.getApproxAmountInBaseCurrency();
+			}
+		}
+	}
+	return result;
+}
+

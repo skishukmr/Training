@@ -1,0 +1,1430 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE extension SYSTEM "../../../../ariba/base/meta/core/extensions.dtd">
+<extension name="config.variants.SAP.extensions.CatSAPContractExt">
+
+<!-- *****************************************************************************************
+Change History
+Change# Change By       Change Date     Description
+==============================================================================================
+1       Santanu Dey       07-07-08      Created
+2       Madhuri 	  03-11-08	Updated with Trigger on ReqLineItemCreation to default CostCenterText from User Profile.
+3.      Madhuri		  04-11-08	Added a trigger at contract header level to default Currency with Supplier Currency
+4.      Madhuri           05-11-08      Added  Submit Hook for Contracts.
+5.      Madhuri           08-11-08		Added Header Currency Validation
+6.      Sandeep Vaishnav 22-04-2009      Issue 890 Added a Trigger to set default notification Limits on CR.
+7.	Ravindra Prabhu	 18-05-2010     CR 233/WI 1119: Removed the OOTB trigger for setting company code on requester change and wrote re-used the custom trigger written on PR for SAP partition
+8.	Ravindra Prabhu  18-05-2010	*1124: Filter trading partners and show only company codes
+9.	Amit Gupta	  01-06-10	1127 - To copy tax code from contract line item into requisition line item
+10  Aswini M	  14-06-2011			Open TaxUse(Manner of Use) field for Vertex
+11. Aswini M  	  29-06-2011			To default Buyercode based on the companycode setting for Plant code logic
+12. Soumya M	  19-10-2011			Added Tax Code Determination Logic
+13. Soumya M	  02-12-2011			Added Incoterm on Contract UI and Logic to Populate Incoterm
+14. Soumya M	  05-12-201	                Added Logic to Push Header Level ShipTo onto Line Level
+15  Rajat Bajpai  30-04-2012                    Added condition so that the asssess tax button is visible only in SAP partition
+16. IBM Abhishek Kumar 10-04-2013	Mach1 R5.5 (FRD2.2/TD2.5) Added Trigger to default Incoterms to Line when approvable is copied for Mach1 Rel 5.5
+17. IBM Parita Shah 18-09-2013		Q4 2013 - RSD 111 - FDD 4.0/TDD1.2 Reason Code functionality to be enabled for MACH1
+********************************************************************************************** -->
+
+<import extension="ariba.variants.SAP.extensions.SAPRequisitionExt"/>
+<import extension="config.variants.SAP.extensions.CatSAPRequisitionExt"/>
+<import extension="config.variants.SAP.extensions.CatSAPProcureExt"/>
+<import extension="config.variants.SAP.extensions.CatSAPCoreExt"/>
+
+<inModule name="ariba.common.meta.Requisition">
+	<inClass name="ariba.contract.core.ContractRequestLineItem">
+	<inClassVariant name="SAP">
+	<trigger event="FieldChange" field="CommodityExportMapEntry" name="SetIsHazmatOnCEMEChange">
+	    <notCondition>
+		<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+	    </notCondition>
+	    <action implementation="config.java.action.sap.CatSAPSetHazmatIndicator"/>
+	</trigger>
+	<trigger event="FieldChangeByUser" field="MSDSNumber" name="SetIsHazmatOnMSDSNumberChange">
+	    <notCondition>
+		<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+	    </notCondition>
+	    <action implementation="config.java.action.sap.CatSAPSetHazmatIndicator"/>
+	</trigger>
+	<!-- Added by Majid *** Starts here -->
+	<trigger event="DefaultFromApprovable" name="DefaultContractShipToFromHeader">
+	<action implementation="ariba.base.fields.action.SetField">
+		<parameter name="Target" outputField="ShipTo"/>
+		<parameter inputField="LineItemCollection.ContractShipTo" name="Value"/>
+	</action>
+	</trigger>
+	<!-- Added by Majid *** Ends here -->
+	<!-- Added by Majid *** Starts here -->
+		<trigger event="DefaultFromApprovable" name="DefaultContractPaymentTermsFromHeader">
+		<action implementation="ariba.base.fields.action.SetField">
+			<parameter name="Target" outputField="PaymentTerms"/>
+			<parameter inputField="LineItemCollection.PaymentTerms" name="Value"/>
+		</action>
+		</trigger>
+	<!-- Added by Majid *** Ends here -->
+	<trigger event="FieldChange" field="AccountCategory" name="SetConGeneralLedgerOnAccCatChange">
+	       <action implementation="config.java.action.sap.CatSetGeneralLedger"/>
+	</trigger>
+	<!-- Madhuri : added Trigger to default CostCenter Text-->
+	<trigger event="Create" name="SetCosCenterTextFromUserProfile">
+	   <action implementation="config.java.action.sap.CatSetCostCenterFromUserProfile"/>
+	 </trigger>
+	  <trigger event="FieldChange" field="AccountCategory" name="SetCosCenterTextFromUserProfile1">
+	   <condition implementation="config.java.condition.sap.CatVisibleField">
+		   <parameter inputField="AccountCategory" name="AccountCategory" typeCast="ariba.core.AccountCategory"/>
+		   <parameter name="FieldName" value="CostCenter"/>
+	   </condition>
+	   <action implementation="config.java.action.sap.CatSetCostCenterFromUserProfile"/>
+	  </trigger>
+	  <!-- End of the code added by Madhuri : Trigger to default CostCenter Text -->
+
+	 <trigger event="Create" name="SetPaymentTermFromHeader">
+		      <action implementation="ariba.base.fields.action.SetField">
+			  <parameter name="Target" outputField="PaymentTerms"/>
+			  <parameter inputField="LineItemCollection.PaymentTerms" name="Value"/>
+		      </action>
+	 </trigger>
+
+	<!--   <trigger name="SetContractPriceCurrency" event="Create">
+	  <condition implementation="ariba.base.fields.condition.EqualTo" testField="IsAdHoc">
+		    <parameter name="TargetValue" value="true"/>
+	  </condition>
+	      <action implementation="config.java.action.sap.CatSetLineItemCurrencyfromHeaderCurrency"/>
+	 </trigger>  -->
+
+	       <!-- Added by Santanu to set AccountCategory at header level ** Dec 29 2008 **Start** -->
+		<trigger event="FieldChange" field="AccountCategory" name="CATSAPSetAcctCategory">
+		    <condition implementation="ariba.base.fields.condition.EqualTo" testField="LineItemCollection.ReleaseType">
+			<parameter name="TargetValue" value="0"/>
+		    </condition>
+		    <action implementation="config.java.action.sap.CATSAPSetAcctCategory"/>
+		</trigger>
+	       <!-- Added by Santanu to set AccountCategory at header level ** Dec 29 2008 **Start** -->
+<!-- Code added by Aswini for Plant Code Logic -->
+         <trigger name="SetBuyerCodeOnPCCChangeforPlanCode"
+                        event="FieldChange"
+                        field="CommodityCode"
+                        respectUserData="true">
+			            <condition implementation="ariba.base.fields.condition.EqualTo" testField="LineItemCollection.CompanyCode.BuyerAssignment">
+                           <parameter name="TargetValue" value="Plant" />
+                         </condition>
+                 <action implementation="config.java.action.sap.SAPCatSetBuyerCodeFromMap"/>
+        </trigger>
+<!-- Coded Ended -->
+	<!-- Soumya Mohanty -->
+		<!-- Tax Code Determination for Vertex START-->
+		<!-- Code Started For Tax Code Determination Logic Requisition Level -->
+		   <trigger name="TaxCodeDeterminationForCntrctFieldChange" event="FieldChange" field="ShipTo">
+				<action implementation="config.java.action.sap.CatSetTaxCodeFromCatalog"/>	
+			</trigger>		   
+		<!-- Code Ended For Tax Code Determination Logic Requisition Level for Vertex-->
+		<!-- Tax Code Determination for Vertex END-->
+		<!-- Vertex Incoterm Enablement START-->
+		<!-- Incoterm Enablement Trigger1-->	
+		<trigger event="FieldChange" field="IncoTerms1" name="defaultIncoterm2">
+			<andCondition>
+				<condition implementation="ariba.base.fields.condition.EqualTo"
+                                  testField="ContractCoreApprovable.ReleaseType">
+                         <parameter name="TargetValue" value="0"/>  <!--0 is No Release-->
+                      </condition>
+				<!-- condition implementation="ariba.base.fields.condition.NonNullObject" testField="ShipTo"/ -->
+				<condition
+					implementation="ariba.base.fields.condition.NonNullObject"
+					testField="IncoTerms1"/>
+			</andCondition>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target" outputField="IncoTerms2"/>
+
+
+				<!-- parameter name="Value" inputField="ShipTo.City"/ -->
+				<parameter name="Value"
+					value="@aml.CatSAPRequisitionExt/SAPDefaultIncoTerms2"/>
+			</action>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target"
+					outputField="LineItemCollection.DefaultLineItems[0].IncoTerms2"/>
+
+
+				<!-- parameter name="Value" inputField="LineItemCollection.ShipTo.City"/ -->
+				<parameter name="Value"
+					value="@aml.CatSAPRequisitionExt/SAPDefaultIncoTerms2"/>
+			</action>
+		</trigger>
+		<!-- Incoterm Enablement Trigger2-->
+		<trigger event="Create" name="defaultIncoterm1fromCompanyOnCreate">
+			<andCondition>
+				<notCondition>
+					<condition implementation="ariba.base.fields.condition.NonNullObject" testField="Supplier.IncoTerms"/>
+				</notCondition>
+				<condition implementation="ariba.base.fields.condition.EqualTo"
+                                  testField="ContractCoreApprovable.ReleaseType">
+                         <parameter name="TargetValue" value="0"/>  <!--0 is No Release-->
+                      </condition>
+				<condition
+					implementation="ariba.base.fields.condition.NonNullObject"
+					testField="LineItemCollection.CompanyCode.DefaultIncoTerms1"/>
+			</andCondition>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target" outputField="IncoTerms1"/>
+				<parameter
+					inputField="LineItemCollection.CompanyCode.DefaultIncoTerms1"
+					name="Value"/>
+			</action>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target"
+					outputField="LineItemCollection.DefaultLineItems[0].IncoTerms1"/>
+				<parameter
+					inputField="LineItemCollection.CompanyCode.DefaultIncoTerms1"
+					name="Value"/>
+			</action>
+		</trigger>
+		<!-- Incoterm Enablement Trigger3 -->
+		<trigger event="FieldChange" field="Supplier" name="defaultIncoterm1">
+		<andCondition>
+			<condition implementation="ariba.base.fields.condition.EqualTo"
+                                  testField="ContractCoreApprovable.ReleaseType">
+                         <parameter name="TargetValue" value="0"/>  <!--0 is No Release-->
+                      </condition>
+			<condition
+				implementation="ariba.base.fields.condition.NonNullObject"
+				testField="Supplier.IncoTerms"/>
+				</andCondition>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target" outputField="IncoTerms1"/>
+				<parameter inputField="Supplier.IncoTerms" name="Value"/>
+			</action>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target"
+					outputField="LineItemCollection.DefaultLineItems[0].IncoTerms1"/>
+				<parameter inputField="Supplier.IncoTerms" name="Value"/>
+			</action>
+		</trigger>
+		<!-- Incoterm Enablement Trigger4-->
+		<trigger event="FieldChange" field="Supplier" name="defaultIncoterm1fromCompany">
+			<andCondition>
+				<notCondition>
+					<condition
+						implementation="ariba.base.fields.condition.NonNullObject"
+						testField="Supplier.IncoTerms"/>
+				</notCondition>
+				<condition implementation="ariba.base.fields.condition.EqualTo"
+                                  testField="ContractCoreApprovable.ReleaseType">
+                         <parameter name="TargetValue" value="0"/>  <!--0 is No Release-->
+                      </condition>
+				<condition
+					implementation="ariba.base.fields.condition.NonNullObject"
+					testField="LineItemCollection.CompanyCode.DefaultIncoTerms1"/>
+			</andCondition>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target" outputField="IncoTerms1"/>
+				<parameter
+					inputField="LineItemCollection.CompanyCode.DefaultIncoTerms1"
+					name="Value"/>
+			</action>
+			<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target"
+					outputField="LineItemCollection.DefaultLineItems[0].IncoTerms1"/>
+				<parameter
+					inputField="LineItemCollection.CompanyCode.DefaultIncoTerms1"
+					name="Value"/>
+			</action>
+		</trigger>
+		<!-- Vertex Incoterm Enablement END-->
+		<!-- Start: Mach1 R5.5 (FRD2.2/TD2.5) -->
+			<trigger name="SetIncotermsonCopy"
+	                     event="DefaultFromApprovable" 
+	                     field="LineItemCollection.CompanyCode.DefaultIncoTerms1"
+				respectUserData="true">
+	                	<action implementation="ariba.common.core.action.CopyFields">
+	                    		<parameter name="Source"
+	                               inputField="LineItemCollection.CompanyCode.DefaultIncoTerms1"/>
+	                    		<parameter name="SourceGroup"
+	                               value="ObjectDefaulting"/>
+	                    		<parameter name="Target"
+	                               inputField="LineItemCollection.DefaultLineItems[0].IncoTerms1"/>
+	                    		<parameter name="Defaulting"
+	                               value="true"/>
+	                	</action>
+            		</trigger>
+		<!-- End: Mach1 R5.5 (FRD2.2/TD2.5) -->
+	</inClassVariant>
+	</inClass>
+	<!-- Soumya : added Trigger to default ShipTo From Header to Line for Vertex START -->
+	<inClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		<inClassVariant name="SAP">
+		<!--	<trigger event="DefaultFromApprovable" name="DefaultContractShipToFromCoreApprovableLineItem">
+				<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target" outputField="ShipTo"/>
+				<parameter inputField="LineItemCollection.ContractShipTo" name="Value"/>
+				</action>
+			</trigger> -->
+			<trigger event="FieldChange" field="SupplierLocation" name="DefaultContractShipToLineItem">
+				<action implementation="ariba.base.fields.action.SetField">
+				<parameter name="Target" outputField="ShipTo"/>
+				<parameter inputField="LineItemCollection.ContractShipTo" name="Value"/>
+				</action>
+			</trigger>	
+		</inClassVariant>
+	</inClass>
+	<!-- Soumya : added Trigger to default ShipTo From Header to Line for Vertex END -->
+	<!-- Madhuri : added Trigger to default Currency with Supplier Currency -->
+	<inClass name="ariba.contract.core.ContractRequest">
+		<inClassVariant name="SAP">
+		<!-- Code Added to include AssessTaxButton for SAP partition to address exception for Vertex- Archana START-->
+				 <field name="AssessTaxButton" noPersist="true">
+				  <type class="java.lang.Boolean"/>
+    			 <visibility>
+				 
+						<andCondition>
+						   	<condition implementation="ariba.common.core.condition.RoleEqualTo">
+								<parameter name="TargetValue" value="MSC Administrator"/>
+							</condition>
+               <!-- Rajat - Code Added to include AssessTaxButton for SAP partition only-->
+							<condition implementation="ariba.base.fields.condition.EqualTo" testField="PartitionNumber">
+							   	<parameter name="TargetValue" value="5"/>
+						        </condition>	   	                        
+			                         </andCondition>
+				
+			</visibility>
+		<properties fieldEditorClass="ariba.htmlui.fieldsui.fields.APETriggerButton"  title="@aml.cat.ui1/LabelAssessTaxButton"/>
+			</field>
+				 <field name="TaxOverrideFlag">
+				   <type class="boolean"/>
+			</field>
+				
+		     <trigger event="FieldChange" field="AssessTaxButton" name="AssessTaxAndSetTaxFields">
+				<action implementation="config.java.customapprover.sap.CatAssessTaxTM"/>
+		     </trigger>
+		<!-- Code Added to include AssessTaxButton for SAP partition to address exception for Vertex- Archana END-->
+
+		<inField name="LineItems">
+			<validity>
+				<andCondition>
+					<condition implementation="config.java.condition.sap.CATSAPLineItemValidity">
+						<parameter inputField="this" name="LICToCheck"/>
+					</condition>
+			    		<condition implementation="ariba.contract.core.condition.ValidContractRequestLineItems"/>
+				</andCondition>
+			</validity>
+		</inField>
+		<inField name="Currency">
+			<validity>
+				<condition implementation="config.java.condition.sap.CatSAPCurrencyValidityBasedOnSupplier">
+				<parameter inputField="this" name="MAR"/>
+				</condition>
+			</validity>
+	         	<properties forceRefresh="true"/>
+		</inField>
+		<inField name="Supplier">
+		    <validity>
+			<orCondition>
+			    <condition implementation="ariba.common.core.condition.DirectSupplier" nullHandling="forceFalse"/>
+			    <andCondition>
+				    <condition implementation="ariba.common.core.condition.ObjectMatchingQuery" nullHandling="forceFalse">
+					<parameter name="AQLCondition" value="PorgSupplierCombo.Supplier = Supplier          AND PorgSupplierCombo.PurchaseOrg = :PurchaseOrg"/>
+					<parameter name="AdditionalClasses" value="ariba.core.PorgSupplierCombo"/>
+					<parameter inputField="PurchaseOrg" name="PurchaseOrg" nullHandling="forceTrue"/>
+					<parameter name="IgnoreQueryCache" value="false"/>
+				    </condition>
+				<condition implementation="ariba.base.fields.condition.EqualTo" testField="CompanyCode.PurchaseOrgFiltering">
+					<parameter name="TargetValue" value="Y"/>
+				</condition>
+			    </andCondition>
+			    <andCondition>
+				<condition implementation="config.java.condition.sap.CatSAPSupplierValidity">
+				    <parameter inputField="this" name="LICToCheck"/>
+				</condition>
+				<condition implementation="ariba.base.fields.condition.NotEqualTo" testField="CompanyCode.PurchaseOrgFiltering">
+					<parameter name="TargetValue" value="Y"/>
+				</condition>
+			    </andCondition>
+			</orCondition>
+		    </validity>
+     		    <properties nameTableClass="config.java.nametable.sap.CatSupplierNameTable"/>
+		</inField>
+		<trigger event="FieldChange" field="SupplierLocation" name="SetCurrencyFromSupplier">
+		 <action implementation="ariba.base.fields.action.SetField">
+		<parameter name="Target" outputField="Currency"/>
+		<parameter inputField="SupplierLocation.DefaultCurrency" name="Value"/>
+		 </action>
+          	</trigger>
+<!-- CR 233: 1119 Deleting the trigger to set company code on requester change and adding a custom trigger-->
+                <deleteTrigger name="SetCompanyCodeOnRequesterChange"/>
+
+                <trigger event="FieldChange" field="Requester" name="SetCompanyCodeOnRequesterChange1" respectUserData="false">
+                   <condition implementation="config.java.condition.sap.CatReqHasLineItems">
+                      <parameter inputField="this" name="ReqToCheck"/>
+                   </condition>
+                   <action implementation="ariba.base.fields.action.SetField">
+                      <parameter name="Target" outputField="CompanyCode"/>
+                      <parameter inputField="Requester.PartitionedUser.CompanyCode" name="Value"/>
+                   </action>
+                </trigger>
+<!-- CR233: 1119 end -->
+		<trigger event="FieldChange" field="SupplierLocation" name="SetPaymentTermsFromSupplier">
+		 <action implementation="ariba.base.fields.action.SetField">
+			<parameter name="Target" outputField="PaymentTerms"/>
+			<parameter inputField="SupplierLocation.PaymentTerms" name="Value"/>
+		 </action>
+          	</trigger>
+          	<!-- <trigger event="FieldChange" field="Currency" name="CatSetLineItemCurrencywithheaderCurrency">
+				<action implementation="config.java.action.sap.CatSetLineItemCurrencyfromHeaderCurrency"/>
+		</trigger> -->
+          	<trigger event="FieldChange" field="PaymentTerms" name="CatSetLIPaymentTermsfromHeader">
+				<action implementation="config.java.action.sap.CatSetLIPaymentTermsfromHeader"/>
+		</trigger>
+		<!-- Added by Majid *** Starts here -->
+			<trigger event="FieldChange" field="Requester" name="SetContractShipToOnRequesterChange">
+			<notCondition>
+				<condition implementation="ariba.base.core.condition.NonEmptyField" testField="PreviousVersion">
+				</condition>
+			</notCondition>
+			<action implementation="config.java.action.vcsv1.CatSetContractShipTo"/>
+			</trigger>
+			<trigger event="FieldChange" field="ContractShipTo" name="SetMALIShipToOnShipToChange">
+			<action implementation="config.java.action.vcsv1.CatSetMALIShipTo"/>
+			</trigger>
+		<!-- Added by Majid *** Ends here -->
+		
+		
+		<!--Issue # 890 Start : Sandeep Vaishnav 22/04/09 -->
+				          <trigger event="Create" name="MARSetDefaultNotificationLimits">
+					                   <action implementation="config.java.action.CatSetDefaultNotificationLimits"/>
+				            </trigger>
+		            <!--Issue # 890 End : Sandeep Vaishnav 22/04/09 -->
+
+
+		 </inClassVariant>
+	</inClass>
+	<!-- END: Madhuri : added Trigger to default Currency with Supplier Currency -->
+	<!-- Madhuri : added Contract Submit Hook  -->
+	<inClass name="ariba.contract.core.ContractCoreApprovable">
+	<inClassVariant name="SAP">
+	<inField name="ClassProperties">
+		<properties checkinHook="config.java.hook.sap.CatSAPContractRequestCheckinHook" submitHook="config.java.hook.sap.CatSAPContractSubmitHook"/>
+	</inField>
+	<inField name="EditList">
+	<properties skipInitialChooserLoad="true"/>
+	</inField>
+	<field name="ContractAvailability">
+	     <type class="java.lang.String"/>
+	      <validity>
+	      	      <orCondition>
+	      		      <notCondition>
+	      			      <condition implementation="ariba.base.fields.condition.EqualTo" testField="ReleaseType">
+	      			      <parameter name="TargetValue" value="1"/>
+	      			      </condition>
+	      		      </notCondition>
+	      		      <condition implementation="ariba.base.core.condition.NonEmptyField">
+	      		      </condition>
+	      	      </orCondition>
+		</validity>
+		 <visibility>
+			  <condition implementation="ariba.base.fields.condition.EqualTo" testField="ReleaseType">
+			<parameter name="TargetValue" value="1"/>
+	      		</condition>
+	        </visibility>
+	      <properties allowNoChoice="false" controllerType="PickList" fieldEditorClass="ariba.htmlui.fieldsui.fields.APEPickList" forceRefresh="true" label="Contract Availability" rank="120">
+		 <property name="validChoices">
+		     <vector>
+		     <entry value="Global"/>
+		     <entry value="National"/>
+		     </vector>
+		 </property>
+		 <property name="validChoicesOrder">
+		     <vector>
+		     <entry value="Global"/>
+		     <entry value="National"/>
+		     </vector>
+		 </property>
+	      </properties>
+
+         </field>
+         <field name="ContractCountry">
+	     <type class="ariba.basic.core.Country" vector="true"/>
+	     <visibility>
+		 <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+		 <parameter name="TargetValue" value="National"/>
+		 </condition>
+	     </visibility>
+	     <properties chooserField="Name" controller="ariba.htmlui.baseui.fields.ARFVectorField" controllerType="TextLink" label="Country" nameTableClass="config.java.nametable.CatCountryByFacNameTable" rank="125" titleField="Name"/>
+	</field>
+         <field name="ContractFacility">
+	      <type class="cat.core.CatFacility" vector="true"/>
+	      <visibility>
+		 <andCondition>
+		     <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+			 <parameter name="TargetValue" value="National"/>
+		     </condition>
+		     <condition implementation="ariba.approvable.core.condition.NonEmptyVector" testField="ContractCountry"/>
+		 </andCondition>
+	      </visibility>
+	      <properties chooserField="FacilityName" chooserGroup="AvailableFacilityGroup" chooserSearchGroup="AvailableFacilityGroup" controller="ariba.htmlui.baseui.fields.ARFVectorField" controllerType="TextLink" detailsGroup="CatFacilityDetailsGroup" label="Contract Facility" nameTableClass="config.java.nametable.CatFacilityNameTable" rank="126" titleFormat="%s (%s)" titleGroup="AvailableFacilityGroup"/>
+	 </field>
+	 <field name="RequisitionReferenceNumber">
+		<type class="java.lang.String"/>
+		<properties label="@aml.cat.ui3/LabelRequisitionReferenceNumber" rank="98"/>
+	</field>
+	<!-- Added by Majid *** Starts here-->
+	<field name="ContractShipTo">
+	<type class="ariba.common.core.Address"/>
+	<validity>
+		<andCondition>
+			<condition implementation="ariba.base.core.condition.NonEmptyField"/>
+			<condition implementation="ariba.common.core.condition.ObjectMatchingQuery" nullHandling="forceFalse">
+			    <parameter name="AQLCondition" value="Address.CompanyCode = :CompanyCode"/>
+			    <parameter inputField="CompanyCode" name="CompanyCode"/>
+			    <parameter name="IgnoreQueryCache" value="false"/>
+			</condition>
+		</andCondition>		
+	</validity>
+	<properties controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="TextLink"/>
+	<!-- Added by Majid *** Ends here-->
+</field>
+
+	 <inField name="PaymentTerms" respectable="true">
+		<validity>
+		    <condition implementation="ariba.common.core.condition.ObjectMatchingQuery" nullHandling="forceFalse">
+			    <parameter name="AQLCondition" value="SAPSource=:CompanySAPSource"/>
+			    <parameter inputField="CompanyCode.SAPSource" name="CompanySAPSource" nullHandling="forceFalse"/>
+		    </condition>
+		</validity>
+		<properties forceRefresh="true" label="@aml.cat.ui3/LabelPaymentTerms" nameTableClass="ariba.common.core.nametable.ConditionBasedNameTable"/>
+	</inField>
+	<inField name="Evergreen">
+		<properties forceRefresh="true"/>
+	</inField>
+
+	 <trigger event="FieldChange" field="ContractAvailability" name="SetGlobalReleaseFlagOnGlobal">
+	      <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+	    	 <parameter name="TargetValue" value="Global"/>
+	     </condition>
+	     <action implementation="ariba.base.fields.action.SetField">
+	     <parameter name="Target" outputField="GlobalReleaseFlag"/>
+	     <parameter name="Value" value="true"/>
+	    </action>
+       </trigger>
+     <trigger event="FieldChange" field="ContractAvailability" name="SetGlobalReleaseFlagOnNational">
+	 <condition implementation="ariba.base.fields.condition.EqualTo" testField="ContractAvailability">
+	     <parameter name="TargetValue" value="National"/>
+	 </condition>
+	 <action implementation="ariba.base.fields.action.SetField">
+	     <parameter name="Target" outputField="GlobalReleaseFlag"/>
+	     <parameter name="Value" value="false"/>
+	 </action>
+     </trigger>
+     <!-- Added by Majid *** Starts here-->
+     <trigger event="Create" name="DefaultContractAvailabilitytoNational">
+	 <action implementation="ariba.base.fields.action.SetField">
+	 	     <parameter name="Target" outputField="ContractAvailability"/>
+	 	     <parameter name="Value" value="National"/>
+	 	 </action>
+	 </trigger>
+
+	 <trigger event="FieldChange" field="ReleaseType" name="ResettoDefaultContractAvailabilitytoNational">
+	 	<condition implementation="ariba.base.fields.condition.EqualTo" testField="ReleaseType">
+	 		<parameter name="TargetValue" value="1"/>
+	 	</condition>
+	 	    <action implementation="ariba.base.fields.action.SetField">
+	 	    	     <parameter name="Target" outputField="ContractAvailability"/>
+	 	    	     <parameter name="Value" value="National"/>
+	 	</action>
+	</trigger>
+
+	 <trigger event="FieldChange" field="ReleaseType" name="ResetContractAvailabilityAndGlobalReleaseFlag">
+	 	<condition implementation="ariba.base.fields.condition.EqualTo" testField="ReleaseType">
+	 		<parameter name="TargetValue" value="0"/>
+	 	</condition>
+	 	     <action implementation="ariba.base.fields.action.SetField">
+	 	     <parameter name="Target" outputField="ContractAvailability"/>
+	 	     <parameter name="Value" nullValue="true"/>
+	 	     </action>
+	 	     <action implementation="ariba.base.fields.action.SetField">
+	 	     <parameter name="Target" outputField="GlobalReleaseFlag"/>
+	 	     <parameter name="Value" value="false"/>
+	 	    </action>
+	</trigger>
+
+	 <!-- Added by Majid *** Ends here-->
+
+ </inClassVariant>
+</inClass>
+
+<inClass name="ariba.procure.core.LineItemProductDescription">
+	<inClassVariant name="SAP">
+		<trigger event="FieldChange" field="CommonCommodityCode" name="SetContractPriceCurrency">
+			  <condition implementation="ariba.base.fields.condition.EqualTo" testField="LineItem.IsAdHoc">
+				    <parameter name="TargetValue" value="true"/>
+			  </condition>
+			      <action implementation="config.java.action.sap.CatSetLineItemCurrencyfromHeaderCurrency"/>
+	 	</trigger>
+	</inClassVariant>
+</inClass>
+	<!--nag**** changes for material group-->
+	<inGroup name="ReceiptHeaderMilestonePrintGroup">
+	    <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		<inGroupClassVariant name="SAP">
+		    <groupField name="CommodityCode">
+			<properties hidden="true"/>
+		    </groupField>
+		</inGroupClassVariant>
+		</inGroupClass>
+	    </inGroup>
+	<inGroup name="MilestoneTrackerHeader">
+	    <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		<inGroupClassVariant name="SAP">
+		    <groupField name="CommodityCode">
+			<properties hidden="true"/>
+		    </groupField>
+		</inGroupClassVariant>
+		</inGroupClass>
+	    </inGroup>
+
+	    <inGroup name="MAMiscellaneousDescription">
+	        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+	    	<inGroupClassVariant name="SAP">
+	    	    <groupField name="CommodityCode">
+	    		<properties hidden="true"/>
+	    	    </groupField>
+	    	</inGroupClassVariant>
+	            </inGroupClass>
+    	</inGroup>
+
+    	<inGroup name="MASRNonCatalogItemDetails">
+	    <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		<inGroupClassVariant name="SAP">
+		    <groupField name="CommodityCode">
+			<properties hidden="true"/>
+		    </groupField>
+		</inGroupClassVariant>
+	        </inGroupClass>
+    </inGroup>
+    <inGroup name="PCardOrderValidation">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+    	<inGroupClassVariant name="SAP">
+    	    <groupField name="CommodityCode">
+    		<properties hidden="true"/>
+    	    </groupField>
+    	</inGroupClassVariant>
+            </inGroupClass>
+    </inGroup>
+    <inGroup name="MATermDescription">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+    	<inGroupClassVariant name="SAP">
+    	    <groupField name="CommodityCode">
+    		<properties hidden="true"/>
+    	    </groupField>
+    	</inGroupClassVariant>
+            </inGroupClass>
+    </inGroup>
+    <inGroup name="MARecurringFeeDescription">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+    	<inGroupClassVariant name="SAP">
+    	    <groupField name="CommodityCode">
+    		<properties hidden="true"/>
+    	    </groupField>
+    	</inGroupClassVariant>
+            </inGroupClass>
+    </inGroup>
+    <inGroup name="MAAdHocLineItemDetails">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+    	<inGroupClassVariant name="SAP">
+    	    <groupField name="CommodityCode">
+    		<properties hidden="true"/>
+    	    </groupField>
+    	</inGroupClassVariant>
+            </inGroupClass>
+    </inGroup>
+    <inGroup name="MasterAgreementSearchFields">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+    	<inGroupClassVariant name="SAP">
+    	    <groupField name="CommodityCode">
+    		<properties hidden="true"/>
+    	    </groupField>
+    	</inGroupClassVariant>
+            </inGroupClass>
+    </inGroup>
+    <inGroup name="MilestoneTrackerSearchFields">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+    	<inGroupClassVariant name="SAP">
+    	    <groupField name="CommodityCode">
+    		<properties hidden="true"/>
+    	    </groupField>
+    	</inGroupClassVariant>
+            </inGroupClass>
+    </inGroup>
+    <!--nag**** end changes for material group-->
+    <inGroup name="MAMilestoneItemDescription">
+    <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+	<inGroupClassVariant name="SAP">
+	    <groupField name="CommodityCode">
+		<properties hidden="true"/>
+	    </groupField>
+	    <groupField name="StartDate">
+	     <properties rank="75" showYearNavigation="true"/>
+                    </groupField>
+	    <!-- Added by Majid *** Starts here -->
+		<groupField name="LineItemType">
+		<visibility>
+			<notCondition>
+				<condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+				</condition>
+			</notCondition>
+		</visibility>
+		<validity>
+			<orCondition>
+				<condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+				</condition>
+				<condition implementation="ariba.base.fields.condition.NotEqualTo" testField="MasterAgreementCoreApprovable.TermType">
+					<parameter name="TargetValue" value="2"/>
+				</condition>
+				<notCondition>
+					<condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+						<parameter name="TestField" value="LineItemType"/>
+						<parameter name="TestValue" value="(no value)"/>
+					</condition>
+				</notCondition>
+			</orCondition>
+		</validity>
+		<properties rank="43"/>
+		</groupField>
+	    <!-- Added by Majid *** Starts here -->
+		<!-- Added TaxUse field in Contract UI by Aswini for Vertex -->
+		<groupField name="TaxUse">
+          <visibility>
+            <notCondition>
+              <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+              </condition>
+            </notCondition>
+          </visibility>
+          <validity>
+            <orCondition>
+              <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+              </condition>
+            <!--condition implementation="ariba.base.fields.condition.NotEqualTo"
+             testField="MasterAgreementCoreApprovable.TermType">
+            <parameter name="TargetValue" value="2"/>
+            </condition-->
+            <condition implementation="ariba.base.core.condition.NonEmptyField"/>                                
+             </orCondition>
+           </validity>
+              <properties rank="45" required="true"/>
+            </groupField>
+			<!-- code ended for Tax Use for Vertex -->
+			<!-- Code added for Vertex Soumya-->
+				<groupField name="TaxAmount">
+				 <properties label="@aml.cat.Invoice/TaxAmount" editable="false" rank="46"/>
+			   </groupField>
+			<!-- Vertex code ended  -->
+		<!-- Code ended -->			
+            </inGroupClassVariant>
+        </inGroupClass>
+    </inGroup>
+
+<inGroup name="MAAdHocLineItemDetails">
+        <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+	<inGroupClassVariant name="SAP">
+	    <groupField name="CommodityCode">
+			<properties hidden="true"/>
+	    </groupField>
+		<groupField name="Description.CommonCommodityCode">
+		<validity>
+			<andCondition>
+				<condition implementation="ariba.base.fields.condition.NonNullObject"/>
+				<condition implementation="ariba.procure.core.condition.ValidExportMapEntryForCommodityCode">
+					<parameter inputField="this" name="LineItem"/>
+				</condition>
+		<condition implementation="config.java.condition.CatLowLevelCommodityCode" testField="this"/>
+			</andCondition>
+		</validity>
+		</groupField>
+		<groupField name="Description.ReasonCode">
+				<validity>
+				<orCondition>
+				<notCondition>
+					<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+						<parameter name="TargetValue" value="2"/>
+					</condition>
+				</notCondition>
+				<notCondition>
+					<condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+						<parameter name="TestField" value="Description.ReasonCode"/>
+						<parameter name="TestValue" value="(no value)"/>
+					</condition>
+				</notCondition>
+					<condition implementation="config.java.condition.CatNonZeroMoney" testField="Description.Price">
+				<parameter name="Message" value="@aml.cat.ui/MessageReasonCodeInvalid"/>
+				</condition>
+				</orCondition>
+				</validity>
+				<visibility>
+				<andCondition>
+					<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+					<parameter name="TargetValue" value="2"/>
+					</condition>
+				<notCondition>
+					<condition implementation="ariba.common.core.condition.NonZeroMoney" testField="Description.Price"/>
+					</notCondition>
+				</andCondition>
+				</visibility>
+				<properties rank="85"/>
+		</groupField>
+            <!-- Added by Majid *** Starts here -->
+		<groupField name="LineItemType">
+		<validity>
+		   <orCondition>
+				<notCondition>
+					<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+						<parameter name="TargetValue" value="2"/>
+					</condition>
+				</notCondition>
+				<notCondition>
+					<condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+						<parameter name="TestField" value="LineItemType"/>
+						<parameter name="TestValue" value="(no value)"/>
+					</condition>
+				</notCondition>
+		   </orCondition>
+		</validity>
+		<visibility>
+			<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+				<parameter name="TargetValue" value="2"/>
+			</condition>
+		</visibility>
+		<properties rank="90"/>
+		</groupField>
+		<groupField name="BuyerCode">
+		 <validity>
+		     <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+		 </validity>
+		<properties chooserField="UniqueName" chooserGroup="CatChooserTable" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="RecentUserChoice" label="@aml.cat.ui/LabelBuyerCode" metaDataIntegration="Reference" rank="95" titleFormat="%s/%s (%s)" titleGroup="CatChooserTable"/>
+		</groupField>
+			<groupField name="IsHazmat">
+			<visibility>
+				<andCondition>
+				<notCondition>
+					<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+				</notCondition>
+				<condition implementation="ariba.common.core.condition.UserHasPermission">
+					<parameter name="PermissionName" value="CatHazmat"/>
+				</condition>
+				</andCondition>
+			</visibility>
+			<editability>
+				<andCondition>
+				<notCondition>
+					<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+				</notCondition>
+				<condition implementation="ariba.common.core.condition.UserHasPermission">
+					<parameter name="PermissionName" value="CatHazmat"/>
+				</condition>
+				</andCondition>
+			</editability>
+			<properties forceRefresh="true" rank="100"/>
+			</groupField>
+
+			<groupField name="MSDSNumber">
+			<visibility>
+				<andCondition>
+				<notCondition>
+					<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+				</notCondition>
+				<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+					<parameter name="TargetValue" value="2"/>
+				</condition>
+				</andCondition>
+			</visibility>
+			<properties rank="105"/>
+			</groupField>
+			<groupField name="HazmatWeight">
+			<validity>
+			    <orCondition>
+				    <condition implementation="ariba.base.fields.condition.NotEqualTo" testField="IsHazmat">
+					<parameter name="TargetValue" value="true"/>
+				    </condition>
+				    <condition implementation="ariba.base.fields.condition.NonZeroField"/>
+				<notCondition>
+				    <condition implementation="ariba.common.core.condition.UserHasPermission">
+					<parameter name="PermissionName" value="CatHazmat"/>
+				    </condition>
+				</notCondition>
+			    </orCondition>
+			</validity>
+			<visibility>
+				<andCondition>
+				<notCondition>
+					<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+				</notCondition>
+				<condition implementation="ariba.common.core.condition.UserHasPermission">
+					<parameter name="PermissionName" value="CatHazmat"/>
+				</condition>
+				</andCondition>
+			</visibility>
+			<properties rank="110"/>
+		</groupField>
+            <!-- Added by Majid *** Ends here -->
+			<!-- Added TaxUse field in Contract UI by Aswini for Vertex -->
+		<groupField name="TaxUse">
+            <visibility>
+                <andCondition>
+                <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                    <parameter name="TargetValue" value="2"/>
+                </condition>
+                <notCondition>
+                 <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                </condition>
+                </notCondition>
+                </andCondition>
+            </visibility>
+            <validity>
+                <orCondition>
+                <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                </condition>
+                <condition implementation="ariba.base.fields.condition.NotEqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                    <parameter name="TargetValue" value="2"/>
+                </condition>
+                <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                </orCondition>
+            </validity>
+                <properties rank="93"/>
+        </groupField>
+		<!-- code for Tax Use completed for Vertex-->
+		<!-- Code added for Vertex Soumya-->
+					<groupField name="TaxAmount">
+				     <properties label="@aml.cat.Invoice/TaxAmount" editable="false" rank="94"/>
+			       </groupField>
+			       <!-- Vertex code ended  -->
+			<!-- Code ended -->
+         </inGroupClassVariant>
+        </inGroupClass>
+    </inGroup>
+     <inGroup name="MABasicInfo">
+     <inGroupClass name="ariba.contract.core.ContractCoreApprovable">
+	 <inGroupClassVariant name="SAP">
+	     <groupField name="ContractAvailability"/>
+	     <groupField name="ContractCountry"/>
+	     <groupField name="ContractFacility"/>
+<!-- 1124: Adding name table to filter trading partners -->
+	     <groupField name="CompanyCode">
+	         <properties nameTableClass="config.java.nametable.sap.CatCompanyCodeNameTable"/>
+             </groupField>
+<!-- 1124 end -->
+	     <groupField name="PaymentTerms">
+	     	<properties allowCustomValue="false" chooserField="Description" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" detailsGroup="PaymentTermsDetail" hidden="true" label="@aml.cat.ui3/LabelPaymentTerms" rank="111" titleField="Description"/>
+	     </groupField>
+	     <groupField name="RequisitionReferenceNumber"/>
+		<groupField name="ContractShipTo">
+				<properties allowCustomValue="false" chooserGroup="PlantChooser" forceRefresh="true" label="Ship To" metaDataIntegration="Reference" nameTableClass="config.java.nametable.sap.CatSAPShipToNameTable" rank="97" titleFormat="%s (%s)" titleGroup="PlantChooser"/>
+		</groupField>
+		 
+	 </inGroupClassVariant>
+     </inGroupClass>
+
+     <inGroupClass name="ariba.contract.core.ContractRequest">
+	 <inGroupClassVariant name="SAP">
+	 <!-- Code Added to include AssessTaxButton for SAP partition to address exception for Vertex - Archana START-->
+		<groupField name="AssessTaxButton">
+			<visibility>
+				<andCondition>
+   					<condition implementation="ariba.common.core.condition.RoleEqualTo">
+						<parameter name="TargetValue" value="MSC Administrator"/>
+					</condition>
+				<!-- Rajat - Code Added to include AssessTaxButton for SAP partition only-->
+					<condition implementation="ariba.base.fields.condition.EqualTo" testField="PartitionNumber">
+	   	                          <parameter name="TargetValue" value="5"/>
+                                        </condition>	   	                        
+			       </andCondition>
+			</visibility>
+			<properties label="@aml.CatSAPContractExt/LabelAssessTaxButton" rank="310" title="@aml.CatSAPContractExt/LabelAssessTaxButton" zone="Left"/>
+		</groupField>
+	<!-- End of Code  to include AssessTaxButton -->
+	    		<groupField name="Supplier">
+     		    <validity>
+     			<orCondition>
+     			    <condition implementation="ariba.common.core.condition.DirectSupplier" nullHandling="forceFalse"/>
+     			    <andCondition>
+     				    <condition implementation="ariba.common.core.condition.ObjectMatchingQuery" nullHandling="forceFalse">
+     					<parameter name="AQLCondition" value="PorgSupplierCombo.Supplier = Supplier               AND PorgSupplierCombo.PurchaseOrg = :PurchaseOrg"/>
+     					<parameter name="AdditionalClasses" value="ariba.core.PorgSupplierCombo"/>
+     					<parameter inputField="PurchaseOrg" name="PurchaseOrg" nullHandling="forceTrue"/>
+     					<parameter name="IgnoreQueryCache" value="false"/>
+     				    </condition>
+     				<condition implementation="ariba.base.fields.condition.EqualTo" testField="CompanyCode.PurchaseOrgFiltering">
+     					<parameter name="TargetValue" value="Y"/>
+     				</condition>
+     			    </andCondition>
+     			    <andCondition>
+     				<condition implementation="config.java.condition.sap.CatSAPSupplierValidity">
+     				    <parameter inputField="this" name="LICToCheck"/>
+     				</condition>
+     				<condition implementation="ariba.base.fields.condition.NotEqualTo" testField="CompanyCode.PurchaseOrgFiltering">
+     					<parameter name="TargetValue" value="Y"/>
+     				</condition>
+     			    </andCondition>
+     			</orCondition>
+     		    </validity>
+     		    <properties nameTableClass="config.java.nametable.sap.CatSupplierNameTable"/>
+     		</groupField>
+	 </inGroupClassVariant>
+     </inGroupClass>
+    <!-- SP22 Manual Changes Start -->
+     <groupClass name="ariba.contract.core.ContractCoreApprovable">
+            <groupClassVariant name="SAP">
+                <groupField name="GlobalReleaseFlag">
+                    <properties editable="false"/>
+                </groupField>
+            </groupClassVariant>
+        </groupClass>
+<!-- SP22 Manual Changes End -->
+    </inGroup>
+    <!-- ================================================================== -->
+            <!-- inGroup: MARMilestoneSummary                                    -->
+            <!-- ================================================================== -->
+            <inGroup name="MARMilestoneSummary">
+                <inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+                    <inGroupClassVariant name="SAP">
+                        <groupField name="StartDate">
+                            <properties showYearNavigation="true"/>
+                        </groupField>
+                    </inGroupClassVariant>
+                </inGroupClass>
+            </inGroup>
+
+     		<!-- ================================================================== -->
+                <!-- inGroup: MALimits                                                  -->
+                <!-- ================================================================== -->
+                <inGroup name="MALimits">
+                    <inGroupClass name="ariba.contract.core.ForecastedSpend">
+                        <inGroupClassVariant name="SAP">
+                            <groupField name="TotalAmount">
+                                <properties hidden="true"/>
+                            </groupField>
+                            <groupField name="SavingPercentage">
+                                <properties hidden="true"/>
+                            </groupField>
+                            <groupField name="Frequency">
+                                <properties hidden="true"/>
+                            </groupField>
+                            <groupField name="Items">
+                                <properties hidden="true"/>
+                            </groupField>
+                        </inGroupClassVariant>
+                    </inGroupClass>
+            </inGroup>
+    <!-- ================================================================== -->
+    <!-- inGroup: MAGlobalRelease                                           -->
+    <!-- ================================================================== -->
+    <!-- <inGroup name="MAGlobalRelease">
+	<groupClass name="ariba.contract.core.ContractCoreApprovable">
+	    <groupClassVariant name="SAP">
+		<groupField name="GlobalReleaseFlag">
+		    <properties editable="false"/>
+		</groupField>
+	    </groupClassVariant>
+	</groupClass>
+    </inGroup> SP22 Manual Changes -->
+     <!-- ================================================================== -->
+    <!-- inGroup: MATermDescription                                         -->
+    <!-- ================================================================== -->
+    <inGroup name="MATermDescription">
+	<inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+	<inGroupClassVariant name="SAP">
+	<groupField name="Description.Price">
+		    <properties forceRefresh="true"/>
+	</groupField>
+	<groupField name="Description.ReasonCode">
+	    <validity>
+		<orCondition>
+		    <notCondition>
+			    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+				<parameter name="TargetValue" value="2"/>
+			</condition>
+		    </notCondition>
+		    <notCondition>
+			<condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+		    </notCondition>
+		    <notCondition>
+			<condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+			    <parameter name="TestField" value="Description.ReasonCode"/>
+			    <parameter name="TestValue" value="(no value)"/>
+			</condition>
+		    </notCondition>
+		    <condition implementation="config.java.condition.CatNonZeroMoney" testField="Description.Price">
+			<parameter name="Message" value="@aml.cat.ui/MessageReasonCodeInvalid"/>
+		    </condition>
+		</orCondition>
+	    </validity>
+	    <visibility>
+	       <andCondition>
+		    <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+			<parameter name="TargetValue" value="2"/>
+		    </condition>
+		    <notCondition>
+			<condition implementation="ariba.common.core.condition.NonZeroMoney" testField="Description.Price"/>
+		    </notCondition>
+		</andCondition>
+	    </visibility>
+	    <properties rank="85"/>
+	</groupField>
+	<!-- Added by Majid for LineItemType *** starts-->
+	<groupField name="LineItemType">
+		<visibility>
+			<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+				<parameter name="TargetValue" value="2"/>
+			</condition>
+		</visibility>
+		<validity>
+		   <orCondition>
+					<notCondition>
+							<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+								<parameter name="TargetValue" value="2"/>
+					</condition>
+				</notCondition>
+			<notCondition>
+				<condition implementation="ariba.base.fields.condition.EqualTo" testField="LineItemType">
+				<parameter name="TargetValue" value="(no value)"/>
+				</condition>
+			</notCondition>
+		   </orCondition>
+		</validity>
+				<properties rank="90"/>
+	</groupField>
+	<!-- Added by Majid for LineItemType *** ends-->
+	<groupField name="MSDSNumber">
+	<visibility>
+	    <andCondition>
+		<notCondition>
+		    <condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+		</notCondition>
+		<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+		    <parameter name="TargetValue" value="2"/>
+		</condition>
+	    </andCondition>
+	</visibility>
+	<properties rank="110"/>
+	</groupField>
+
+	<groupField name="HazmatWeight">
+	<validity>
+	    <orCondition>
+		    <condition implementation="ariba.base.fields.condition.NotEqualTo" testField="IsHazmat">
+			<parameter name="TargetValue" value="true"/>
+		    </condition>
+		    <condition implementation="ariba.base.fields.condition.NonZeroField"/>
+		<notCondition>
+		    <condition implementation="ariba.common.core.condition.UserHasPermission">
+			<parameter name="PermissionName" value="CatHazmat"/>
+		    </condition>
+		</notCondition>
+	    </orCondition>
+	</validity>
+	<visibility>
+	    <andCondition>
+		<notCondition>
+		    <condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+		</notCondition>
+		<condition implementation="ariba.common.core.condition.UserHasPermission">
+		    <parameter name="PermissionName" value="CatHazmat"/>
+		</condition>
+	    </andCondition>
+	</visibility>
+	<properties rank="120"/>
+	</groupField>
+
+	<groupField name="IsHazmat">
+	<visibility>
+	    <andCondition>
+		<notCondition>
+		    <condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+		</notCondition>
+		<condition implementation="ariba.common.core.condition.UserHasPermission">
+		    <parameter name="PermissionName" value="CatHazmat"/>
+		</condition>
+	    </andCondition>
+	</visibility>
+	<editability>
+	    <andCondition>
+		<notCondition>
+		    <condition implementation="config.java.condition.sap.CatSAPAdditionalChargeLineItem" testField="this"/>
+		</notCondition>
+		<condition implementation="ariba.common.core.condition.UserHasPermission">
+		    <parameter name="PermissionName" value="CatHazmat"/>
+		</condition>
+	    </andCondition>
+	</editability>
+	<properties forceRefresh="true" rank="105"/>
+	</groupField>
+	<!-- Added TaxUse field in Contract UI by Aswini for Vertex -->
+	<groupField name="TaxUse">
+      <visibility>
+        <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+            <parameter name="TargetValue" value="2"/>
+        </condition>
+      </visibility>               
+            <properties rank="92" required="true"/>
+      <validity>
+        <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+      </validity>            
+    </groupField>
+	<!-- Code ended for Vertex -->
+	</inGroupClassVariant>
+	</inGroupClass>
+    </inGroup>
+     <!-- ================================================================== -->
+     <!-- inClass: ariba.purchasing.core.ReqLineItem                         -->
+     <!-- ================================================================== -->
+     <inClass name="ariba.purchasing.core.ReqLineItem">
+       <inClassVariant name="SAP">
+            <!-- ReasonCode -->
+	    <trigger event="DefaultFromMALineItem" name="DefaultReasonCodeFromMALineItemDescription">
+		<condition implementation="ariba.contract.core.condition.ContractTermTypeEqualTo">
+		    <parameter inputField="MALineItem.MasterAgreementCoreApprovable" name="MACA"/>
+		    <parameter name="TargetValue" value="2"/>
+		</condition>
+		<action implementation="ariba.common.core.action.CopyFields">
+		    <parameter name="SourceField" value="MALineItem.Description.ReasonCode"/>
+		    <parameter name="TargetField" value="Description.ReasonCode"/>
+		    <parameter name="Defaulting" value="false"/>
+		</action>
+            </trigger>
+         </inClassVariant>
+       </inClass>
+       <!-- ================================================================== -->
+       <!-- inGroup: LineItemGeneralFields                                     -->
+       <!-- ================================================================== -->
+       <inGroup name="LineItemGeneralFields">
+	   <inGroupClass name="ariba.purchasing.core.ReqLineItem">
+	<inGroupClassVariant name="SAP">
+	<groupField name="Description.ReasonCode">
+	<visibility>
+	    <notCondition>
+		<condition implementation="ariba.common.core.condition.NonZeroMoney" testField="Description.Price"/>
+	    </notCondition>
+	</visibility>
+	<editability>
+	    <orCondition>
+	      <notCondition>
+	       <andCondition>
+	       		<notCondition>
+			    <condition implementation="config.java.condition.CatFieldMatchingMALineItem" testField="this">
+				<parameter name="FieldName" value="Description.ReasonCode"/>
+			    </condition>
+			 </notCondition>
+				<condition implementation="ariba.common.core.condition.UserHasPermission">
+				    <parameter name="PermissionName" value="CatPurchasing"/>
+				</condition>
+			</andCondition>
+			</notCondition>
+		<condition implementation="config.java.condition.CatStringFieldEqualTo" testField="this">
+		    <parameter name="TestField" value="ReasonCode"/>
+		    <parameter name="TestValue" value="(no value)"/>
+		</condition>
+	    </orCondition>
+	</editability>
+	<properties forceRefresh="true" rank="52" required="true"/>
+    </groupField>
+    </inGroupClassVariant>
+    	</inGroupClass>
+     </inGroup>
+
+
+
+	<!-- ================================================================== -->
+	<!-- inGroup: MARecurringFeeDescription                                 -->
+	<!-- ================================================================== -->
+	<inGroup name="MARecurringFeeDescription">
+		<inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		<inGroupClassVariant name="SAP">
+
+			<groupField name="BuyerCode">
+			 <validity>
+				 <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+			 </validity>
+			<properties chooserField="UniqueName" chooserGroup="CatChooserTable" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="RecentUserChoice" label="@aml.cat.ui/LabelBuyerCode" metaDataIntegration="Reference" rank="10" titleFormat="%s/%s (%s)" titleGroup="CatChooserTable"/>
+			</groupField>
+		</inGroupClassVariant>
+		</inGroupClass>
+
+		<inGroupClass name="ariba.contract.core.ContractRequestLineItem">
+		<inGroupClassVariant name="SAP">
+		<groupField name="StartDate">
+		                        <properties required="false" validate="false"/>
+                    </groupField>
+
+			<groupField name="LineItemType">
+				<validity>
+				   <orCondition>
+					<notCondition>
+						<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+							<parameter name="TargetValue" value="2"/>
+						</condition>
+					</notCondition>
+					<notCondition>
+						<condition implementation="ariba.base.fields.condition.EqualTo" testField="LineItemType">
+							<parameter name="TargetValue" value="(no value)"/>
+						</condition>
+					</notCondition>
+				   </orCondition>
+				</validity>
+				<visibility>
+					<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+						<parameter name="TargetValue" value="2"/>
+					</condition>
+				</visibility>
+			<properties rank="90"/>
+			</groupField>
+			<groupField name="TaxUse">
+              <visibility>
+                   <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                    <parameter name="TargetValue" value="2"/>
+                   </condition>
+              </visibility>
+              <validity>
+                <orCondition>
+                   <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                   </condition>
+                   <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                </orCondition>
+               </validity>
+                 <properties rank="92" required="true"/>
+            </groupField>
+			<!-- Code added for Vertex Soumya-->
+				<groupField name="TaxAmount">
+				 <properties label="@aml.cat.Invoice/TaxAmount" editable="false" rank="95"/>
+			   </groupField>
+			<!-- Vertex code ended  -->			
+		</inGroupClassVariant>
+		</inGroupClass>
+	</inGroup>
+
+	<!-- ================================================================== -->
+	<!-- inGroup: MAMiscellaneousDescription                                -->
+	<!-- ================================================================== -->
+	<inGroup name="MAMiscellaneousDescription">
+		<inGroupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		<inGroupClassVariant name="SAP">
+
+			<groupField name="BuyerCode">
+			 <validity>
+				 <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+			 </validity>
+			<properties chooserField="UniqueName" chooserGroup="CatChooserTable" controller="ariba.htmlui.approvableui.fields.ARFNamedObject" controllerType="RecentUserChoice" label="@aml.cat.ui/LabelBuyerCode" metaDataIntegration="Reference" rank="10" titleFormat="%s/%s (%s)" titleGroup="CatChooserTable"/>
+			</groupField>			
+			</inGroupClassVariant>
+		</inGroupClass>
+		<inGroupClass name="ariba.contract.core.ContractRequestLineItem">
+		<inGroupClassVariant name="SAP">
+		<groupField name="StartDate">
+		<properties required="false" validate="false"/>
+                    </groupField>
+		   <groupField name="LineItemType">
+				<validity>
+				   <orCondition>
+							<notCondition>
+								<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+									<parameter name="TargetValue" value="2"/>
+							</condition>
+						</notCondition>
+					<notCondition>
+						<condition implementation="ariba.base.fields.condition.EqualTo" testField="LineItemType">
+							<parameter name="TargetValue" value="(no value)"/>
+						</condition>
+					</notCondition>
+				   </orCondition>
+				</validity>
+				<visibility>
+					<condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+						<parameter name="TargetValue" value="2"/>
+					</condition>
+				</visibility>
+				<properties rank="90"/>
+			</groupField>
+			<groupField name="TaxUse">
+             <visibility>
+                 <condition implementation="ariba.base.fields.condition.EqualTo" testField="MasterAgreementCoreApprovable.TermType">
+                     <parameter name="TargetValue" value="2"/>
+                 </condition>
+             </visibility>
+             <validity>
+                 <orCondition>
+                     <condition implementation="config.java.condition.CatMasterAgreementWithRelease" testField="this">
+                     </condition>
+                     <condition implementation="ariba.base.core.condition.NonEmptyField"/>
+                 </orCondition>
+             </validity>
+                     <properties rank="92" required="true"/>
+            </groupField>
+			<!-- Code added for Vertex Soumya-->
+				<groupField name="TaxAmount">
+				 <properties label="@aml.cat.Invoice/TaxAmount" editable="false" rank="94"/>
+			   </groupField>
+			<!-- Vertex code ended  -->
+			</inGroupClassVariant>
+		</inGroupClass>
+	</inGroup>
+	<!-- ================================================================== -->
+	<!-- inGroup: ObjectDuplicate                                           -->
+	<!-- ================================================================== -->
+
+	<inGroup name="ObjectDuplicate">
+	<groupClass name="ariba.contract.core.ContractCoreApprovableLineItem">
+		 <groupClassVariant name="SAP">
+			 <groupField name="LineItemType"/>
+		 </groupClassVariant>
+	 </groupClass>
+	 <groupClass name="ariba.contract.core.ContractCoreApprovable">
+		 <groupClassVariant name="SAP">
+			 <groupField name="ContractAvailability"/>
+			 <groupField name="ContractShipTo"/>
+		 </groupClassVariant>
+	</groupClass>
+    <inGroupClass name="ariba.contract.core.ContractRequestLineItem">	
+      <inGroupClassVariant name="SAP">
+			 <groupField name="TaxUse"/>
+      		<!-- Start: Mach1 R5.5 (FRD2.2/TD2.5) -->
+			<groupField name="IncoTerms1"/>
+			<groupField name="IncoTerms2"/>
+		<!-- End: Mach1 R5.5 (FRD2.2/TD2.5) -->
+		 </inGroupClassVariant>
+	 </inGroupClass>
+	</inGroup>
+	
+	<inGroup name="ObjectDefaulting">
+	<inGroupClass name="ariba.contract.core.ContractRequestLineItem">	
+      <inGroupClassVariant name="SAP">
+			 <groupField name="TaxUse"/>
+      		<!-- Start: Mach1 R5.5 (FRD2.2/TD2.5) -->
+			<groupField name="IncoTerms1"/>
+			<groupField name="IncoTerms2"/>
+      		<!-- End: Mach1 R5.5 (FRD2.2/TD2.5) -->
+		 </inGroupClassVariant>
+	 </inGroupClass>
+	</inGroup>
+
+
+<!-- 	Amit gupta (Work item no.1127) -->
+		
+	
+        <group name="TaxCodeDefaultingFromMALI">
+	            <groupClass name="ariba.contract.core.ContractLineItem">
+	                <groupClassVariant name="SAP">
+	                    <groupField name="TaxCode"/>
+	                </groupClassVariant>
+	            </groupClass>              
+       </group>
+       
+<!-- Start :  RSD 111 (FRD4.0/TD 1.2) -->
+       <inGroup name="BlanketPurchaseOrderLineItemExtrinsic">
+               <inGroupClass name="ariba.procure.core.ProcureLineItem">
+                   <groupField name="Carrier">
+                       <properties rank="30"
+                           label="@aml.CatSAPRequisitionExt/TaxExemptReasonLabel"/>
+                   </groupField>
+               </inGroupClass>
+       </inGroup>
+<!-- End :  RSD 111 (FRD4.0/TD 1.2) -->
+       
+       
+       
+
+
+</inModule>
+</extension>

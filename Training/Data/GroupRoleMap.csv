@@ -1,0 +1,603 @@
+Cp1252
+Parent.UniqueName,UniqueName
+"AB Receiving","AB Receiving"
+"AD Receiving","AD Receiving"
+"Aurora Receiving","Aurora Receiving"
+"BCP Receiving","BCP Receiving"
+"Boonville Receiving","Boonville Receiving"
+"CAO Joliet Receiving","CAO Joliet Receiving"
+"CatEditReceipts","CatEditReceipts"
+"Contract Admin","Contract Admin"
+"Contract Preparer","Contract Preparer"
+"Corinth Receiving","Corinth Receiving"
+"Cross-Dock Receiving","Cross-Dock Receiving"
+"D&FP Accounting Review Group","D&FP Accounting Review Group"
+"Data Maintainer","Data Maintainer"
+"Decatur Receiving","Decatur Receiving"
+"Dyersburg Receiving","Dyersburg Receiving"
+"FreightExceptionHandler","FreightExceptionHandler"
+"Greenville Receiving","Greenville Receiving"
+"Griffin Receiving","Griffin Receiving"
+"Hazmat Coordinator","Hazmat Coordinator"
+"Houston Receiving","Houston Receiving"
+"Joliet Receiving","Joliet Receiving"
+"LC Receiving","LC Receiving"
+"Lafayette Receiving","Lafayette Receiving"
+"Lagrange Receiving","Lagrange Receiving"
+"Lognet Processor","Lognet Processor"
+"MSC Administrator","MSC Administrator"
+"MSC Administrator","aribasystem"
+"MSC Core Team","MSC Core Team"
+"MSC Purchasing","MSC Purchasing"
+"Mapleton Business Resources Group","Business Resource Approver"
+"Mapleton Receiving","Mapleton Receiving"
+"Miami Receiving","Miami Receiving"
+"Morganton Receiving","Morganton Receiving"
+"Mossville H Receiving","Mossville H Receiving"
+"Oxford Receiving","Oxford Receiving"
+"Pontiac Receiving","Pontiac Receiving"
+"Prentiss Receiving","Prentiss Receiving"
+"RPF Receiving","RPF Receiving"
+"Reman Business Resources Group","Business Resource Approver"
+"Report All","Report All"
+"S&PD Business Resources Group","Business Resource Approver"
+"Sumter HCG Receiving","Sumter HCG Receiving"
+"Sumter PPPG Receiving","Sumter PPPG Receiving"
+"TBU Receiving","TBU Receiving"
+"Tax Audit","Tax Audit"
+"Transaction Center (EU)","Transaction Center (EU)"
+"Transaction Center (US)","Transaction Center (US)"
+"Transaction Center (US)",Invoice Inquirer
+"West Plains Receiving","West Plains Receiving"
+AP_CBS_MX,AP_CBS_MX
+Accounts Payable (ezopen),Accounts Payable (ezopen)
+Accounts Payable (mfg1-DX),Accounts Payable (mfg1-DX)
+Accounts Payable (mfg1-DX),Invoice Manager
+Accounts Payable (mfg1-NA),Accounts Payable (mfg1-NA)
+Accounts Payable (mfg1-NA),Invoice Manager
+Analysis Admin,Analysis Administrator
+Analysis User,Analysis Users
+BA_CBS,BA_CBS
+BA_CBS_CN,BA_CBS_CN
+BR_CBS_MX_8900,BR_CBS_MX_8900
+BR_CBS_MX_MC00,BR_CBS_MX_MC00
+BR_CBS_MX_ME00,BR_CBS_MX_ME00
+BR_CBS_MX_XY00,BR_CBS_MX_XY00
+Buyer Administrator,Buyer Administrator
+Buyer Exception Handler,Buyer Exception Handler
+CAT Invoice Data Entry,CAT Invoice Data Entry
+CAT Invoice Entry,CAT Invoice Entry
+CDI Receiving,CDI Receiving
+CI_CBS_SG,CI_CBS_SG
+CR_CBS_CN_FT00,CR_CBS_CN_FT00
+CR_CBS_MX_8900,CR_CBS_MX_8900
+CR_CBS_MX_MC00,CR_CBS_MX_MC00
+CR_CBS_MX_ME00,CR_CBS_MX_ME00
+CR_CBS_MX_XY00,CR_CBS_MX_XY00
+CR_MACH1_US_1885,CR_MACH1_US_1885
+C_CBS_MX_8900,C_CBS_MX_8900
+C_CBS_MX_MC00,C_CBS_MX_MC00
+C_CBS_MX_ME00,C_CBS_MX_ME00
+C_CBS_MX_XY00,C_CBS_MX_XY00
+Capital Approver (ezopen-36),Capital Approver (ezopen-36)
+Capital Approver (ezopen-NF),Capital Approver (ezopen-NF)
+Capital Approver (ezopen-NG),Capital Approver (ezopen-NG)
+Capital Approver (mfg1-DX),Capital Approver (mfg1-DX)
+Capital Approver (mfg1-MX),Capital Approver (mfg1-MX)
+Capital Approver (mfg1-MY),Capital Approver (mfg1-MY)
+Capital Approver (mfg1-NA),Capital Approver (mfg1-NA)
+Capital Approver (mfg1-GW),Capital Approver (mfg1-GW)
+Capital Reviewer (mfg1-DX),Capital Reviewer (mfg1-DX)
+Capital Reviewer (mfg1-MX),Capital Reviewer (mfg1-MX)
+Capital Reviewer (mfg1-MY),Capital Reviewer (mfg1-MY)
+Capital Reviewer (mfg1-NA),Capital Reviewer (mfg1-NA)
+Capital Reviewer (mfg1-GW),Capital Reviewer (mfg1-GW)
+CatCrossCompanyBuying,CatCrossCompanyBuying
+Catalog Admin,Catalog Admin
+Category Approver (10),Category Approver (10)
+Category Approver (11),Category Approver (11)
+Category Approver (12),Category Approver (12)
+Category Approver (13),Category Approver (13)
+Category Approver (14),Category Approver (14)
+Category Approver (15),Category Approver (15)
+Category Approver (20),Category Approver (20)
+Category Approver (21),Category Approver (21)
+Category Approver (22),Category Approver (22)
+Category Approver (23),Category Approver (23)
+Category Approver (24),Category Approver (24)
+Category Approver (25),Category Approver (25)
+Category Approver (26),Category Approver (26)
+Category Approver (27),Category Approver (27)
+Category Approver (30),Category Approver (30)
+Category Approver (31),Category Approver (31)
+Category Approver (32),Category Approver (32)
+Category Approver (39),Category Approver (39)
+Category Approver (40),Category Approver (40)
+Category Approver (41),Category Approver (41)
+Category Approver (42),Category Approver (42)
+Category Approver (43),Category Approver (43)
+Category Approver (4319),Category Approver (4319)
+Category Approver (4320),Category Approver (4320)
+Category Approver (4321),Category Approver (4321)
+Category Approver (4322),Category Approver (4322)
+Category Approver (4323),Category Approver (4323)
+Category Approver (44),Category Approver (44)
+Category Approver (45),Category Approver (45)
+Category Approver (46),Category Approver (46)
+Category Approver (47),Category Approver (47)
+Category Approver (48),Category Approver (48)
+Category Approver (49),Category Approver (49)
+Category Approver (50),Category Approver (50)
+Category Approver (51),Category Approver (51)
+Category Approver (52),Category Approver (52)
+Category Approver (53),Category Approver (53)
+Category Approver (54),Category Approver (54)
+Category Approver (55),Category Approver (55)
+Category Approver (56),Category Approver (56)
+Category Approver (60),Category Approver (60)
+Category Approver (70),Category Approver (70)
+Category Approver (71),Category Approver (71)
+Category Approver (72),Category Approver (72)
+Category Approver (73),Category Approver (73)
+Category Approver (76),Category Approver (76)
+Category Approver (77),Category Approver (77)
+Category Approver (78),Category Approver (78)
+Category Approver (80),Category Approver (80)
+Category Approver (81),Category Approver (81)
+Category Approver (82),Category Approver (82)
+Category Approver (83),Category Approver (83)
+Category Approver (84),Category Approver (84)
+Category Approver (85),Category Approver (85)
+Category Approver (86),Category Approver (86)
+Category Approver (90),Category Approver (90)
+Category Approver (91),Category Approver (91)
+Category Approver (92),Category Approver (92)
+Category Approver (93),Category Approver (93)
+Category Approver (94),Category Approver (94)
+Category Approver (mfg1-ACS-DX),Category Approver (mfg1-ACS-DX)
+Category Approver (mfg1-ACS-MX),Category Approver (mfg1-ACS-MX)
+Category Approver (mfg1-ACS-MY),Category Approver (mfg1-ACS-MY)
+Category Approver (mfg1-ACS-NA),Category Approver (mfg1-ACS-NA)
+Category Approver (mfg1-HR-DX),Category Approver (mfg1-HR-DX)
+Category Approver (mfg1-HR-MX),Category Approver (mfg1-HR-MX)
+Category Approver (mfg1-HR-MY),Category Approver (mfg1-HR-MY)
+Category Approver (mfg1-HR-NA),Category Approver (mfg1-HR-NA)
+Category Approver (mfg1-IT-DX),Category Approver (mfg1-IT-DX)
+Category Approver (mfg1-IT-MX),Category Approver (mfg1-IT-MX)
+Category Approver (mfg1-IT-MY),Category Approver (mfg1-IT-MY)
+Category Approver (mfg1-IT-NA),Category Approver (mfg1-IT-NA)
+Category Management,Category Management
+Category Management,Sourcing Authorized
+Central Receiving,Central Receiving
+Change Coordinator,Change Coordinator
+Consulting Services Suppliers,Category Management
+Consulting Services Suppliers,External
+Consulting Services Suppliers,Sourcing Authorized
+Contract Management,Contract Agent
+Corrugated Suppliers,Category Management
+Corrugated Suppliers,External
+Corrugated Suppliers,Sourcing Authorized
+Danville Receiving,Danville Receiving
+E_CBS_MX_8900,E_CBS_MX_8900
+E_CBS_MX_MC00,E_CBS_MX_MC00
+E_CBS_MX_ME00,E_CBS_MX_ME00
+E_CBS_MX_XY00,E_CBS_MX_XY00
+Elkader Receiving,Elkader Receiving
+Engineering,Category Management
+Engineering,Internal
+FS_CBS_CN_FT00,FS_CBS_CN_FT00
+Finance,Category Management
+Finance,Internal
+Franklin Receiving,Franklin Receiving
+General Exception Handler,General Exception Handler
+General Exception Handler,Invoice Inquirer
+General Exception Handler1,General Exception Handler1
+General Exception Handler1,Invoice Inquirer
+General Exception Handler10,General Exception Handler10
+General Exception Handler10,Invoice Inquirer
+General Exception Handler11,General Exception Handler11
+General Exception Handler11,Invoice Inquirer
+General Exception Handler12,General Exception Handler12
+General Exception Handler12,Invoice Inquirer
+General Exception Handler13,General Exception Handler13
+General Exception Handler13,Invoice Inquirer
+General Exception Handler14,General Exception Handler14
+General Exception Handler14,Invoice Inquirer
+General Exception Handler15,General Exception Handler15
+General Exception Handler15,Invoice Inquirer
+General Exception Handler2,General Exception Handler2
+General Exception Handler2,Invoice Inquirer
+General Exception Handler3,General Exception Handler3
+General Exception Handler3,Invoice Inquirer
+General Exception Handler4,General Exception Handler4
+General Exception Handler4,Invoice Inquirer
+General Exception Handler5,General Exception Handler5
+General Exception Handler5,Invoice Inquirer
+General Exception Handler6,General Exception Handler6
+General Exception Handler6,Invoice Inquirer
+General Exception Handler7,General Exception Handler7
+General Exception Handler7,Invoice Inquirer
+General Exception Handler8,General Exception Handler8
+General Exception Handler8,Invoice Inquirer
+General Exception Handler9,General Exception Handler9
+General Exception Handler9,Invoice Inquirer
+Goods Inward (UK_DX),Goods Inward (UK_DX)
+Goods Inward (UK_MX),Goods Inward (UK_MX)
+Goods Inward (UK_MY),Goods Inward (UK_MY)
+Goods Inward (UK_NA),Goods Inward (UK_NA)
+Greenville Receiving,Greenville Receiving,
+HM_CBS_CN_FT00,HM_CBS_CN_FT00
+HM_CBS_CN_FT00,Hazmat Coordinator
+HM_CBS_MX_8900,HM_CBS_MX_8900
+HM_CBS_MX_MC00,HM_CBS_MX_MC00
+HM_CBS_MX_ME00,HM_CBS_MX_ME00
+HM_CBS_MX_XY00,HM_CBS_MX_XY00
+HM_CBS_SG_AK00,HM_CBS_SG_AK00
+HM_MACH1_US_1885,HM_MACH1_US_1885
+HM_Mach1_US_1000,HM_Mach1_US_1000
+HM_Mach1_US_1000_UJ00,HM_MACH1_US_1000_UJ00
+HM_Mach1_US_1000_UJ01,HM_MACH1_US_1000_UJ01
+HM_Mach1_US_1000_UJ02,HM_MACH1_US_1000_UJ02
+HR,Category Management
+HR,Internal
+IA_CBS_CN_FT00,IA_CBS_CN_FT00
+IP_CBS_CN,Contract Admin
+IP_CBS_CN,General Purchasing(SAP)
+IP_CBS_CN,IP_CBS_CN
+IP_CBS_MX,General Purchasing(SAP)
+IP_CBS_MX,IP_CBS_MX
+IP_CBS_SG,Contract Admin
+IP_CBS_SG,General Purchasing(SAP)
+IP_CBS_SG,IP_CBS_SG
+IP_MACH1_US_1885,General Purchasing(SAP)
+IP_MACH1_US_1885,IP_MACH1_US_1885
+IP_Mach1_US_1000,General Purchasing(SAP)
+IR Error Handler (UK),IR Error Handler (UK)
+IT Approver (EU),IT Approver (EU)
+IT Equipment Suppliers,Category Management
+IT Equipment Suppliers,External
+IT Equipment Suppliers,Sourcing Authorized
+IT_CBS_MX,IT_CBS_MX
+IT_MACH1,IT_MACH1
+Indirect Buyer (mfg1),Analysis Users
+Indirect Buyer (mfg1),Indirect Buyer (mfg1)
+Indirect Buyer,Indirect Buyer
+Invoice Administrator, Invoice Administrator
+Invoice Agent,Invoice Agent,
+Invoice Inquirer,Invoice Inquirer
+Invoice Manager, Invoice Manager
+Invoice Manager,EditApprovable
+Invoice Manager,Invoice Agent 
+Invoice Manager,Invoice Manager 
+Labor Services Suppliers,Category Management
+Labor Services Suppliers,External
+Labor Services Suppliers,Sourcing Authorized
+Lafayette Receiving,Lafayette Receiving,
+Malaga Reviewer,Malaga Reviewer
+Manufacturing,Category Management
+Manufacturing,Internal
+Marketing,Category Management
+Marketing,Internal
+Morton Receiving,Morton Receiving,
+Mossville VV Receiving,Mossville VV Receiving
+Operations,Category Management
+Operations,Internal
+PA_CBS_MX_8900,PA_CBS_MX_8900
+PA_CBS_MX_MC00,PA_CBS_MX_MC00
+PA_CBS_MX_ME00,PA_CBS_MX_ME00
+PA_CBS_MX_XY00,PA_CBS_MX_XY00
+PA_MACH1_US_1885,PA_MACH1_US_1885
+PA_Mach1_US_1000,PA_Mach1_US_1000
+PA_Mach1_US_1000_UJ00,PA_MACH1_US_1000_UJ00
+PA_Mach1_US_1000_UJ01,PA_MACH1_US_1000_UJ01
+PA_Mach1_US_1000_UJ02,PA_MACH1_US_1000_UJ02
+Panama Receiving,Panama Receiving,
+Paving Transaction Team,Paving Transaction Team,
+Payment Administrator,Payment Administrator
+Payment Manager,Payment Manager
+Preparer Exception Handler,Preparer Exception Handler
+Print Collateral Suppliers,Category Management
+Print Collateral Suppliers,External
+Print Collateral Suppliers,Sourcing Authorized
+Professional Buyer,Analysis Users
+Professional Buyer,Professional Buyer
+Purchasing Mgr (ezopen-EU),Purchasing Mgr (ezopen-EU)
+Purchasing Mgr (ezopen-Europe),Purchasing Mgr (ezopen-Europe)
+Purchasing Mgr (mfg1-Europe),Purchasing Mgr (mfg1-Europe)
+Purchasing Mgr (mfg1-UK),Purchasing Mgr (mfg1-UK)
+Purchasing,Category Management
+Purchasing,Internal
+SR_Mach1_US_1000,SR_Mach1_US_1000
+SR_Mach1_US_1000_UJ00,SR_MACH1_US_1000_UJ00
+SR_Mach1_US_1000_UJ01,SR_MACH1_US_1000_UJ01
+SR_Mach1_US_1000_UJ02,SR_MACH1_US_1000_UJ02
+Sales,Category Management
+Sales,Internal
+Sourcing Management,Sourcing Manager
+Supplier Entry,Supplier Entry
+SupplierAdmin,SupplierAdmin
+SupplierAdmin,SupplierAdmin
+T&SD Receiving,T&SD Receiving
+TBU Receiving,TBU Receiving
+TM_CBS_CN_FT00,TM_CBS_CN_FT00
+TM_CBS_CN_FT00,Tax Manager (SAP)
+TM_CBS_MX, Tax Manager (SAP)
+TM_CBS_MX,TM_CBS_MX
+TM_CBS_SG,Tax Manager (SAP)
+TM_CBS_SG,TM_CBS_SG
+TM_MACH1_US_1885,TM_MACH1_US_1885
+TM_MACH1_US_1885,Tax Manager (SAP)
+TM_Mach1_US_1000,TM_MACH1_US_1000
+TM_Mach1_US_1000,Tax Manager (SAP)
+TTT Receiving,TTT Receiving
+Tax Manager,Tax Manager
+Toccoa Receiving,Toccoa Receiving
+Transaction Center (mfg1),Transaction Center (mfg1)
+Transaction Center (mfg1),Transaction Center (mfg1)
+Tucson Receiving,Tucson Receiving
+Voucher Inquirer,Voucher Inquirer,
+Voucher Manager,Voucher Manager,
+HM_CBS_CN_HB00,HM_CBS_CN_HB00
+HM_CBS_CN_HB00,Hazmat Coordinator
+TM_CBS_CN_HB00,TM_CBS_CN_HB00
+TM_CBS_CN_HB00,Tax Manager (SAP)
+CR_CBS_CN_HB00,CR_CBS_CN_HB00
+IA_CBS_CN_HB00,IA_CBS_CN_HB00
+FS_CBS_CN_HB00,FS_CBS_CN_HB00
+HM_CBS_CN_NN00,HM_CBS_CN_NN00
+HM_CBS_CN_NN00,Hazmat Coordinator
+TM_CBS_CN_NN00,TM_CBS_CN_NN00
+TM_CBS_CN_NN00,Tax Manager (SAP)
+CR_CBS_CN_NN00,CR_CBS_CN_NN00
+IA_CBS_CN_NN00,IA_CBS_CN_NN00
+FS_CBS_CN_NN00,FS_CBS_CN_NN00
+HM_CBS_CN_XJ00,HM_CBS_CN_XJ00
+HM_CBS_CN_XJ00,Hazmat Coordinator
+TM_CBS_CN_XJ00,TM_CBS_CN_XJ00
+TM_CBS_CN_XJ00,Tax Manager (SAP)
+CR_CBS_CN_XJ00,CR_CBS_CN_XJ00
+IA_CBS_CN_XJ00,IA_CBS_CN_XJ00
+FS_CBS_CN_XJ00,FS_CBS_CN_XJ00
+HM_CBS_CN_JJ00,HM_CBS_CN_JJ00
+HM_CBS_CN_JJ00,Hazmat Coordinator
+TM_CBS_CN_JJ00,TM_CBS_CN_JJ00
+TM_CBS_CN_JJ00,Tax Manager (SAP)
+CR_CBS_CN_JJ00,CR_CBS_CN_JJ00
+IA_CBS_CN_JJ00,IA_CBS_CN_JJ00
+FS_CBS_CN_JJ00,FS_CBS_CN_JJ00
+IP_Mach1_US_1000,IP_MACH1_US_1000
+HM_CBS_CN_WJ00,HM_CBS_CN_WJ00
+HM_CBS_CN_WJ00,Hazmat Coordinator
+TM_CBS_CN_WJ00,TM_CBS_CN_WJ00
+TM_CBS_CN_WJ00,Tax Manager (SAP)
+IA_CBS_CN_WJ00,IA_CBS_CN_WJ00
+FS_CBS_CN_WJ00,FS_CBS_CN_WJ00
+CR_CBS_CN_WJ00_WJ01,CR_CBS_CN_WJ00_WJ01
+CR_CBS_CN_WJ00_WJ02,CR_CBS_CN_WJ00_WJ02
+CR_CBS_CN_WJ00_WJ03,CR_CBS_CN_WJ00_WJ03
+CR_CBS_CN_WJ00_WJ04,CR_CBS_CN_WJ00_WJ04
+CR_CBS_CN_WJ00_WJ05,CR_CBS_CN_WJ00_WJ05
+HM_CBS_CN_S200,HM_CBS_CN_S200
+HM_CBS_CN_S200,Hazmat Coordinator
+TM_CBS_CN_S200,TM_CBS_CN_S200
+TM_CBS_CN_S200,Tax Manager (SAP)
+IA_CBS_CN_S200,IA_CBS_CN_S200
+FS_CBS_CN_S200,FS_CBS_CN_S200
+CR_CBS_CN_S200,CR_CBS_CN_S200
+HM_CBS_CN_S700,HM_CBS_CN_S700
+HM_CBS_CN_S700,Hazmat Coordinator
+TM_CBS_CN_S700,TM_CBS_CN_S700
+TM_CBS_CN_S700,Tax Manager (SAP)
+IA_CBS_CN_S700,IA_CBS_CN_S700
+FS_CBS_CN_S700,FS_CBS_CN_S700
+CR_CBS_CN_S700,CR_CBS_CN_S700
+HM_CBS_CN_S400,HM_CBS_CN_S400
+HM_CBS_CN_S400,Hazmat Coordinator
+TM_CBS_CN_S400,TM_CBS_CN_S400
+TM_CBS_CN_S400,Tax Manager (SAP)
+IA_CBS_CN_S400,IA_CBS_CN_S400
+FS_CBS_CN_S400,FS_CBS_CN_S400
+CI_CBS_CN_S200,CI_CBS_CN_S200
+CI_CBS_CN_FT00,CI_CBS_CN_FT00
+CI_CBS_CN_S700,CI_CBS_CN_S700
+CI_CBS_CN_S400,CI_CBS_CN_S400
+CR_MACH1_US_1000_1060_UJ00,CR_MACH1_US_1000_1060_UJ00
+CR_MACH1_US_1000_1060_UJ01,CR_MACH1_US_1000_1060_UJ01
+CR_MACH1_US_1000_1060_UJ02,CR_MACH1_US_1000_1060_UJ02
+CR_MACH1_US_1885_1010_R800,CR_MACH1_US_1885_1010_R800
+CR_MACH1_US_1885_1010_R801,CR_MACH1_US_1885_1010_R801
+CR_MACH1_US_1885_1010_R802,CR_MACH1_US_1885_1010_R802
+HM_MACH1_US_1000_1060_UJ00,HM_MACH1_US_1000_1060_UJ00
+HM_MACH1_US_1000_1060_UJ01,HM_MACH1_US_1000_1060_UJ01
+HM_MACH1_US_1000_1060_UJ02,HM_MACH1_US_1000_1060_UJ02
+HM_MACH1_US_1885_1010_R800,HM_MACH1_US_1885_1010_R800
+HM_MACH1_US_1885_1010_R801,HM_MACH1_US_1885_1010_R801
+HM_MACH1_US_1885_1010_R802,HM_MACH1_US_1885_1010_R802
+IT_MACH1_US_1885_1010,IT_MACH1_US_1885_1010
+PA_MACH1_US_1000,PA_MACH1_US_1000
+HM_MACH1_CA_4555,HM_MACH1_CA_4555
+IP_MACH1_CA_4555,IP_MACH1_CA_4555,
+TM_MACH1_CA_4555,TM_MACH1_CA_4555
+CR_MACH1_CA_4555,CR_MACH1_CA_4555
+PA_MACH1_CA_4555,PA_MACH1_CA_4555
+PA_MACH1_US_3815,PA_MACH1_US_3815
+HM_MACH1_US_3815_1540_FJ00,HM_MACH1_US_3815_1540_FJ00
+HM_MACH1_US_3815_1540_FJ01,HM_MACH1_US_3815_1540_FJ01
+HM_MACH1_US_3815_1540_FJ02,HM_MACH1_US_3815_1540_FJ02
+IP_MACH1_US_3815,IP_MACH1_US_3815
+TM_MACH1_US_3815,TM_MACH1_US_3815
+CR_MACH1_US_3815_1540_FJ00,CR_MACH1_US_3815_1540_FJ00
+CR_MACH1_US_3815_1540_FJ01,CR_MACH1_US_3815_1540_FJ01
+CR_MACH1_US_3815_1540_FJ02,CR_MACH1_US_3815_1540_FJ02
+HM_MACH1_US_3815_1550_XO00,HM_MACH1_US_3815_1550_XO00
+CR_MACH1_US_3815_1550_XO00,CR_MACH1_US_3815_1550_XO00
+HM_MACH1_US_3815_1560_FK00,HM_MACH1_US_3815_1560_FK00
+CR_MACH1_US_3815_1560_FK00,CR_MACH1_US_3815_1560_FK00
+HM_MACH1_US_3815_1570_VQ00,HM_MACH1_US_3815_1570_VQ00
+CR_MACH1_US_3815_1570_VQ00,CR_MACH1_US_3815_1570_VQ00
+PA_MACH1_GB_4535,PA_MACH1_GB_4535
+HM_MACH1_GB_4535,HM_MACH1_GB_4535
+IP_MACH1_GB_4535,IP_MACH1_GB_4535
+TM_MACH1_GB_4535,TM_MACH1_GB_4535
+CR_MACH1_GB_4535,CR_MACH1_GB_4535
+CR_MACH1_US_1000_1050,CR_MACH1_US_1000_1050
+CR_MACH1_US_1000_1060_UJ00,CR_MACH1_US_1000_1060_UJ00
+CR_MACH1_US_1000_1060_UJ01,CR_MACH1_US_1000_1060_UJ01
+CR_MACH1_US_1000_1060_UJ02,CR_MACH1_US_1000_1060_UJ02
+CR_MACH1_US_1885_1010_R800,CR_MACH1_US_1885_1010_R800
+CR_MACH1_US_1885_1010_R801,CR_MACH1_US_1885_1010_R801
+CR_MACH1_US_1885_1010_R802,CR_MACH1_US_1885_1010_R802
+HM_MACH1_US_1000_1050,HM_MACH1_US_1000_1050
+HM_MACH1_US_1000_1060_UJ00,HM_MACH1_US_1000_1060_UJ00
+HM_MACH1_US_1000_1060_UJ01,HM_MACH1_US_1000_1060_UJ01
+HM_MACH1_US_1000_1060_UJ02,HM_MACH1_US_1000_1060_UJ02
+HM_MACH1_US_1885_1010_R800,HM_MACH1_US_1885_1010_R800
+HM_MACH1_US_1885_1010_R801,HM_MACH1_US_1885_1010_R801
+HM_MACH1_US_1885_1010_R802,HM_MACH1_US_1885_1010_R802
+IP_MACH1_US_1000,IP_MACH1_US_1000
+IT_MACH1_US_1000_1050,IT_MACH1_US_1000_1050
+IT_MACH1_US_1885_1010,IT_MACH1_US_1885_1010
+PA_MACH1_US_1000,PA_MACH1_US_1000
+CR_MACH1_US_1000_1220,CR_MACH1_US_1000_1220
+HM_MACH1_US_1000_1220,HM_MACH1_US_1000_1220
+CR_MACH1_US_1000_1210,CR_MACH1_US_1000_1210
+HM_MACH1_US_1000_1210,HM_MACH1_US_1000_1210
+CR_MACH1_US_1000_1230,CR_MACH1_US_1000_1230
+HM_MACH1_US_1000_1230,HM_MACH1_US_1000_1230
+HM_MACH1_US_1000_1770,HM_MACH1_US_1000_1770
+HM_MACH1_US_1000_1770_JQ02,HM_MACH1_US_1000_1770_JQ02
+MACH1_Cutover_Approver,MACH1_Cutover_Approver
+CR_MACH1_US_1000_1300,CR_MACH1_US_1000_1300
+HM_MACH1_US_1000_1300,HM_MACH1_US_1000_1300
+CR_MACH1_US_1000_1170,CR_MACH1_US_1000_1170
+HM_MACH1_US_1000_1170,HM_MACH1_US_1000_1170
+CR_MACH1_US_1000_1190,CR_MACH1_US_1000_1190
+HM_MACH1_US_1000_1190,HM_MACH1_US_1000_1190
+CR_MACH1_US_1000_1200,CR_MACH1_US_1000_1200
+HM_MACH1_US_1000_1200,HM_MACH1_US_1000_1200
+IM_CBS_CN_HB00,IM_CBS_CN_HB00
+IM_CBS_CN_FT00,IM_CBS_CN_FT00
+IM_CBS_CN_JJ00,IM_CBS_CN_JJ00
+IM_CBS_CN_NN00,IM_CBS_CN_NN00
+IM_CBS_CN_S200,IM_CBS_CN_S200
+IM_CBS_CN_S400,IM_CBS_CN_S400
+IM_CBS_CN_S700,IM_CBS_CN_S700
+IM_CBS_CN_WJ00,IM_CBS_CN_WJ00
+IM_CBS_CN_XJ00,IM_CBS_CN_XJ00
+CR_MACH1_US_1000_1310,CR_MACH1_US_1000_1310
+HM_MACH1_US_1000_1310,HM_MACH1_US_1000_1310
+CR_MACH1_US_1000_1120,CR_MACH1_US_1000_1120
+HM_MACH1_US_1000_1120,HM_MACH1_US_1000_1120
+CR_MACH1_US_1000_1130,CR_MACH1_US_1000_1130
+HM_MACH1_US_1000_1130,HM_MACH1_US_1000_1130
+CR_MACH1_US_1000_1140,CR_MACH1_US_1000_1140
+HM_MACH1_US_1000_1140,HM_MACH1_US_1000_1140
+CR_MACH1_US_1000_1110,CR_MACH1_US_1000_1110
+HM_MACH1_US_1000_1110,HM_MACH1_US_1000_1110
+PA_CGM_US,PA_CGM_US
+CR_CGM_US_1000_5000_QR01,CR_CGM_US_1000_5000_QR01
+CR_CGM_US_1000_5400_QR02,CR_CGM_US_1000_5400_QR02
+CR_CGM_US_1000_5700_QR03,CR_CGM_US_1000_5700_QR03
+CR_CGM_US_1000_5800_QR04,CR_CGM_US_1000_5800_QR04
+CR_CGM_US_1010,CR_CGM_US_1010
+CR_CGM_US_1100,CR_CGM_US_1100
+CR_CGM_US_1200_1210_QU00,CR_CGM_US_1200_1210_QU00
+CR_CGM_US_1200_1210_QU01,CR_CGM_US_1200_1210_QU01
+CR_CGM_US_1400_1400_UD00,CR_CGM_US_1400_1400_UD00
+CR_CGM_US_1400_1400_UD01,CR_CGM_US_1400_1400_UD01
+HM_CGM_US_1400,HM_CGM_US_1400
+HM_CGM_US_1200,HM_CGM_US_1200
+HM_CGM_US_1100,HM_CGM_US_1100
+HM_CGM_US_1000,HM_CGM_US_1000
+HM_CGM_US_1010,HM_CGM_US_1010
+IM_CGM_US_1100,IM_CGM_US_1100
+IM_CGM_US_1000,IM_CGM_US_1000
+IM_CGM_US_1200,IM_CGM_US_1200
+IM_CGM_US_1400,IM_CGM_US_1400
+IM_CGM_US_1010,IM_CGM_US_1010
+AP_CGM_US_1100,AP_CGM_US_1100
+AP_CGM_US_1200,AP_CGM_US_1200
+AP_CGM_US_1000,AP_CGM_US_1000
+AP_CGM_US_1400,AP_CGM_US_1400
+AP_CGM_US_1010,AP_CGM_US_1010
+IP_CGM_US,IP_CGM_US
+CR_CBS_CN_WJ00_WJ07,CR_CBS_CN_WJ00_WJ07
+HM_MACH1_US_1000_1150,HM_MACH1_US_1000_1150
+CR_MACH1_US_1000_1150,CR_MACH1_US_1000_1150
+TM_MACH1_US_1000_1150,TM_MACH1_US_1000_1150
+IP_MACH1_US_1445,IP_MACH1_US_1445
+HM_MACH1_PA_1935,HM_MACH1_PA_1935
+IP_MACH1_PA_1935,IP_MACH1_PA_1935
+HM_MACH1_PA_1765,HM_MACH1_PA_1765
+IP_MACH1_PA_1765,IP_MACH1_PA_1765
+IP_MACH1_PA_1895,IP_MACH1_PA_1895
+HM_MACH1_US_1445,HM_MACH1_US_1445
+HM_MACH1_US_1895,HM_MACH1_US_1895
+PA_MACH1_US_1445,PA_MACH1_US_1445
+PA_MACH1_PA_1765,PA_MACH1_PA_1765
+PA_MACH1_US_1895,PA_MACH1_US_1895
+PA_MACH1_PA_1935,PA_MACH1_PA_1935
+TM_CGM_US_1000,TM_CGM_US_1000
+TM_CGM_US_1010,TM_CGM_US_1010
+TM_CGM_US_1100,TM_CGM_US_1100
+TM_CGM_US_1200,TM_CGM_US_1200
+TM_CGM_US_1400,TM_CGM_US_1400
+IA_MACH1_PL_1065,IA_MACH1_PL_1065
+CP_MACH1_PL_1065,CP_MACH1_PL_1065
+TM_MACH1_PL_1065,TM_MACH1_PL_1065
+CR_MACH1_PL_1065_1520,CR_MACH1_PL_1065_1520
+HM_MACH1_PL_1065_1520,HM_MACH1_PL_1065_1520
+PA_MACH1_PL_1065,PA_MACH1_PL_1065
+IP_MACH1_PL_1065,IP_MACH1_PL_1065
+IT_MACH1_PL_1065_1530,IT_MACH1_PL_1065_1530
+IT_MACH1_PL_1065_1520,IT_MACH1_PL_1065_1520
+IT_MACH1_PL_1065_1930,IT_MACH1_PL_1065_1930
+CR_MACH1_PL_1065_1530,CR_MACH1_PL_1065_1530
+HM_MACH1_PL_1065_1530,HM_MACH1_PL_1065_1530
+TM_MACH1_HU_2005,TM_MACH1_HU_2005
+CR_MACH1_HU_2005,CR_MACH1_HU_2005
+HM_MACH1_HU_2005,HM_MACH1_HU_2005
+PA_MACH1_HU_2005,PA_MACH1_HU_2005
+IP_MACH1_HU_2005,IP_MACH1_HU_2005
+TM_MACH1_IT_1285,TM_MACH1_IT_1285
+HM_MACH1_IT_1285,HM_MACH1_IT_1285
+IT_MACH1_IT_1285,IT_MACH1_IT_1285
+IP_MACH1_IT_1285,IP_MACH1_IT_1285
+C_MACH1_IT_1285,C_MACH1_IT_1285
+CR_MACH1_IT_1285_1980,CR_MACH1_IT_1285_1980
+PA_MACH1_IT_1285,PA_MACH1_IT_1285
+CR_MACH1_IT_1285_1970,CR_MACH1_IT_1285_1970
+Site_Buyer,Site_Buyer
+CR_MACH1_PL_1065_1930,CR_MACH1_PL_1065_1930
+HM_MACH1_PL_1065_1930,HM_MACH1_PL_1065_1930
+C_MACH1_PL_1065,C_MACH1_PL_1065
+CR_MACH1_US_1000_1950,CR_MACH1_US_1000_1950
+HM_MACH1_US_1000_1950,HM_MACH1_US_1000_1950
+CR_MACH1_US_1000_1960,CR_MACH1_US_1000_1960
+HM_MACH1_US_1000_1960,HM_MACH1_US_1000_1960
+GP-I IT Services,GP-I IT Services
+TM_MACH1_ES_2935,TM_MACH1_ES_2935
+CR_MACH1_ES_2935,CR_MACH1_ES_2935
+HM_MACH1_ES_2935,HM_MACH1_ES_2935
+IT_MACH1_ES_2935,IT_MACH1_ES_2935
+IP_MACH1_ES_2935,IP_MACH1_ES_2935
+PA_MACH1_ES_2935,PA_MACH1_ES_2935
+EZO_Cutover_Approver,EZO_Cutover_Approver
+TM_MACH1_IT_1645,TM_MACH1_IT_1645
+CR_MACH1_IT_1645,CR_MACH1_IT_1645
+HM_MACH1_IT_1645,HM_MACH1_IT_1645
+IT_MACH1_IT_1645,IT_MACH1_IT_1645
+IP_MACH1_IT_1645,IP_MACH1_IT_1645
+PA_MACH1_IT_1645,PA_MACH1_IT_1645
+C_MACH1_IT_1645,C_MACH1_IT_1645
+TM_MACH1_IT_3135,TM_MACH1_IT_3135
+CR_MACH1_IT_3135_1360,CR_MACH1_IT_3135_1360
+HM_MACH1_IT_3135,HM_MACH1_IT_3135
+IT_MACH1_IT_3135,IT_MACH1_IT_3135
+IP_MACH1_IT_3135,IP_MACH1_IT_3135
+PA_MACH1_IT_3135,PA_MACH1_IT_3135
+C_MACH1_IT_3135,C_MACH1_IT_3135
+CR_MACH1_IT_3135_1750,CR_MACH1_IT_3135_1750
+CR_CGM_US_1000_5000_QR06,CR_CGM_US_1000_5000_QR06
+CR_CGM_US_1000_5700_QR05,CR_CGM_US_1000_5700_QR05
+CSCL_CBS_CN_FT00,CSCL_CBS_CN_FT00

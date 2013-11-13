@@ -1,0 +1,705 @@
+/*
+    Copyright (c) 1996-2003 Ariba, Inc.
+    All rights reserved. Patents pending.
+
+    $Id: BaseObject.js#1 $
+
+    Responsible: ariba
+
+1.  10/09/2013 IBM Nandini Q4 2013-RSD119-FDD5.0/TDD1.0 : Added ResourceService class to enable fetching data from Resource file
+
+*/
+
+/*
+===============================================================================
+CATERPILLAR ADDITIONS
+===============================================================================
+*/
+
+//  DEFINITIONS
+
+var Fmt = ariba.util.core.Fmt;
+var Base = ariba.base.core.Base;
+var ListUtil = ariba.util.core.ListUtil;
+var StringUtil = ariba.util.core.StringUtil;
+var CommonUser = ariba.common.core.User;
+var ArrayList = java.util.ArrayList;
+var Iterator = java.util.Iterator;
+var BooleanFormatter = ariba.util.formatter.BooleanFormatter;
+var BigDecimalFormatter = ariba.util.formatter.BigDecimalFormatter;
+var CatUtil = config.java.common.CatCommonUtil;
+var BigDecimal = java.math.BigDecimal;
+var AQLQuery = ariba.base.core.aql.AQLQuery;
+var AQLOptions = ariba.base.core.aql.AQLOptions;
+var ApprovalRequest = ariba.approvable.core.ApprovalRequest;
+// Start  Q4 2013-RSD119-FDD5.0/TDD1.0 
+var ResourceString = ariba.util.core.ResourceService;
+
+// End Q4 2013-RSD119-FDD5.0/TDD1.0
+
+//  VARIABLES
+
+var cc_VALUE = null;
+var cc_TYPE = 0;
+var capital = "E0290";
+var ShipToList = new ArrayList();
+var Role_DataMaintainer = Role.getRole("Data Maintainer");
+var Role_TransCenterNA = Role.getRole("Transaction Center (US)");
+var Rules_CommodityApprovalTable = MakeCSVTable("data/CATCommodityApproval.csv", ListUtil.list(" ","0","0"," "));
+var Rules_HazmatUOMTable = MakeCSVTable("data/CATHazmatUnitOfMeasure.csv",ListUtil.list(" "));
+var Rules_ApprovalLimitsTable = MakeCSVTable("data/CATApprovalLimits.csv", ListUtil.list("","0"));
+var HazmatApproverFile = "config/variants/vcsv1/data/CATHazmatApprovers.csv";
+var Rules_ExcludeApproverTable = MakeCSVTable("data/CATExcludeApprovers.csv", ListUtil.list(" "));
+var Rules_ITPCCTable = MakeCSVTable("data/ITPCC.csv", ListUtil.list(" "));
+var ITApproverFile = "config/variants/vcsv1/data/CATITApprovers.csv";
+var ITPCCFile = "config/variants/vcsv1/data/ITPCC.csv";
+var CommApproversCSVFile = "data/CAT_ITApprByCC.csv";
+var CommApproversTable = MakeCSVTable(CommApproversCSVFile, Util.vector(" ", " "));
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Commodity Code Approver Added By James Suresh Pagadala For getting Approver For Different Threshold limit//
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Commodity Code Approver Rule : Aggregates the Amount of a Requisition for specific combination
+///////////////////////////////////////////////////////////////////////////////////
+//The file has to be at the correct location or else, this part of the rule would throw errors.
+//var CommApproversCSVFile = "data/CAT_ITApprByCC.csv";
+//var CommApproversTable = MakeCSVTable(CommApproversCSVFile, Util.vector(" ", " "));
+//var ApprovalRequest = ariba.approvable.core.ApprovalRequest;
+///////////////////////////////////////////////////////////////////////////////////
+
+
+//  FUNCTIONS
+
+// Added by James for Commodity Approvers
+function isApprReqByCommCode(requistion, commCode){
+
+	Log.javascript.debug("isApprReqByCommCode ****START****");	
+	
+	var lic = requistion.getLineItems();
+	Log.javascript.debug("getAggregatedAmountForThisCluster : lic :" + lic);
+	
+	var noOfLineItems = lic.size();
+	Log.javascript.debug("getAggregatedAmountForThisCluster : noOfLineItems :" + noOfLineItems);	
+	
+	for(var i=0;i<noOfLineItems;i++)
+	{
+		    var line = lic.get(i);	
+		    
+		    var parentCommCode = line.getDottedFieldValue("Description.CommonCommodityCode.ParentName");
+		    Log.javascript.debug("isApprReqByCommCode : parentCommCode :" + parentCommCode);
+		    
+		    if((parentCommCode != null) && (parentCommCode.startsWith(commCode))){
+		    	Log.javascript.debug("isApprReqByCommCode : Commodity Approver is required");		    	
+		    	return true;
+		    }
+	}
+	
+	Log.javascript.debug("isApprReqByCommCode ****END****");	
+	
+	return false;
+}
+
+// Added by James for Commodity Approvers Chain Rule
+function getAggrAmtByCommCode(r, commCode)
+{
+    
+     Log.javascript.debug("getAggrAmtByCommCode : *** START**" );
+     
+     Log.javascript.debug("getAggrAmtByCommCode : commCode :" + commCode);
+	
+     if((r !=null))
+     {
+		var lic = r.getLineItems();
+		Log.javascript.debug("getAggrAmtByCommCode : lic :" + lic);
+	
+		//var totalAmount = java.lang.BigDecimal.valueOf(0);
+		
+		var totalAmount = 0;
+		
+		Log.javascript.debug("getAggrAmtByCommCode : totalAmount " + totalAmount);		    	   			    										
+		    			
+		for(var i=0;i<lic.size();i++)
+		{
+			    var line = lic.get(i);
+			    
+			    Log.javascript.debug("getAggrAmtByCommCode : line :" + line);			    
+
+			    var parentCommCode = line.getDottedFieldValue("Description.CommonCommodityCode.ParentName");
+			    Log.javascript.debug("getAggrAmtByCommCode : liParentCommCode :" + parentCommCode);
+		    	    if((parentCommCode != null) && (parentCommCode.startsWith(commCode)))			    
+   			    {
+		    			Log.javascript.debug("getAggrAmtByCommCode : Commodity Approver is required");		    	   			    
+		    			
+					var lineAmountObj = line.getDottedFieldValue("Amount.ApproxAmountInBaseCurrency");
+					
+		    			Log.javascript.debug("getAggrAmtByCommCode : lineAmountObj " + lineAmountObj);		    	   			    					
+					
+					var lineAmount = lineAmountObj.intValue();					
+					
+		    			Log.javascript.debug("getAggrAmtByCommCode : lineAmount " + lineAmount);		    	   			    					
+					
+					totalAmount = totalAmount + lineAmount; 
+
+		    			Log.javascript.debug("getAggrAmtByCommCode : totalAmount " + totalAmount);		    	   			    										
+  			     }
+		}//end of for Loop
+
+		Log.javascript.debug("getAggrAmtByCommCode : totalAmount final " + totalAmount);		    	   			    												
+	}
+	
+	Log.javascript.debug("getAggrAmtByCommCode : *** END ");
+	return totalAmount;
+	
+	//return 20000;
+}
+
+
+
+
+function isEmergency (r)
+{
+	return BooleanFormatter.getBooleanValue(r.getFieldValue("EmergencyBuy"));
+}
+
+function isERFQ (r)
+{
+	return BooleanFormatter.getBooleanValue(r.getFieldValue("ISeRFQ"));
+}
+
+function wasERFQ (r)
+{
+	return BooleanFormatter.getBooleanValue(r.getFieldValue("ISeRFQRequisition"));
+}
+
+function isType (type, name)
+{
+    return type.startsWith(name);
+}
+
+function isTypeEnding (type, string)
+{
+    return type.endsWith(string);
+}
+
+function IsAdHoc (li)
+{
+    return li.getIsAdHoc();
+}
+
+function getUserExpenseLimit (approvalcode)
+{
+	var value  = makeMoneyBase(0);
+	var row = Rules_ApprovalLimitsTable(approvalcode);
+	Log.javascript.debug("UserExpenseLimit **** row: " + row);
+	if (!StringUtil.nullOrEmptyOrBlankString(row)) {
+		value = makeMoneyBase(parseInt(row.get(1)));
+	}
+	return value;
+}
+
+function isCapital (sa)
+{
+	var isCap = false;
+	var dept = sa.getFieldValue("Department");
+	if (dept != null && dept.equals(capital)) {
+		isCap = true;
+	}
+	return isCap;
+}
+
+function getUserAccounting (user, partition)
+{
+	var acctng = null;
+	var partuser = CommonUser.getPartitionedUser(user, partition);
+	if (partuser != null) {
+		acctng = partuser.getAccounting();
+	}
+	return acctng;
+}
+
+function getCodeOrParentCode (key, column)
+{
+		var code = null;
+		var row = Rules_CommodityApprovalTable(key.getUniqueName());
+		Log.javascript.debug("COMMODITY **** INITIAL row: " + row);
+		if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+			Log.javascript.debug("COMMODITY **** INITIAL value: " + row.get(column));
+			if (column <= 2 && row.get(column) != "") {
+				code = key.getUniqueName();
+			}
+			if (column == 3 && !StringUtil.nullOrEmptyorBlankString(row.get(column)))  {
+				code = key.getUniqueName();
+			}
+		}
+		if (code == null) {
+			var parent = getParentCode(key, column);
+			if (parent != null) {
+				Log.javascript.debug("COMMODITY **** USING PARENT CODE");
+				code = parent;
+			}
+		}
+		return code;
+}
+
+function getParentCode (key, column)
+{
+	var pcode = null;
+	var parent = key.getParent();
+	while (parent != null && parent.getUniqueName().length() >= 4) {
+		row = Rules_CommodityApprovalTable(parent.getUniqueName());
+		Log.javascript.debug("COMMODITY **** row: " + row);
+		if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+			if (row.get(column) != "") {
+				pcode = parent.getUniqueName();
+				Log.javascript.debug("COMMODITY **** BREAK NOW");
+				break;
+			}
+		}
+		parent = parent.getParent();
+	}
+	Log.javascript.debug("COMMODITY **** Returning Parent Code = " + pcode);
+	return pcode;
+}
+
+function getCategoryThreshold (key, column)
+{
+	var threshold = null;
+	var row = Rules_CommodityApprovalTable(key);
+	Log.javascript.debug("COMMODITY **** row thres: " + row);
+	if (row.get(column) != "") {
+		Log.javascript.debug("COMMODITY **** row.get(column): " + row.get(column));
+		threshold = makeMoneyBase(parseInt(row.get(column)));
+	}
+	return threshold;
+}
+
+function getCategoryApprover (key)
+{
+	var approver = null;
+	var row = Rules_CommodityApprovalTable(key);
+	if (row.get(3) != "") {
+		var unique = row.get(3);
+		if (!StringUtil.nullOrEmptyOrBlankString(unique)) {
+			approver = Role.getRole(unique);
+		}
+	}
+	return approver;
+}
+
+function isHazmatUOM (unique)
+{
+	var suspectUOM = false;
+	var row = Rules_HazmatUOMTable(unique);
+	Log.javascript.debug("HAZMAT **** row: " + row);
+	Log.javascript.debug("HAZMAT **** row nullorEmpty? " + StringUtil.nullOrEmptyOrBlankString(row.get(0)));
+	if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+		suspectUOM = true;
+	}
+	return suspectUOM;
+}
+
+function costIncreased (changeslist)
+{
+	var hasIncrease = false;
+	if (changeslist != null && !changeslist.isEmpty()) {
+		var origCost = makeMoneyBase(0);
+		var finalCost = makeMoneyBase (0);
+		for (i = 0, numOfElements = changeslist.size(); i < numOfElements; i++) {
+			var element = changeslist.get(i);
+			if (element.fieldName.equals("TotalCost")	) {
+				origCost = element.old;
+					break;
+			}
+		}
+		for (i = 1, numOfElements = changeslist.size(); i <= numOfElements; i++) {
+			var element = changeslist.get(numOfElements - i);
+			if (element.fieldName == "TotalCost") {
+				finalCost = element.element;
+					break;
+			}
+		}
+		Log.customer.debug("Original Cost: " + origCost);
+		Log.customer.debug("Final Cost: " + finalCost);
+		if (finalCost.compareTo(origCost) > 0) {
+			hasIncrease = true;
+		}
+	}
+	return hasIncrease;
+}
+
+function getHazmatApproversForFacility (key)
+{
+	var shortlist = new ArrayList();
+	var approvers = CatUtil.makeValueListFromFile(key, HazmatApproverFile);
+	if (approvers != null)
+		shortlist = approvers;
+	return shortlist;
+}
+
+function areAllLineItemsCapital (r)
+{
+    var capital = true;
+    for (i = 0; i < r.getLineItems().size(); i++) {
+        var rli = r.getLineItems().get(i);
+        var accountType = rli.getFieldValue("AccountType");
+        if (accountType != null) {
+            var accTypeUnique = accountType.getFieldValue("UniqueName");
+            if (accTypeUnique != null && !accTypeUnique.equals("Capital")) {
+                capital = false;
+            }
+        }
+    }
+    return capital;
+}
+
+var Rules_FacCodeReceivingRolesCSVFile = "data/ReceivingRoles.csv";
+
+var Rules_FacCodeReceivingRolesTable =
+    MakeCSVTable(Rules_FacCodeReceivingRolesCSVFile, ListUtil.list(" ", " "));
+
+/*
+    GetReceivingRoleForFacCode
+
+    Lookup the role depending on the FacilityCode-DockCode Combination
+    got from the ShipTo UniqueName of Line Item
+*/
+function GetReceivingRoleForFacCode (FacDockCode)
+{
+    Log.javascript.debug("In GetReceivingRoleForFacCode....");
+
+    var row = Rules_FacCodeReceivingRolesTable(FacDockCode);
+    if (row.isEmpty()) {
+        Log.javascript.debug("In GetReceivingRoleForFacCode....row Empty");
+
+        return null;
+    }
+    Log.javascript.debug("In GetReceivingRoleForFacCode....getting the role");
+
+    var value = row.get(1);
+    var role = Role.getRole(value);
+    Log.javascript.debug("In GetReceivingRoleForFacCode, role="+value);
+    return role;
+}
+
+function getUserExpenseLimitBD (approvalcode)
+{
+	var result = null;
+	var row = Rules_ApprovalLimitsTable(approvalcode);
+    if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+		var limitBD = new BigDecimal(row.get(1));
+		var currency = Currency.getCurrencyFromUniqueName("USD");
+		Log.javascript.debug("SUPERCHAIN_HELPER **** limitBD/currency: " + limitBD + currency);
+		if (limitBD != null && currency != null) {
+			var limit = new Money(limitBD, currency);
+			if (limit != null) {
+				result = limit.getApproxAmountInBaseCurrency();
+			}
+		}
+	}
+	return result;
+}
+
+/*
+===============================================================================
+					  		ARIBA DELIVERED
+===============================================================================
+*/
+/*
+    Extrinsics for Accounting
+*/
+var Accounting_CostCenter = "CostCenter";
+var User_ManagementLevel = "PartitionedUser.ManagementLevel";
+
+/*
+    For Release Authorities
+*/
+var ReleaseAuthority_Amount = "Amount";
+var User_ReleaseAuthority   = "PartitionedUser.ReleaseAuthority";
+
+    // SAP doesn't really use this file, see below
+    // var Rules_ResponsibleManagersCSVFile = "data/ResponsibleManagers.csv";
+
+    // SAP doesn't really use this field, see below
+    // var Rules_ChargedDepartmentAccountingField = Accounting_CostCenter;
+
+/*
+    Rules_User2ApprovalLimit
+
+    returns the ApprovalLimit of the user, or 0 if the user has no
+    authority
+*/
+function Rules_User2ApprovalLimit (user)
+{
+    var ra = user.getDottedFieldValue(User_ReleaseAuthority);
+    if (ra == null) {
+        return makeMoneyBase(0);
+    }
+    return ra.getFieldValue(ReleaseAuthority_Amount);
+}
+
+/*
+    User->ApprovalLimit - returns the ApprovalLimit (ie cost) a given a User
+*/
+function Rules_User2ExpenseApprovalLimit (user)
+{
+    var managementLevel = user.getDottedFieldValue(User_ManagementLevel).toString();
+    var row = Rules_User2ApprovalLimitTable(managementLevel);
+    return makeMoneyBase(parseInt(row.get(2)));
+}
+
+var Rules_User2ApprovalLimitTable = MakeCSVTable("data/ApprovalLimits.csv",
+                                                 ListUtil.list("0", "0"));
+
+/*
+    SAP doesn't really use departments, but passes in the requester
+    here so we can find a manager.
+
+    department is really the requester in this case.
+*/
+function Rules_Department2ResponsibleManagerTable (department, partition)
+{
+    var manager = User2Supervisor(department);
+    if (manager == null) {
+        return ListUtil.list(); /* return an empty vector. */
+    }
+
+    return ListUtil.list(department.getUniqueName(), manager.getUniqueName());
+}
+
+/*
+    SAP doesn't really use departments, so we just say that every
+    LineItem should be included
+*/
+function Rules_ChargedDepartmentAccountingFilter (departmentName)
+{
+    return function (sa) {
+        return true;
+    }
+}
+function getExcludeApprover (cupid)
+{
+                var value  = false;
+                Log.javascript.debug("getExcludeApprover **** Entered: " + cupid);
+	var row = Rules_ExcludeApproverTable(cupid);
+	Log.javascript.debug("ExcludeApprover **** row: " + row);
+	if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+		value = true;
+	}
+	Log.javascript.debug("ExcludeApprover **** return Value? " + value);
+	return value;
+}
+
+function getITPCC (pcc)
+{
+//        var value  = false;
+//        Log.javascript.debug("getITPCC **** Entered: " + pcc);
+//	var row = Rules_ITPCCTable(pcc);
+//	Log.javascript.debug("ITPCC **** row: " + row);
+//	if (!StringUtil.nullOrEmptyOrBlankString(row.get(0))) {
+//		value = true;
+//	}
+//	Log.javascript.debug("ITPCC **** return Value? " + value);
+//	return value;
+	return CatUtil.doesCodeExists(pcc, ITPCCFile);
+}
+function getITApproversForFacility (key)
+{
+	var shortlist = new ArrayList();
+	var approvers = CatUtil.makeValueListFromFile(key, ITApproverFile);
+	if (approvers != null)
+		shortlist = approvers;
+	return shortlist;
+}
+
+function baseOptions()
+{
+    var options = new AQLOptions();
+    options.setUserLocale(Base.getSession().getLocale());
+    options.setUserPartition(Base.getSession().getPartition());
+
+    return options;
+}
+
+function getBusinessResourceApprover(PayrollFacility, Department, Amount)
+{
+
+    var dbName = "cat.core.CatBusinessResourceApprover";
+    var approversStr = "";
+        var query = new AQLQuery();
+        var options = baseOptions();
+
+        var query_text = ("SELECT BusinessApproverCupid FROM " + dbName + " where PayrollFacility ='"+ PayrollFacility + "' and Department ='"+ Department + "' and ThresholdAmount < "+ Amount + " order by BusinessApproverCupid");
+        query = AQLQuery.parseQuery(query_text);
+        Log.javascript.debug("Query: " + query);
+
+        var results = Base.getService().executeQuery(query, options);
+
+    if (results.getErrors() != null)
+    {
+        Log.javascript.debug("Rule results err: " + results.getErrors());
+        return "";
+    }
+
+        while (results.next())
+        {
+          if(StringUtil.nullOrEmptyOrBlankString(approversStr)) {
+                approversStr = results.getString(0);
+          } else {
+            approversStr = approversStr + "/" + results.getString(0);
+          }
+        }
+        Log.javascript.debug("** getBusinessResourceApprover return approversStr " + approversStr);
+        return approversStr;
+}
+
+function isCompanyApprovalRule(r, ruleTypeStr)
+{
+	var approvalRules = r.getDottedFieldValue("CompanyCode.ApprovalRules");
+	Log.javascript.debug("isCompanyApprovalRule approvalRules: " + approvalRules);
+	if (!approvalRules.isEmpty())
+	{
+		for (var i=0; i < approvalRules.size(); i++)
+		{
+			var ruleTypeString = approvalRules.get(i).getFieldValue("RuleType");
+			Log.javascript.debug("isCompanyApprovalRule ruleTypeString : " + ruleTypeString);
+			if (ruleTypeString.equals(ruleTypeStr))
+			{
+				return true;				
+			}
+		}
+	}
+	return false;
+}
+//Created for Approval rules 
+function isWatcher(r, ruleTypeStr)
+{
+	var approvalRules = r.getDottedFieldValue("CompanyCode.ApprovalRules");
+	Log.javascript.debug("isCompanyApprovalRule approvalRules: " + approvalRules);
+	if (!approvalRules.isEmpty())
+	{
+		for (var i=0; i < approvalRules.size(); i++)
+		{
+			var ruleTypeString = approvalRules.get(i).getFieldValue("RuleType");
+			Log.javascript.debug("isCompanyApprovalRule ruleTypeString : " + ruleTypeString);
+			var iswatcher = approvalRules.get(i).getFieldValue("IsWatcher");
+			Log.javascript.debug("isCompanyApprovalRule iswatcher : " + iswatcher);
+			
+			if (ruleTypeString.equals(ruleTypeStr))
+			{
+				
+				if (iswatcher.equals("N"))
+				{
+				  Log.javascript.debug("inside N iswatcher : " + iswatcher);
+				   return true;
+				}
+				else
+				{
+				Log.javascript.debug("inside else  iswatcher : " + iswatcher);
+				return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+//Created By Nagendra for getting approvallist
+function getApprovalList(approverrole)
+{
+Log.javascript.debug("CategoryManager : Action : Approver is a Role, not User: " + approverrole);
+	var users = ariba.base.core.BaseVector();
+	users = approverrole.getAllUsers();
+	Log.javascript.debug("categoryManager **** users : " + users );
+	var approverListNameCM=null;
+	for(var i = 0; i<users.size(); i++){
+		Log.javascript.debug("categoryManager **** i : " + i );
+		var user = users.get(i);
+		Log.javascript.debug("categoryManager **** user : " + user );
+		var userObj = Base.getSession().objectIfAny(user);
+		var userName = userObj.getUniqueName();
+		Log.javascript.debug("categoryManager **** userName : " + userName );
+		approverListNameCM = approverListNameCM + "/" +userName;
+	}
+	return approverListNameCM;
+}
+//Created By Ravi to check the company code settings on DisplayPOPrintFields
+
+function checkCompanySetting(ir, targetfieldName){
+	Log.javascript.debug("entered the check mathod");
+	var approvalRules =  ir.getDottedFieldValue("CompanyCode.ApprovalRules");
+	Log.javascript.debug(" list the company approval rules "+approvalRules);
+	var appRule;
+	if(approvalRules != null){
+		for(var it = approvalRules.iterator(); it.hasNext(); ){
+			appRule =  it.next();
+			var ruleTypeString = appRule.getFieldValue("RuleType");			
+			if(targetfieldName.equalsIgnoreCase(ruleTypeString)){
+				Log.javascript.debug("Returning true");
+				return true;
+			}
+		}
+	}
+	return false;
+}
+function getRulePriority(ar){
+        Log.javascript.debug("Entered the check mathod");
+	var ir = ar.getApprovable();
+        Log.javascript.debug("Approvable:  "+ir);
+	if(ir instanceof ariba.invoicing.core.InvoiceReconciliation){
+		Log.javascript.debug("Approvable is IR");
+		var companyCode = ir.getDottedFieldValue("CompanyCode.UniqueName");
+	        Log.javascript.debug("Company code is - "+companyCode);
+        	var approvalRules =  ir.getDottedFieldValue("CompanyCode.ApprovalRules");
+	        Log.javascript.debug("List the company approval rules "+approvalRules);
+	        var appRule;
+	        var targetfieldValue="";
+		targetfieldValue=ar.getType();
+	        if(approvalRules != null){
+	        	Log.javascript.debug("Approval rules not null");
+	                for(var it = approvalRules.iterator(); it.hasNext(); ){
+	                        appRule =  it.next();
+	                        var ruleTypeString = appRule.getFieldValue("RuleType");
+	                        Log.javascript.debug("Rule type string "+ruleTypeString);
+        	                if(targetfieldValue.equalsIgnoreCase(ruleTypeString)){
+	                        	Log.javascript.debug("Priority - "+appRule.getFieldValue("Priority"));
+        	                	return appRule.getFieldValue("Priority");
+                	        }
+                	}
+	        }
+	}
+        return 0;
+}
+function getFSIdentification(ir, targetfieldValue){
+        Log.javascript.debug("getFSIdentification mathod");
+        var companyCode = ir.getDottedFieldValue("CompanyCode.UniqueName");
+        Log.javascript.debug("Company code is - "+companyCode);
+        var approvalRules =  ir.getDottedFieldValue("CompanyCode.ApprovalRules");
+        Log.javascript.debug("List the company approval rules "+approvalRules);
+        var appRule;
+        var fsIdentity;
+        if(approvalRules != null){
+        	Log.javascript.debug("Approval rules not null");
+                for(var it = approvalRules.iterator(); it.hasNext(); ){
+                        appRule =  it.next();
+                        var ruleTypeString = appRule.getFieldValue("RuleType");
+                        Log.javascript.debug("Rule type string "+ruleTypeString);
+                        if(targetfieldValue.equalsIgnoreCase(ruleTypeString)){
+                        	Log.javascript.debug("Rule ID - "+appRule.getFieldValue("RuleId"));
+                        	if(appRule.getFieldValue("RuleId").startsWith(companyCode+"-ShipTo-")){
+                                	Log.javascript.debug("FS Identification using ShipTo");
+                                	fsIdentity="ShipTo";
+                                	return fsIdentity;
+                                }
+                        	if(appRule.getFieldValue("RuleId").startsWith(companyCode+"-Currency-")){
+                                	Log.javascript.debug("FS Identification using Currency");
+                                	fsIdentity="Currency";
+                                	return fsIdentity;
+                                }
+                        }
+                }
+        }
+        return "null";
+}
