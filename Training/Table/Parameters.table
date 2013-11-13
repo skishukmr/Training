@@ -2673,7 +2673,7 @@
         Inspector = {
             AdminPassword = "{DESede}ZIzvKeRcOeKk3/nlVz3wMA==";
             AdminUserName = admin;
-            Authenticate = true;
+            Authenticate = false;
             BaseVectorDisplaySize = 5000;
             DebugPassword = "{DESede}ZIzvKeRcOeKk3/nlVz3wMA==";
             DebugUserName = debug;
