@@ -44,7 +44,7 @@
                 ariba.receiving.core.Receipt,
                 ariba.receiving.core.ReceiptTracker
             );
-            BackwardCompatibility = { ShowDoneApprovePage = false;};
+            BackwardCompatibility = { ShowDoneApprovePage = true;};
             MaxAccountingSplits = 99;
             MaxAttachmentSize = 4096;
             MaxUsersInApprovalNode = 500;
