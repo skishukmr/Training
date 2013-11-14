@@ -1,7 +1,11 @@
 {
     Application = {
         Approvable = {
+<<<<<<< HEAD
             AllowSplitAccounting = kishore;
+=======
+            AllowSplitAccounting = false;
+>>>>>>> refs/heads/Training2_Branch
             AllowedAttachmentExtensions = (
                 txt,
                 csv,
