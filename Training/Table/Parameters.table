@@ -1,7 +1,7 @@
 {
     Application = {
         Approvable = {
-            AllowSplitAccounting = false;
+            AllowSplitAccounting = kishoretest;
             AllowedAttachmentExtensions = (
                 txt,
                 csv,
