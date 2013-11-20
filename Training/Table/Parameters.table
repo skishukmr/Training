@@ -1,5 +1,5 @@
 {
-    Application = {
+    Application = {Test
         Approvable = {
             AllowSplitAccounting = kishoretest;
             AllowedAttachmentExtensions = (
